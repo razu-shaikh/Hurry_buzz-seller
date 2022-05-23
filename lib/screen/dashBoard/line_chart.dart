@@ -37,7 +37,7 @@ class LineCharts extends StatelessWidget {
               ),
               aboveBarData: BarAreaData(
                 show: true,
-                colors: [Colors.lightGreen.withOpacity(0.5)],
+               // colors: [Colors.lightGreen.withOpacity(0.5)],
                 cutOffY: cutOffYValue,
                 applyCutOffY: true,
               ),

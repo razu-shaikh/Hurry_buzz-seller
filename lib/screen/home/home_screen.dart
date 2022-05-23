@@ -6,8 +6,10 @@ import 'package:ecommerce_app/screen/review_cart/review_cart.dart';
 import 'package:ecommerce_app/screen/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'drawer_side.dart';
 import 'single_product.dart';
+import 'tab_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,199 +20,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductProvider productProvider;
-  Widget _buildHerbsProduct(context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Herbs Seasonings'),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Search(
-                        search: productProvider.getHerbsProductDataList,
-                      ),
-                    ),
-                  );
-                },
-                child: Text(
-                  'view all',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: productProvider.getHerbsProductDataList.map(
-                  (herbsProductData) {
-                return SingalProduct(
-                  productId: herbsProductData.productId,
-                  productPrice: herbsProductData.productPrice,
-                  productImage: herbsProductData.productImage,
-                  productName: herbsProductData.productName,
-                  productUnit:herbsProductData ,
-
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                          productId: herbsProductData.productId,
-                          productPrice: herbsProductData.productPrice,
-                          productName: herbsProductData.productName,
-                          productImage: herbsProductData.productImage,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ).toList(),
-            // children: [
-
-            // ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFreshProduct(context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Fresh Fruits'),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Search(
-                        search: productProvider.getFreshProductDataList,
-                      ),
-                    ),
-                  );
-                },
-                child: Text(
-                  'view all',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: productProvider.getFreshProductDataList.map(
-                  (freshProductData) {
-                return SingalProduct(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                          productId: freshProductData.productId,
-                          productImage: freshProductData.productImage,
-                          productName: freshProductData.productName,
-                          productPrice: freshProductData.productPrice,
-                        ),
-                      ),
-                    );
-                  },
-                  productId: freshProductData.productId,
-                  productImage: freshProductData.productImage,
-                  productName: freshProductData.productName,
-                  productPrice: freshProductData.productPrice,
-                  productUnit:freshProductData,
-                );
-              },
-            ).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-
-  Widget _buildRootProduct() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Root Vegetable'),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Search(
-                        search: productProvider.getRootProductDataList,
-                      ),
-                    ),
-                  );
-                },
-                child: Text(
-                  'view all',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: productProvider.getRootProductDataList.map(
-                  (rootProductData) {
-                return SingalProduct(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                          productId: rootProductData.productId,
-                          productImage: rootProductData.productImage,
-                          productName: rootProductData.productName,
-                          productPrice: rootProductData.productPrice,
-                        ),
-                      ),
-                    );
-                  },
-                  productId: rootProductData.productId,
-                  productImage: rootProductData.productImage,
-                  productName: rootProductData.productName,
-                  productPrice: rootProductData.productPrice,
-                  productUnit: rootProductData,
-                );
-              },
-            ).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  @override
-  void initState() {
-    ProductProvider initproductProvider = Provider.of(context, listen: false);
-    initproductProvider.fatchHerbsProductData();
-    initproductProvider.fatchFreshProductData();
-    initproductProvider.fatchRootProductData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         title: Text(
-          'Home',
+          'Shop Name',
           style: TextStyle(color: textColor, fontSize: 17),
         ),
         actions: [
@@ -272,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               height: 150,
@@ -348,10 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-
-            _buildHerbsProduct(context),
-            _buildFreshProduct(context),
-            _buildRootProduct(),
+            TabBar_shop()
           ],
         ),
       ),
