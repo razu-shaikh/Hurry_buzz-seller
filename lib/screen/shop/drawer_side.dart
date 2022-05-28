@@ -1,15 +1,9 @@
 import 'package:ecommerce_app/config/colors.dart';
-import 'package:ecommerce_app/providers/user_provider.dart';
-import 'package:ecommerce_app/screen/my_profile/my_profile.dart';
-import 'package:ecommerce_app/screen/review_cart/review_cart.dart';
-import 'package:ecommerce_app/screen/wishList/wish_list.dart';
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
 
 class DrawerSide extends StatefulWidget {
-  UserProvider userProvider;
-  DrawerSide({Key? key, required this.userProvider}) : super(key: key);
   @override
   _DrawerSideState createState() => _DrawerSideState();
 }
@@ -34,7 +28,6 @@ class _DrawerSideState extends State<DrawerSide> {
 
   @override
   Widget build(BuildContext context) {
-    var userData = widget.userProvider.currentUserData;
     return Drawer(
       child: Container(
         color: primaryColor,
@@ -50,8 +43,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       backgroundColor: Colors.white54,
                       child: CircleAvatar(
                         backgroundColor: Colors.yellow,
-                        backgroundImage: NetworkImage(
-                          userData?.userImage??""),
+                       // backgroundImage: NetworkImage(),
                         radius: 40,
                       ),
                     ),
@@ -61,10 +53,10 @@ class _DrawerSideState extends State<DrawerSide> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(userData?.userName??''),//
+                      children: const [
+                        Text("name"),//
                         Text(
-                          userData?.userEmail??'',
+                          'email',
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -88,22 +80,13 @@ class _DrawerSideState extends State<DrawerSide> {
               iconData: Icons.shop_outlined,
               title: "Review Cart",
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ReviewCart(),
-                  ),
-                );
               },
             ),
             listTile(
               iconData: Icons.person_outlined,
               title: "My Profile",
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => MyProfile(userProvider:widget.userProvider),
-                  ),
-                );
+
               },
             ),
             listTile(
@@ -113,11 +96,6 @@ class _DrawerSideState extends State<DrawerSide> {
                 iconData: Icons.favorite_outline,
                 title: "Wishlist",
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => WishLsit(),
-                    ),
-                  );
                 }),
             listTile(iconData: Icons.copy_outlined, title: "Raise a Complaint"),
             listTile(iconData: Icons.format_quote_outlined, title: "FAQs"),

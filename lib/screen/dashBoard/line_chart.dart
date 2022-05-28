@@ -9,7 +9,7 @@ class LineCharts extends StatelessWidget {
     TextStyle(fontSize: 12, color: Colors.black);
 
     return SizedBox(
-      width: 360,
+      width: 340,
       height: 250,
       child: LineChart(
         LineChartData(

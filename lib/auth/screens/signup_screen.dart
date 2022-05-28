@@ -5,6 +5,7 @@ import 'package:ecommerce_app/auth/widgets/rounded_button.dart';
 import 'package:ecommerce_app/auth/widgets/rounded_input_field.dart';
 import 'package:ecommerce_app/auth/widgets/rounded_password_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -13,8 +14,16 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.red,
+    ));
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("Sign Up"),
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.red,
+        ),
         body: SizedBox(
           width: size.width,
           height: size.height,

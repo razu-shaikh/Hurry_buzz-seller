@@ -1,6 +1,12 @@
-import 'package:ecommerce_app/screen/dashBoard/dashboard.dart';
-import 'package:ecommerce_app/screen/home/home_screen.dart';
+import 'package:ecommerce_app/screen/addItem/add_item.dart';
+import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
+import 'package:ecommerce_app/screen/shop/home_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../config/colors.dart';
+import '../offers/offers.dart';
+import '../orders/orders_pages.dart';
+import '../report/product_report.dart';
 
 class MyNavigationBar extends StatefulWidget {
 
@@ -11,11 +17,12 @@ class MyNavigationBar extends StatefulWidget {
 class _MyNavigationBarState extends State<MyNavigationBar > {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    //HomePage(),
+    MyApp(),
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    Text('Report Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))
+    Order_pages(),
+    AllOfferList(),
+    AllProductReport()
 
   ];
 
@@ -28,36 +35,57 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: textColor),
+        backgroundColor: Colors.red,
+        title: Text('Sale Report',
+          style: TextStyle(color: Colors.white, fontSize: 17),
+        ),
+        actions: [
+          const SizedBox(
+            width: 20,
+          ),
+          CircleAvatar(
+            radius: 20,
+            backgroundColor:Colors.red,
+            child: IconButton(
+              onPressed: () {
+              },
+              icon: Icon(
+                Icons.add_alert_outlined,
+                size: 20,
+                color: textColor,
+              ),
+            ),
+          ),
+
+        ],
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type:BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
+          items:  const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Dashboard'),
-                backgroundColor: Colors.green
+                label: 'Dashboard',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.shop),
-                title: Text('Shop'),
-                backgroundColor: Colors.yellow
+                label: 'Shop',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.widgets_outlined),
-              title: Text('Orders'),
-              backgroundColor: Colors.blue,
+              label: 'Orders',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.local_fire_department_rounded),
-                title: Text('Offers'),
-                backgroundColor: Colors.green
+                label: 'Offers',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.report),
-                title: Text('Report'),
-                backgroundColor: Colors.yellow
+                label: 'Report',
             ),
           ],
           currentIndex: _selectedIndex,
@@ -66,6 +94,15 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           onTap: _onItemTapped,
           elevation: 5
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddItemDetails()),
+          );
+        },
+        backgroundColor: Colors.black54,
+        child: const Icon(Icons.add_circle_outline_sharp,size: 30,),
+      ),
     );
-  }
-}
+  }}
