@@ -30,6 +30,7 @@ dependencies:
   google_fonts: 2.2.0
   fl_chart: 0.30.0
   syncfusion_flutter_charts: 20.1.57
+  image_picker: ^0.8.5+3
   flutter:
     sdk: flutter
 
@@ -70,6 +71,9 @@ flutter:
     - assets/product.png
     - assets/sales.png
     - assets/order.png
+    - assets/giftbox.png
+    - assets/notification.png
+    - assets/images/login.PNG
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

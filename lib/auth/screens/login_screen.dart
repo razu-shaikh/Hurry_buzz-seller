@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const Upside(
-                  imgUrl: "assets/images/login.png",
+                  imgUrl: "assets/images/login.PNG",
                 ),
                 const PageTitleBar(title: 'Login to your account'),
                 Padding(
@@ -89,18 +89,7 @@ class LoginScreen extends StatelessWidget {
                                   );
                                 },
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const Text(
-                                'Forgot password?',
-                                style: TextStyle(
-                                    color: kPrimaryColor,
-                                    fontFamily: 'OpenSans',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 13),
-                              ),
-                              const SizedBox(height: 20,)
+                              const SizedBox(height: 50,)
                             ],
                           ),
                         )

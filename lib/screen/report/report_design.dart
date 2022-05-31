@@ -27,8 +27,8 @@ class _MyHomePageState extends State<report_design> {
                 ),
                 VerticalDivider(
                   width: 10,
-                  thickness: 1,
-                  color: Colors.black26,
+                  thickness: 2,
+                  color: Colors.black12,
                 ),
                 Container(
                   width: 50.0,
@@ -41,8 +41,8 @@ class _MyHomePageState extends State<report_design> {
                 ),
                 VerticalDivider(
                   width: 10,
-                  thickness: 1,
-                  color: Colors.black26,
+                  thickness: 2,
+                  color: Colors.black12,
                 ),
                 Container(
                   width: 50.0,
@@ -55,8 +55,8 @@ class _MyHomePageState extends State<report_design> {
                 ),
                 VerticalDivider(
                   width: 10,
-                  thickness: 1,
-                  color: Colors.black26,
+                  thickness: 2,
+                  color: Colors.black12,
                 ),
                 Container(
                   width: 70.0,
@@ -71,8 +71,8 @@ class _MyHomePageState extends State<report_design> {
           ),
         ),
         Divider(
-          height: 1,
-          color: Colors.black45,
+          height: 2,
+          color: Colors.black12,
         )
 
       ],

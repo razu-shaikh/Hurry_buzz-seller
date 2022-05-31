@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../config/colors.dart';
+import '../notification/notification.dart';
+import '../shop/drawer_side.dart';
 
 class ItemSingleDesign extends StatefulWidget {
   ItemSingleDesign({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class ItemSingleDesign extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<ItemSingleDesign> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +27,68 @@ class _HomeScreenState extends State<ItemSingleDesign> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
-        title: Text('Sale Report',
-          style: TextStyle(color: Colors.white, fontSize: 17),
-        ),
+        title:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                Image.asset("assets/giftbox.png",width: 25,height: 25,),
+                SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Offers",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                    Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                )
+
+              ],
+            )
+
+          ],
+        ) ,
         actions: [
-          const SizedBox(
-            width: 20,
-          ),
           CircleAvatar(
             radius: 20,
             backgroundColor:Colors.red,
             child: IconButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
               },
-              icon: Icon(
-                Icons.add_alert_outlined,
-                size: 20,
-                color: textColor,
+              icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              scaffoldKey.currentState?.openEndDrawer();
+            },
+            child: Container(
+              padding: EdgeInsets.all(8), // Border width
+              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: SizedBox.fromSize(
+                  size: Size.fromRadius(20), // Image radius
+                  child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
+                ),
               ),
             ),
           ),
 
         ],
+      ),
+      key: scaffoldKey,
+      endDrawer: Drawer(
+        child:DrawerSide(),
       ),
       body:Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -62,7 +105,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+                          'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
                     ),
                     color: Colors.red,
                     borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),

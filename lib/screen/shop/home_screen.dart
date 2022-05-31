@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'tab_bar.dart';
+import '../../config/colors.dart';
+import 'allProduct/tab_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       statusBarColor: Colors.red,
     ));
     return Scaffold(
-      body: Column(
+      body: ListView(
           children: [
             Container(
               height: 160,
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 40,right: 260),
+                            padding: const EdgeInsets.only(top: 40,right: 220),
                             child: Container(
                               height: 100,
                               width: 100,
@@ -61,10 +62,103 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  Container(
+                      height: 30,
+                      width: 30,
+                      margin: EdgeInsets.only(right: 10,bottom: 60),
+                      decoration: BoxDecoration(
+                          color: Color(0xff929792),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Icon(Icons.edit)
+                  ),
                 ],
               ),
             ),
-            TabBar_shop()
+          SizedBox( // <-- use a sized box and change the height
+             height: 45.0,
+          child:Padding(
+            padding: const EdgeInsets.only(left: 16,top: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Shop Name', textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
+                    Text('Electronics', textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                      },
+                      icon: Icon(
+                        Icons.add_moderator,
+                        size: 20,
+                        color: textColor,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                      },
+                      icon: Icon(
+                        Icons.share,
+                        size: 20,
+                        color: textColor,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          ),
+          SizedBox( // <-- use a sized box and change the height
+             height: 30.0,
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                    },
+                    icon: Icon(
+                      Icons.star,
+                      size: 20,
+                      color: textColor,
+                    ),
+                  ),
+                  Text('5.0', textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text('(By 2000 people)', textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                    },
+                    icon: Icon(
+                      Icons.shop,
+                      size: 20,
+                      color: textColor,
+                    ),
+                  ),
+                  Text('122', textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              )
+            ],
+          ),
+          ),
+          TabBar_shop(),
           ],
         ),
     );

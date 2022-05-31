@@ -32,7 +32,7 @@ class _HomeScreenState extends State<ItemDesign> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+                        'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
                   ),
                   color: Colors.red,
                   borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),

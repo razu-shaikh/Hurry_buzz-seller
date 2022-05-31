@@ -1,4 +1,4 @@
-package com.example.ecommerce_app
+package com.galaxydigitalbd.hurrybuzz_vendor
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../widgets/count.dart';
 import '../../widgets/product_unit.dart';
+import '../notification/notification.dart';
+import '../shop/drawer_side.dart';
 
 class SingleItemPreview extends StatefulWidget {
    bool? isBool = false;
@@ -36,6 +38,7 @@ class SingleItemPreview extends StatefulWidget {
 }
 
 class _SingleItemState extends State<SingleItemPreview> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   //late ReviewCartProvider reviewCartProvider;
 
   var unitData;
@@ -64,31 +67,74 @@ class _SingleItemState extends State<SingleItemPreview> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
-        title: Text('Sale Report',
-          style: TextStyle(color: Colors.white, fontSize: 17),
-        ),
+        title:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                Image.asset("assets/giftbox.png",width: 25,height: 25,),
+                SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Order Details",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                      Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                  ],
+                )
+
+              ],
+            )
+
+          ],
+        ) ,
         actions: [
-          const SizedBox(
-            width: 20,
-          ),
           CircleAvatar(
             radius: 20,
             backgroundColor:Colors.red,
             child: IconButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
               },
-              icon: Icon(
-                Icons.add_alert_outlined,
-                size: 20,
-                color: textColor,
+              icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              scaffoldKey.currentState?.openEndDrawer();
+            },
+            child: Container(
+              padding: EdgeInsets.all(8), // Border width
+              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: SizedBox.fromSize(
+                  size: Size.fromRadius(20), // Image radius
+                  child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
+                ),
               ),
             ),
           ),
 
         ],
       ),
+      key: scaffoldKey,
+      endDrawer: Drawer(
+        child:DrawerSide(),
+      ),
       body:Column(
         children: [
+          Text('Order Details #123456',
+            style: TextStyle(color: Colors.black, fontSize: 17),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             child:Container(

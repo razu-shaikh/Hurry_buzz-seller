@@ -88,19 +88,19 @@ class MyApp extends StatelessWidget {
 class Choice {
   const Choice({required this.title, required this.icon});
   final String title;
-  final IconData icon;
+  final String icon;
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Order', icon: Icons.assignment_outlined),
-  const Choice(title: 'Sales', icon: Icons.sell),
-  const Choice(title: 'Product', icon: Icons.shopping_cart_outlined),
-  const Choice(title: 'campaign', icon: Icons.campaign),
+  const Choice(title: 'Order', icon: "assets/order.png"),
+  const Choice(title: 'Sales', icon: "assets/sales.png"),
+  const Choice(title: 'Product', icon: "assets/product.png"),
+  const Choice(title: 'campaign', icon: "assets/campaign.png"),
 ];
 const List<Choice> choices2 = const <Choice>[
-  const Choice(title: 'Pending', icon: Icons.pending),
-  const Choice(title: 'Processing', icon: Icons.assignment),
-  const Choice(title: 'Delivered', icon: Icons.airport_shuttle),
+  const Choice(title: 'Pending', icon: "assets/pending.png"),
+  const Choice(title: 'Processing', icon: "assets/process.png"),
+  const Choice(title: 'Delivered', icon: "assets/delivery.png"),
 ];
 
 class SelectCard extends StatelessWidget {
@@ -125,9 +125,9 @@ class SelectCard extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(left: 10,top:30),
-              height: 40,
-              width: 40,
-              child: Icon(choice.icon, color: Colors.black54),
+              height: 25,
+              width: 25,
+              child: Image.asset(choice.icon, color: Colors.black54),
             ),
 
           ],
@@ -157,9 +157,9 @@ class SelectCard2 extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(left: 10,top:30),
-              height: 40,
-              width: 40,
-              child: Icon(choice2.icon, color: Colors.black54),
+              height: 25,
+              width: 25,
+              child: Image.asset(choice2.icon, color: Colors.black54),
             ),
 
           ],

@@ -19,7 +19,7 @@ class _SingalProductState extends State<SingalProduct> {
         children: [
           Container(
             margin: EdgeInsets.only(right: 10,left: 10,top:5,bottom:5),
-            height: 130,
+            height: 100,
             decoration: BoxDecoration(
               color: Color(0xffd9dad9),
               borderRadius: BorderRadius.circular(10),

@@ -18,9 +18,9 @@ class _MyHomePageState extends State<AllOfferList> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               Text("Offers and Campaign",style: TextStyle(color:Colors.black,fontSize:20),),
               const SizedBox(
                 height: 10,

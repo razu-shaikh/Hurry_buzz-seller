@@ -14,13 +14,13 @@ class RoundedPasswordField extends StatelessWidget {
         decoration: const InputDecoration(
             icon: Icon(
               Icons.lock,
-              color: kPrimaryColor,
+              color: Colors.black54,
             ),
             hintText: "Password",
             hintStyle:  TextStyle(fontFamily: 'OpenSans'),
             suffixIcon: Icon(
               Icons.visibility,
-              color: kPrimaryColor,
+              color: Colors.black54,
             ),
             border: InputBorder.none),
       ),

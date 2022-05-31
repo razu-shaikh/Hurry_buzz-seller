@@ -15,13 +15,12 @@ class Upside extends StatelessWidget {
         Container(
           width: size.width,
           height: size.height / 2,
-          color: kPrimaryColor,
+          color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(right: 50.0),
             child: Image.asset(
               imgUrl,
-              alignment: Alignment.topCenter,
-              scale: 8,
+              alignment: Alignment.center,
             ),
           ),
         ),
