@@ -18,7 +18,7 @@ class _HomeScreenState extends State<ItemDesign> {
       statusBarColor: Colors.red,
     ));
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child:Card(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -34,7 +34,6 @@ class _HomeScreenState extends State<ItemDesign> {
                     image: NetworkImage(
                         'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
                   ),
-                  color: Colors.red,
                   borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
                 ),
               ),
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<ItemDesign> {
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 30,
+                      width: 20,
                     ),
                     Text(
                       '1 January- 5 January 2022',

@@ -49,7 +49,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   }
   @override
   initState(){
-    _title = 'Some default value';
+    _title = 'DashBoard';
   }
 
   @override
@@ -63,12 +63,6 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           children: [
             Row(
               children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                ),
                 if (_selectedIndex == 0)
                 Image.asset("assets/giftbox.png",width: 25,height: 25,),
                 SizedBox(width: 5),
@@ -131,11 +125,12 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
         type:BottomNavigationBarType.fixed,
           items:  const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
                 label: 'Dashboard',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shop),
+                icon: ImageIcon( AssetImage("assets/store.png"),
+                size: 23,),
                 label: 'Shop',
             ),
             BottomNavigationBarItem(
@@ -147,7 +142,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
                 label: 'Offers',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.report),
+                icon: Icon(Icons.report_gmailerrorred_outlined),
                 label: 'Report',
             ),
           ],

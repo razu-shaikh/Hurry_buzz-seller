@@ -3,6 +3,7 @@ import 'package:ecommerce_app/screen/orders/single_item.dart';
 import 'package:ecommerce_app/screen/orders/single_item_preview.dart';
 import 'package:flutter/material.dart';
 
+import '../shop/drawer_side.dart';
 import 'notification_page_design.dart';
 
 class notification extends StatefulWidget {
@@ -13,26 +14,50 @@ class notification extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<notification> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
         title:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Dhaka",
-              style: TextStyle(color: Colors.white, fontSize: 17),
-            ),
-              Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                  Image.asset("assets/giftbox.png",width: 25,height: 25,),
+                SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Dhaka",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                      Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                  ],
+                )
+
+              ],
+            )
 
           ],
         ) ,
         actions: [
-            Container(
+          GestureDetector(
+            onTap: () {
+              scaffoldKey.currentState?.openEndDrawer();
+            },
+            child: Container(
               padding: EdgeInsets.all(8), // Border width
               decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
               child: ClipRRect(
@@ -43,20 +68,26 @@ class _HomeScreenState extends State<notification> {
                 ),
               ),
             ),
+          ),
           CircleAvatar(
             radius: 20,
             backgroundColor:Colors.red,
             child: IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
               },
               icon: Icon(
                 Icons.shopping_cart_outlined,
+                color: Colors.white,
                 size: 30,
               ),
             ),
           ),
         ],
+      ),
+      key: scaffoldKey,
+      endDrawer: Drawer(
+        child:DrawerSide(),
       ),
       body:Padding(
         padding: const EdgeInsets.all(10),

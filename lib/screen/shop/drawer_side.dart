@@ -20,7 +20,7 @@ class _DrawerSideState extends State<DrawerSide> {
         ),
         title: Text(
           title!,
-          style: TextStyle(color: textColor),
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -30,7 +30,7 @@ class _DrawerSideState extends State<DrawerSide> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: primaryColor,
+        color: Colors.red,
         child: ListView(
           children: [
             DrawerHeader(
@@ -42,7 +42,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       radius: 43,
                       backgroundColor: Colors.white54,
                       child: CircleAvatar(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Colors.white,
                        // backgroundImage: NetworkImage(),
                         radius: 40,
                       ),
@@ -54,10 +54,15 @@ class _DrawerSideState extends State<DrawerSide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text("name"),//
+                        Text("name", style: TextStyle(
+                          color: Colors.white,
+                        ),),//
                         Text(
                           'email',
                           overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     )
@@ -105,17 +110,17 @@ class _DrawerSideState extends State<DrawerSide> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Contact Support"),
+                  Text("Contact Support",style: TextStyle(color: Colors.white)),
                   SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: const [
-                      Text("Call us:"),
+                      Text("Call us:",style: TextStyle(color: Colors.white)),
                       SizedBox(
                         width: 10,
                       ),
-                      Text("+923352580282"),
+                      Text("+923352580282",style: TextStyle(color: Colors.white)),
                     ],
                   ),
                   SizedBox(
@@ -125,12 +130,12 @@ class _DrawerSideState extends State<DrawerSide> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: const [
-                        Text("Mail us:"),
+                        Text("Mail us:",style: TextStyle(color: Colors.white)),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "rajushikhpau@gmail.com",
+                          "rajushikhpau@gmail.com",style: TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],

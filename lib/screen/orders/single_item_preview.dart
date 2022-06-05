@@ -64,6 +64,7 @@ class _SingleItemState extends State<SingleItemPreview> {
 
     getCount();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
@@ -73,7 +74,7 @@ class _SingleItemState extends State<SingleItemPreview> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
                   onPressed: (){
                     Navigator.pop(context);
                   },
@@ -141,7 +142,7 @@ class _SingleItemState extends State<SingleItemPreview> {
               margin: EdgeInsets.only(right: 5,left: 5,top:2,bottom:2),
               height: 120,
               decoration: BoxDecoration(
-                color: Color(0xffd9dad9),
+                color: Color(0xfff3f1f1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

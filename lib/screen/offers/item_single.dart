@@ -33,7 +33,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
                   onPressed: (){
                     Navigator.pop(context);
                   },
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 20,
                       ),
                       Text(
                         '1 January- 5 January 2022',

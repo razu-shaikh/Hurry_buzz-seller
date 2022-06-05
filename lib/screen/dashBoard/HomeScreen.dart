@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+            backgroundColor: Colors.white,
             // appBar: AppBar(
             //   title: Text("Demo Shop"),
             //   //automaticallyImplyLeading: false,
@@ -35,8 +36,11 @@ class MyApp extends StatelessWidget {
                 Container(
                   height: 10.0,
                 ),
-                Text('Order Statistic',
-                  style: TextStyle(color: Colors.black, fontSize: 17),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text('Order Statistic',
+                    style: TextStyle(color: Colors.black, fontSize: 17),
+                  ),
                 ),
                 GridView.count(
                   physics: NeverScrollableScrollPhysics(),
@@ -51,14 +55,12 @@ class MyApp extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text('Order State',
-                  style: TextStyle(color: Colors.black, fontSize: 17),
-                ),
-                const SizedBox(
-                  height: 20,
+
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text('Order State',
+                    style: TextStyle(color: Colors.black, fontSize: 17),
+                  ),
                 ),
                 Container(
                   width: 360,
@@ -66,11 +68,11 @@ class MyApp extends StatelessWidget {
                   child: Padding(padding: const EdgeInsets.only(right: 10),
                   child: LineCharts(),),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text('Sales State',
-                  style: TextStyle(color: Colors.black, fontSize: 17),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text('Sales State',
+                    style: TextStyle(color: Colors.black, fontSize: 17),
+                  ),
                 ),
                 Container(
                   width: 360,

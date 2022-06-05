@@ -15,6 +15,7 @@ class _MyHomePageState extends State<AllProductReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         body:  Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<AllProductReport> {
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide.none,
                     ),
-                    fillColor: Color(0xffc2c2c2),
+                    fillColor: Color(0xfff3f1f1),
                     filled: true,
                     hintText: "Search for items in the store",
                     suffixIcon: Icon(Icons.filter_list_sharp),

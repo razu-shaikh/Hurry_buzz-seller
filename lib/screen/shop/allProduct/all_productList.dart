@@ -13,6 +13,7 @@ class _MyHomePageState extends State<AllProductList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: ListView(
           children: [
             SingleChildScrollView(

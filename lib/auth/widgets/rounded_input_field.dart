@@ -3,10 +3,10 @@ import '../constants.dart';
 import 'text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
-  const RoundedInputField({Key? key, this.hintText, this.icon = Icons.person})
-      : super(key: key);
+  const RoundedInputField({ this.hintText, this.icon = Icons.person,required this.controller});
   final String? hintText;
   final IconData icon;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,7 @@ class RoundedInputField extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(fontFamily: 'OpenSans'),
-            border: InputBorder.none),
-      ),
+            border: InputBorder.none),),
     );
   }
 }

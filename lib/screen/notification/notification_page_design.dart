@@ -94,7 +94,7 @@ class _SingalProductState extends State<SingalNotification> {
                     decoration: BoxDecoration(
                         color: Color(0xff929792),
                         borderRadius: BorderRadius.circular(100)),
-                    child: Icon(Icons.delete)
+                    child: Icon(Icons.remove,color: Colors.white,)
                 ),
 
               ],

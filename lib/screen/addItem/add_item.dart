@@ -103,7 +103,12 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         backgroundColor: Colors.red,
         title: Text(
           "Add Item Details",
@@ -214,7 +219,9 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                 ),
             ],
           ),
-         Text("Basic Information",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+         Padding(
+             padding: EdgeInsets.all(10),
+             child: Text("Basic Information",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
@@ -230,7 +237,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                width: 190,
+                width: 180,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black12),
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -254,7 +261,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                 ),
               ),
               Container(
-                width: 190,
+                width: 180,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -413,7 +420,9 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
           SizedBox(
             height: 10,
           ),
-          Text("Product Discount",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Text("Product Discount",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
           SizedBox(
             height: 10,
           ),
@@ -485,7 +494,9 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
           SizedBox(
             height: 10,
           ),
-          Text("Other Information",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Text("Other Information",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
           SizedBox(
             height: 10,
           ),

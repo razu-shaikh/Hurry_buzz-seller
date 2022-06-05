@@ -3,7 +3,7 @@ import '../constants.dart';
 import 'text_field_container.dart';
 
 class RoundedPasswordField extends StatelessWidget {
-  const RoundedPasswordField({ Key? key }) : super(key: key);
+  const RoundedPasswordField({required TextEditingController controller });
 
   @override
   Widget build(BuildContext context) {

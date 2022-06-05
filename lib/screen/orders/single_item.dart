@@ -1,36 +1,13 @@
+import 'package:ecommerce_app/Model/product_model.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-
-import '../../widgets/count.dart';
-import '../../widgets/product_unit.dart';
 
 class SingleItem extends StatefulWidget {
   bool? isBool = false;
-  String? productId;
-  String? productImage;
-  String? productName;
-  bool? wishList = false;
-  int? productPrice;
-  int? productQuantity;
-  final void Function()? onDelete;
-  var productUnit;
- // final ProductModel? unitProduct;
 
-  SingleItem(
-      {this.productQuantity,
-        this.productId,
-        this.productUnit,
-        this.onDelete,
-        this.isBool,
-        this.productImage,
-        this.productName,
-        this.productPrice,
-        this.wishList,
-        //this.unitProduct
-      });
-
+   final Product product;
+   SingleItem( this.product,);
   @override
   _SingleItemState createState() => _SingleItemState();
 }
@@ -38,28 +15,9 @@ class SingleItem extends StatefulWidget {
 class _SingleItemState extends State<SingleItem> {
   //late ReviewCartProvider reviewCartProvider;
 
-  var unitData;
-  var firstValue;
-
-  int count=0;
-  getCount() {
-    setState(() {
-      count = widget.productQuantity?? 0;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
 
-    widget.isBool == false ?
-    widget.productUnit.productUnit.firstWhere((element) {
-      setState(() {
-        firstValue = element;
-      });
-      return true;
-    }):
-
-    getCount();
     return Column(
       children: [
         Padding(
@@ -68,7 +26,7 @@ class _SingleItemState extends State<SingleItem> {
             margin: EdgeInsets.only(right: 5,left: 5,top:2,bottom:2),
             height: 120,
             decoration: BoxDecoration(
-            color: Color(0xffd9dad9),
+              color: Color(0xfff3f1f1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -100,7 +58,8 @@ class _SingleItemState extends State<SingleItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "product name",
+                            widget.product.title.toString(),
+                           // "product name",
                             style: TextStyle(
                                 color: textColor,
                                 fontWeight: FontWeight.bold,

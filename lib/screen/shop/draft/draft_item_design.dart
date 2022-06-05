@@ -64,7 +64,7 @@ class _SingleItemState extends State<SingleDraftItem> {
             margin: EdgeInsets.only(right: 5,left: 5,top:2,bottom:2),
             height: 120,
             decoration: BoxDecoration(
-              color: Color(0xffd9dad9),
+              color: Color(0xfff3f1f1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(

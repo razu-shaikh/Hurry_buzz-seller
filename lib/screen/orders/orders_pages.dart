@@ -1,7 +1,8 @@
-import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/Provider/product_provider.dart';
 import 'package:ecommerce_app/screen/orders/single_item.dart';
 import 'package:ecommerce_app/screen/orders/single_item_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Order_pages extends StatefulWidget {
   const Order_pages({Key? key}) : super(key: key);
@@ -14,7 +15,13 @@ class _HomeScreenState extends State<Order_pages> {
 
   @override
   Widget build(BuildContext context) {
+
+    final productProvider = Provider.of<ProductProvider>(context);
+    productProvider.getProduct();
+    print(productProvider.productList);
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body:Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -33,7 +40,7 @@ class _HomeScreenState extends State<Order_pages> {
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide.none,
                   ),
-                  fillColor: Color(0xffc2c2c2),
+                  fillColor: Color(0xfff3f1f1),
                   filled: true,
                   hintText: "Search for items in the store",
                   suffixIcon: Icon(Icons.search),
@@ -45,10 +52,10 @@ class _HomeScreenState extends State<Order_pages> {
             ),
             Expanded(
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: productProvider.productList.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        child: SingleItem(),
+                        child: SingleItem(productProvider.productList[index]),
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }

@@ -15,6 +15,7 @@ class _HomeScreenState extends State<DraftPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body:Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

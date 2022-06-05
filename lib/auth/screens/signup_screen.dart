@@ -66,20 +66,20 @@ class SignUpScreen extends StatelessWidget {
                         Form(
                           child: Column(
                             children: [
-                              const RoundedInputField(
-                                  hintText: "First Name", icon: Icons.person),
-                              const RoundedInputField(
-                                  hintText: "Last Name", icon: Icons.person),
-                              const RoundedInputField(
-                                  hintText: "Email", icon: Icons.email),
-                              const RoundedInputField(
-                                  hintText: "Phone", icon: Icons.phone),
-                              const RoundedPasswordField(),
-                              const RoundedInputField(
-                                  hintText: "Shop name", icon: Icons.shop),
-                              const RoundedInputField(
-                                  hintText: "Shop Address", icon: Icons.account_balance),
-                              RoundedButton(text: 'REGISTER', press: () {}),
+                              // const RoundedInputField(
+                              //     hintText: "First Name", icon: Icons.person),
+                              // const RoundedInputField(
+                              //     hintText: "Last Name", icon: Icons.person),
+                              // const RoundedInputField(
+                              //     hintText: "Email", icon: Icons.email),
+                              // const RoundedInputField(
+                              //     hintText: "Phone", icon: Icons.phone),
+                              // const RoundedPasswordField(),
+                              // const RoundedInputField(
+                              //     hintText: "Shop name", icon: Icons.shop),
+                              // const RoundedInputField(
+                              //     hintText: "Shop Address", icon: Icons.account_balance),
+                              // RoundedButton(text: 'REGISTER', press: () {}),
                               const SizedBox(
                                 height: 10,
                               ),

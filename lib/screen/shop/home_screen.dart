@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       statusBarColor: Colors.red,
     ));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ListView(
           children: [
             Container(
@@ -93,11 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       onPressed: () {
                       },
-                      icon: Icon(
-                        Icons.add_moderator,
-                        size: 20,
-                        color: textColor,
-                      ),
+                      icon: ImageIcon( AssetImage("assets/earth.png"),
+                        size: 23,),
                     ),
                     IconButton(
                       onPressed: () {
@@ -140,14 +138,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                    },
-                    icon: Icon(
-                      Icons.shop,
-                      size: 20,
-                      color: textColor,
-                    ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:10),
+                    child: IconButton(
+                      onPressed: () {
+                      },
+                      icon: Icon(
+                        Icons.shop_outlined,
+                        size: 20,
+                        color: textColor,
+                      ),
+                      ),
                   ),
                   Text('122', textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
                   const SizedBox(
