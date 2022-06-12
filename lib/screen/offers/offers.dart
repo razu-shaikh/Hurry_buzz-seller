@@ -22,7 +22,12 @@ class _MyHomePageState extends State<AllOfferList> {
               // const SizedBox(
               //   height: 10,
               // ),
-              Text("Offers and Campaign",style: TextStyle(color:Colors.black,fontSize:20),),
+              Align(
+                alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: Text("Offers and Campaign",style: TextStyle(color:Colors.black,fontSize:20),),
+                  )),
               const SizedBox(
                 height: 10,
               ),

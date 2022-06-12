@@ -91,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 30,
                       margin: EdgeInsets.only(right: 10,bottom: 60),
                       decoration: BoxDecoration(
-                          color: Color(0xffc2c6c2),
+                          border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(5)),
-                      child: Icon(Icons.edit)
+                      child: Icon(Icons.edit_outlined, color: Colors.white,)
                   ),
                 ],
               ),

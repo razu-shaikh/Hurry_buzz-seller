@@ -20,13 +20,14 @@ class _SingleItemState extends State<SingleItem> {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-          child:Container(
-            margin: EdgeInsets.only(right: 5,left: 5,top:2,bottom:2),
+        Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
+          child: Container(
             height: 120,
             decoration: BoxDecoration(
-              color: Color(0xfff3f1f1),
+              color: Color(0xFFFFFFFF),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -131,7 +132,7 @@ class _SingleItemState extends State<SingleItem> {
                            ),
                     decoration: BoxDecoration(
                         color: Colors.yellow,
-                        borderRadius: BorderRadius.only(topLeft:Radius.circular(5),bottomLeft: Radius.circular(5)),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
 
                     ),
 
@@ -140,7 +141,6 @@ class _SingleItemState extends State<SingleItem> {
             ],
           ),
           ),
-
         ),
       ],
     );

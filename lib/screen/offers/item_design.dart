@@ -23,7 +23,8 @@ class _HomeScreenState extends State<ItemDesign> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
-                  topLeft: Radius.circular(10))),
+                  topLeft: Radius.circular(10)),
+              side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
           child: Column(
             children: [
               Container(
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<ItemDesign> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                        'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
+                        'https://cdn.shopify.com/s/files/1/0623/0687/7667/articles/3-Reasons-Getting-Those-Fresh-Veggies-To-Your-Table-Is-More-Complicated-Than-You-Think.jpg?v=1642268664'),
                   ),
                   borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
                 ),
@@ -42,9 +43,9 @@ class _HomeScreenState extends State<ItemDesign> {
                 child: Row(
                   children: [
                     Text(
-                      'Buy 1 Get 1 Free',
+                      'Buy 1 & Get 1 Free',
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<ItemDesign> {
                     Text(
                       '1 January- 5 January 2022',
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.normal),
                     ),
                   ],
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<ItemDesign> {
             child: Text(
                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.normal),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3
