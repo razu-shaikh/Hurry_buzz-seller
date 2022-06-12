@@ -1,8 +1,11 @@
+import 'package:ecommerce_app/Provider/shop_provider.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:ecommerce_app/screen/shop/allProduct/all_productList.dart';
+import 'package:ecommerce_app/screen/shop/campaign/campaignList.dart';
 import 'package:ecommerce_app/screen/shop/draft/draft.dart';
 import 'package:ecommerce_app/screen/shop/sales/sales.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../offers/offers.dart';
 class TabBar_shop extends StatefulWidget {
@@ -28,7 +31,7 @@ class _MyHomePageState extends State<TabBar_shop> {
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.black54,
                     tabs: const [
-                      Tab(text: 'All Products'),
+                      Tab(text: 'Published'),
                       Tab(text: 'Draft'),
                       Tab(text: 'sales'),
                       Tab(text: 'Campaigns'),
@@ -40,12 +43,14 @@ class _MyHomePageState extends State<TabBar_shop> {
                     decoration: BoxDecoration(
                         border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                     ),
-                    child: TabBarView(children: <Widget>[
-                      AllProductList(),
-                      DraftPages(),
-                      SalesPages(),
-                      AllOfferList(),
-                    ]
+                    child: Center(
+                               child: TabBarView(children: <Widget>[
+                                 AllProductList(),
+                                  DraftPages(),
+                                 SalesPages(),
+                                 CampaignPages()
+                      ]
+                      ),
                     )
                 )
               ])

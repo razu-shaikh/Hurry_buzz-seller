@@ -1,9 +1,60 @@
+import 'package:ecommerce_app/Provider/dashboard_provider.dart';
 import 'package:ecommerce_app/screen/dashBoard/dot_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'line_chart.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setLoading(bool value){
+    _loading = value;
+  }
+
+  List<Choice> choices =  <Choice>[];
+  List<Choice> choices2 =  <Choice>[];
+
+  Future<void> initialize() async {
+    // final token =  Provider.of<AuthProvider>(context,listen: false).token;
+    // print("init token============");
+    final provider =  Provider.of<DashboardProvider>(context,listen: false);
+    await provider.getData();
+
+    final data = provider.dashboardData;
+
+    choices =  <Choice>[
+      Choice(title: 'Order',value:data!.totalOrders.toString(),icon: "assets/order.png"),
+      Choice(title: 'Sales',value:data.totalSales.toString(), icon: "assets/sales.png"),
+      Choice(title: 'Product',value:data.totalProducts.toString(), icon: "assets/product.png"),
+      Choice(title: 'campaign',value:data.totalCampaign.toString(), icon: "assets/campaign.png"),
+    ];
+    choices2 =  <Choice>[
+      Choice(title: 'Pending',value:data.pendingOrders.toString(), icon: "assets/pending.png"),
+      Choice(title: 'Processing',value:data.processingOrders.toString(), icon: "assets/process.png"),
+      Choice(title: 'Delivered',value:data.deliveredOrders.toString(), icon: "assets/delivery.png"),
+    ];
+
+    setState(() {
+      setLoading(false);
+    });
+  }
+
+  @override
+  void initState() {
+    setLoading(true);
+    initialize();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,69 +69,77 @@ class MyApp extends StatelessWidget {
             // drawer: Drawer(
             //   child:DrawerSide(),
             // ),
-            body:ListView(
-              children: [
-                GridView.count(
+            body:RefreshIndicator(
+              onRefresh: initialize,
+              child: ListView(
+                children: [
+                  GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 8.0,
+                    childAspectRatio: 3/2,
+                      shrinkWrap: true,
+                      children: List.generate(choices.length, (index) {
+                        return Center(
+                          child: SelectCard(choice: choices[index], key: null,),
+                        );
+                      }).toList(),
+                  ),
+                  Container(
+                    height: 10.0,
+                  ),
+                  Center(
+                      child:loading?CircularProgressIndicator(color:Colors.green):
+                          Text("")
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child:Text('Order Statistic',
+                      style: TextStyle(color: Colors.black, fontSize: 17),
+                    ),
+                  ),
+                  GridView.count(
                     physics: NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 8.0,
-                  childAspectRatio: 3/2,
+                    childAspectRatio: 3/2,
                     shrinkWrap: true,
-                    children: List.generate(choices.length, (index) {
+                    children: List.generate(choices2.length, (index) {
                       return Center(
-                        child: SelectCard(choice: choices[index], key: null,),
+                        child: SelectCard2(choice2: choices2[index], key: null,),
                       );
                     }).toList(),
-                ),
-                Container(
-                  height: 10.0,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text('Order Statistic',
-                    style: TextStyle(color: Colors.black, fontSize: 17),
                   ),
-                ),
-                GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 3/2,
-                  shrinkWrap: true,
-                  children: List.generate(choices2.length, (index) {
-                    return Center(
-                      child: SelectCard2(choice2: choices2[index], key: null,),
-                    );
-                  }).toList(),
-                ),
 
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text('Order State',
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text('Order State',
+                      style: TextStyle(color: Colors.black, fontSize: 17),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 360,
-                  height: 250,
-                  child: Padding(padding: const EdgeInsets.only(right: 10),
-                  child: LineCharts(),),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text('Sales State',
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                  Container(
+                    width: 360,
+                    height: 250,
+                    child: Padding(padding: const EdgeInsets.only(right: 10),
+                    child: LineCharts(),),
                   ),
-                ),
-                Container(
-                  width: 360,
-                  height: 250,
-                  child: DotCharts() ,
-                ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text('Sales State',
+                      style: TextStyle(color: Colors.black, fontSize: 17),
+                    ),
+                  ),
+                  Container(
+                    width: 360,
+                    height: 250,
+                    child: Padding(padding: const EdgeInsets.only(right: 10),
+                    child: DotCharts(),) ,
+                  ),
 
-              ],
+                ],
+              ),
             )
         )
     );
@@ -88,22 +147,12 @@ class MyApp extends StatelessWidget {
 }
 
 class Choice {
-  const Choice({required this.title, required this.icon});
+  const Choice({required this.title,required this.value,required this.icon});
   final String title;
+  final String value;
   final String icon;
 }
 
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Order', icon: "assets/order.png"),
-  const Choice(title: 'Sales', icon: "assets/sales.png"),
-  const Choice(title: 'Product', icon: "assets/product.png"),
-  const Choice(title: 'campaign', icon: "assets/campaign.png"),
-];
-const List<Choice> choices2 = const <Choice>[
-  const Choice(title: 'Pending', icon: "assets/pending.png"),
-  const Choice(title: 'Processing', icon: "assets/process.png"),
-  const Choice(title: 'Delivered', icon: "assets/delivery.png"),
-];
 
 class SelectCard extends StatelessWidget {
   const SelectCard({Key? key, required this.choice}) : super(key: key);
@@ -111,6 +160,7 @@ class SelectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         color: Colors.white70,
@@ -121,7 +171,8 @@ class SelectCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
                 Text(choice.title,textAlign: TextAlign.left,),
-                Text("200",textAlign: TextAlign.left,)
+                SizedBox(height: 5,),
+                Text(choice.value,textAlign: TextAlign.left,)
               ],
 
             ),
@@ -138,7 +189,7 @@ class SelectCard extends StatelessWidget {
   }
 }
 class SelectCard2 extends StatelessWidget {
-  const SelectCard2({Key? key, required this.choice2}) : super(key: key);
+  const SelectCard2({Key? key, required this.choice2 }) : super(key: key);
   final Choice choice2;
 
   @override
@@ -153,7 +204,8 @@ class SelectCard2 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
                 Text(choice2.title,textAlign: TextAlign.left,),
-                Text("200",textAlign: TextAlign.left,)
+                SizedBox(height: 5,),
+                Text(choice2.value,textAlign: TextAlign.left,)
               ],
 
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
@@ -13,8 +14,9 @@ class TextFieldContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal:20,vertical:5),
       width: size.width *0.8,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-        borderRadius: BorderRadius.circular(29),
+        color: Colors.white,
+        border: Border.all(color: Colors.black26),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: child,
     );

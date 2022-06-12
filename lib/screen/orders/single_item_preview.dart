@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/Model/order_model.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,28 +11,10 @@ import '../shop/drawer_side.dart';
 
 class SingleItemPreview extends StatefulWidget {
    bool? isBool = false;
-  // String? productId;
-  // String? productImage;
-  // String? productName;
-  // bool? wishList = false;
-  // int? productPrice;
-  // int? productQuantity;
-  // final void Function()? onDelete;
-  // var productUnit;
-  // // final ProductModel? unitProduct;
-  //
-  // SingleItem(
-  //     {this.productQuantity,
-  //       this.productId,
-  //       this.productUnit,
-  //       this.onDelete,
-  //       this.isBool,
-  //       this.productImage,
-  //       this.productName,
-  //       this.productPrice,
-  //       this.wishList,
-  //       //this.unitProduct
-  //     });
+
+   final Order orderData;
+   final int index;
+   SingleItemPreview( this.orderData, this.index);
 
   @override
   _SingleItemState createState() => _SingleItemState();
@@ -133,9 +116,11 @@ class _SingleItemState extends State<SingleItemPreview> {
       ),
       body:Column(
         children: [
-          Text('Order Details #123456',
+          SizedBox(height: 10),
+          Text('Order Details #'+widget.orderData.orderDetails![widget.index]!.orderId.toString(),
             style: TextStyle(color: Colors.black, fontSize: 17),
           ),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             child:Container(
@@ -146,7 +131,6 @@ class _SingleItemState extends State<SingleItemPreview> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -161,6 +145,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                       borderRadius: BorderRadius.only(topLeft:Radius.circular(10),bottomLeft: Radius.circular(10)),
                     ),
                   ),
+                  SizedBox(width: 20),
                   Container(
                       height: 120,
                       child: Center(
@@ -174,7 +159,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "product name",
+                                   widget.orderData.billingAddress!.name.toString(),
                                   style: TextStyle(
                                       color: textColor,
                                       fontWeight: FontWeight.bold,
@@ -186,7 +171,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 Row(
                                   children: [
                                     Text(
-                                      "#123456",
+                                      widget.orderData.orderDetails![widget.index]!.orderId.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -215,7 +200,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 Row(
                                   children: [
                                     Text(
-                                      "\$10",
+                                      "\$"+widget.orderData.orderDetails![widget.index]!.price.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -238,25 +223,25 @@ class _SingleItemState extends State<SingleItemPreview> {
                         ),
                       )
                   ),
-                  Container(
-                    child:Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
-                      child: Text(
-                        "pending",
-                        style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      borderRadius: BorderRadius.only(topLeft:Radius.circular(5),bottomLeft: Radius.circular(5)),
-
-                    ),
-
-                  ),
+                  // Container(
+                  //   child:Padding(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  //     child: Text(
+                  //       "pending",
+                  //       style: TextStyle(
+                  //         color: textColor,
+                  //         fontWeight: FontWeight.normal,
+                  //       ),
+                  //     ),
+                  //
+                  //   ),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.yellow,
+                  //     borderRadius: BorderRadius.only(topLeft:Radius.circular(5),bottomLeft: Radius.circular(5)),
+                  //
+                  //   ),
+                  //
+                  // ),
 
                 ],
               ),

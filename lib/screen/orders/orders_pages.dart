@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/Provider/product_provider.dart';
+import 'package:ecommerce_app/Provider/order_provider.dart';
 import 'package:ecommerce_app/screen/orders/single_item.dart';
 import 'package:ecommerce_app/screen/orders/single_item_preview.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,24 @@ class Order_pages extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<Order_pages> {
+  late final OrderProvider orderProvider;
+
+  Future<void> initialize() async {
+    orderProvider = Provider.of<OrderProvider>(context,listen: false);
+    await orderProvider.getProduct();
+
+    setState(() {
+    });
+  }
+
+  @override
+  void initState() {
+    initialize();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final productProvider = Provider.of<ProductProvider>(context);
-    productProvider.getProduct();
-    print(productProvider.productList);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body:Padding(
@@ -50,13 +60,14 @@ class _HomeScreenState extends State<Order_pages> {
             SizedBox(
               height: 10,
             ),
+            orderProvider.loading?SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)):
             Expanded(
                 child: ListView.builder(
-                  itemCount: productProvider.productList.length,
+                  itemCount: orderProvider.orderList.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        child: SingleItem(productProvider.productList[index]),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
+                        child: SingleItem(orderProvider.orderList[index],index),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview(orderProvider.orderList[index],index))),
                       );
                     }
                 )

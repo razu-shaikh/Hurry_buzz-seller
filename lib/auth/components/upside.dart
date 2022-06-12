@@ -17,7 +17,7 @@ class Upside extends StatelessWidget {
           height: size.height / 2,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.only(right: 50.0),
+            padding:  EdgeInsets.all(10),
             child: Image.asset(
               imgUrl,
               alignment: Alignment.center,

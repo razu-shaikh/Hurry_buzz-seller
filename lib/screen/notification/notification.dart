@@ -107,7 +107,7 @@ class _HomeScreenState extends State<notification> {
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide.none,
                   ),
-                  fillColor: Color(0xffc2c2c2),
+                    fillColor: Color(0xfff3f1f1),
                   filled: true,
                   hintText: "Search for items in the store",
                   suffixIcon: Icon(Icons.search),

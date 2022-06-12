@@ -1,8 +1,13 @@
 
 import 'package:ecommerce_app/Provider/auth_provider.dart';
+import 'package:ecommerce_app/Provider/dashboard_provider.dart';
+import 'package:ecommerce_app/Provider/shop_provider.dart';
+import 'package:ecommerce_app/Provider/signIn_provider.dart';
+import 'package:ecommerce_app/Provider/order_provider.dart';
+import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Provider/product_provider.dart';
+import 'Provider/order_provider.dart';
 import 'auth/screens/login_screen.dart';
 import 'config/colors.dart';
 
@@ -17,7 +22,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => AuthProvider()),
-      ChangeNotifierProvider(create: (_) => ProductProvider())
+      ChangeNotifierProvider(create: (_) => SignInProvider()),
+      ChangeNotifierProvider(create: (_) => OrderProvider()),
+      ChangeNotifierProvider(create: (_) => DashboardProvider()),
+      ChangeNotifierProvider(create: (_) => ShopProvider()),
+      ChangeNotifierProxyProvider<AuthProvider, DashboardProvider>(
+        create: (context) => DashboardProvider(),
+        update:(context,auth,authToken)=> authToken!..update(auth.token!)),
+      ChangeNotifierProxyProvider<AuthProvider, ShopProvider>(
+          create: (context) => ShopProvider(),
+          update:(context,auth,authToken)=> authToken!..update(auth.token!)),
+      ChangeNotifierProxyProvider<AuthProvider, OrderProvider>(
+          create: (context) => OrderProvider(),
+          update:(context,auth,authToken)=> authToken!..update(auth.token!)),
+
     ],
     child:Builder(
           builder:(BuildContext context){
@@ -26,6 +44,7 @@ class MyApp extends StatelessWidget {
                     primaryColor: primaryColor,
                     scaffoldBackgroundColor: scaffoldBackgroundColor),
                 debugShowCheckedModeBanner: false,
+                // home:  MyNavigationBar()
                 home:  LoginScreen()
 
             );

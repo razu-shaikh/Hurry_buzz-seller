@@ -21,7 +21,7 @@ class _SingalProductState extends State<SingalNotification> {
             margin: EdgeInsets.only(right: 10,left: 10,top:5,bottom:5),
             height: 120,
             decoration: BoxDecoration(
-              color: Color(0xffd9dad9),
+              color: Color(0xfff3f1f1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(

@@ -11,7 +11,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 import 'signup_screen.dart';
 
@@ -23,11 +25,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  late final AuthProvider authProvider;
+
+  Future<void> initialize() async {
+    authProvider = Provider.of<AuthProvider>(context,listen: false);
+    await authProvider.token;
+
+    setState(() {
+    });
+  }
+
+  @override
+  void initState() {
+    initialize();
+    super.initState();
+  }
+
+  bool passObscure= true;
   @override
   Widget build(BuildContext context) {
-
     final authProvider = Provider.of<AuthProvider>(context);
 
     Size size = MediaQuery.of(context).size;
@@ -36,23 +56,27 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("LogIn"),
+          title: Text("LogIn",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, ),),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.red,
         ),
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
+        body: Center(
           child: SingleChildScrollView(
             child: Stack(
               children: [
-                const Upside(
-                  imgUrl: "assets/images/login.PNG",
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 50),
+                    child: Image.asset(
+                     "assets/images/login.PNG",
+                     alignment: Alignment.center,
+            ),
+                  ),
                 ),
-                const PageTitleBar(title: 'Login to your account'),
                 Padding(
-                  padding: const EdgeInsets.only(top: 320.0),
+                  padding: const EdgeInsets.only(top: 100.0),
                   child: Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -65,77 +89,70 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
                         iconButton(context),
                         const SizedBox(
                           height: 20,
-                        ),
-                        const Text(
-                          "or use your email account",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'OpenSans',
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600),
                         ),
                         Form(
                           child: Column(
                             children: [
                               TextFieldContainer(
                                   child: TextFormField(
-                                  cursorColor: kPrimaryColor,
+                                  cursorColor: Colors.black54,
                                    decoration: InputDecoration(
                                    icon: Icon(
-                                     Icons.person,color: Colors.black54,
+                                     Icons.email,color: Colors.black26,
                                 ),
                                 hintText: "Email",
-                                hintStyle: const TextStyle(fontFamily: 'OpenSans'),
                                 border: InputBorder.none),
                                     controller: emailController,),
                         ),
 
                             TextFieldContainer(
                                 child: TextFormField(
-                                     obscureText: true,
-                                     cursorColor: kPrimaryColor,
-                                  decoration: const InputDecoration(
+                                     obscureText: passObscure,
+                                     cursorColor: Colors.black54,
+                                  decoration:  InputDecoration(
                                     icon: Icon(
                                      Icons.lock,
-                                       color: Colors.black54,
+                                       color: Colors.black26,
                                    ),
                                    hintText: "Password",
-                                     hintStyle:  TextStyle(fontFamily: 'OpenSans'),
-                                    suffixIcon: Icon(
-                                   Icons.visibility,
-                                 color: Colors.black54,
-                            ),
+                                    suffixIcon:IconButton(
+                                      onPressed:(){
+                                        setState(() {
+                                          passObscure = !passObscure;
+                                        });
+                                      },
+                                        icon: Icon(
+                                          passObscure? Icons.visibility_off:Icons.visibility,
+                                          color: Colors.black26,
+                                        ),),
                             border: InputBorder.none),
                                   controller: passwordController,
                       ),
                     ),
-                              switchListTile(),
                               InkWell(
-                                onTap: (){
-                                  authProvider.logIn(emailController.text.toString(),
+                                onTap: () async{
+                                  await authProvider.logIn(emailController.text.toString(),
                                       passwordController.text.toString());
-                                  authProvider.logInsuccess? Fluttertoast.showToast(msg: "email or pass incorrect !!"):
+                                  authProvider.token == null? Fluttertoast.showToast(msg: "email or pass incorrect !!"):
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) => MyNavigationBar())
                                   );
                                 },
                                 child: Padding(
-                                  padding: EdgeInsets.only(left: 40,right: 40),
+                                  padding: EdgeInsets.only(left: 40,right: 40,top:10),
                                   child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
-                                      color: Colors.green,
+                                      color: Colors.red,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
                                       child:authProvider.loading? CircularProgressIndicator(color:Colors.white):
-                                      Text("LogIn",style: TextStyle(fontSize: 20,color:Colors.white)),
+                                      Text("LogIn",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
+                                        )),
                                     ),
                                   ),
                                 ),

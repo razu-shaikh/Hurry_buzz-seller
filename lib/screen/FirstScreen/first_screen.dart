@@ -20,7 +20,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   int _selectedIndex = 0;
   late String _title;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  List<Widget> _widgetOptions = <Widget>[
     //HomePage(),
     MyApp(),
     HomeScreen(),

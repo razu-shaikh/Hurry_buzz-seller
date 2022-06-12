@@ -1,5 +1,8 @@
+import 'package:ecommerce_app/Provider/auth_provider.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_screen.dart';
 
@@ -16,6 +19,7 @@ class _DrawerSideState extends State<DrawerSide> {
         onTap: onTap,
         leading: Icon(
           iconData,
+          color: Colors.white,
           size: 28,
         ),
         title: Text(
@@ -28,6 +32,10 @@ class _DrawerSideState extends State<DrawerSide> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    var data = authProvider.authData!.data!.user;
+    final String? profilePic= data!.profileImage;
+    final String? phone= data.phone;
     return Drawer(
       child: Container(
         color: Colors.red,
@@ -43,7 +51,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       backgroundColor: Colors.white54,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                       // backgroundImage: NetworkImage(),
+                        backgroundImage: NetworkImage(profilePic!),
                         radius: 40,
                       ),
                     ),
@@ -53,12 +61,12 @@ class _DrawerSideState extends State<DrawerSide> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("name", style: TextStyle(
+                      children: [
+                        Text(data.fullName.toString(), style: TextStyle(
                           color: Colors.white,
                         ),),//
                         Text(
-                          'email',
+                          data.email.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
@@ -76,7 +84,7 @@ class _DrawerSideState extends State<DrawerSide> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
+                    builder: (context) => MyNavigationBar(),
                   ),
                 );
               },
@@ -115,12 +123,12 @@ class _DrawerSideState extends State<DrawerSide> {
                     height: 10,
                   ),
                   Row(
-                    children: const [
+                    children:  [
                       Text("Call us:",style: TextStyle(color: Colors.white)),
                       SizedBox(
                         width: 10,
                       ),
-                      Text("+923352580282",style: TextStyle(color: Colors.white)),
+                      Text(phone!,style: TextStyle(color: Colors.white)),
                     ],
                   ),
                   SizedBox(
@@ -129,13 +137,13 @@ class _DrawerSideState extends State<DrawerSide> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: const [
+                      children: [
                         Text("Mail us:",style: TextStyle(color: Colors.white)),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "rajushikhpau@gmail.com",style: TextStyle(color: Colors.white),
+                          data.email.toString(),style: TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],

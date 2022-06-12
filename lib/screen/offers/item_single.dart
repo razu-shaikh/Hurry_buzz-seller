@@ -1,8 +1,5 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../config/colors.dart';
 import '../notification/notification.dart';
 import '../shop/drawer_side.dart';

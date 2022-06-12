@@ -5,11 +5,12 @@ class DotCharts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<SalesData> chartData = [
-      SalesData(DateTime.parse('2010-01-08'),0),
-      SalesData(DateTime.parse('2011-01-08'), 10),
-      SalesData(DateTime.parse('2012-01-08'), 15),
-      SalesData(DateTime.parse('2013-01-08'), 18),
-      SalesData(DateTime.parse('2014-01-08'), 25)
+      SalesData(DateTime.parse('2017-01-08'),0),
+      SalesData(DateTime.parse('2018-01-08'),5),
+      SalesData(DateTime.parse('2019-01-08'),10),
+      SalesData(DateTime.parse('2020-01-08'),18),
+      SalesData(DateTime.parse('2021-01-08'),25),
+      SalesData(DateTime.parse('2022-01-08'),28)
     ];
 
     return Scaffold(

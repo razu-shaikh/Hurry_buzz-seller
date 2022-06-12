@@ -1,7 +1,12 @@
+import 'package:ecommerce_app/Model/shop_model.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/shop/allProduct/all_productList.dart';
 import 'package:flutter/material.dart';
 
 class SingalProduct extends StatefulWidget {
+
+  final ShopAllProducts productData;
+  SingalProduct( this.productData,);
 
   @override
   _SingalProductState createState() => _SingalProductState();
@@ -10,6 +15,7 @@ class SingalProduct extends StatefulWidget {
 class _SingalProductState extends State<SingalProduct> {
   var unitData;
   var firstValue;
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +48,12 @@ class _SingalProductState extends State<SingalProduct> {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,top: 30),
+                    padding: const EdgeInsets.only(left: 10,top: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                         "product name",
+                         widget.productData.productName.toString(),
                           style: TextStyle(
                             color: textColor,
                             fontWeight: FontWeight.bold,
@@ -58,7 +64,7 @@ class _SingalProductState extends State<SingalProduct> {
                         ),
                         Container(
                           child: Text(
-                            "10% off",
+                            widget.productData.discountPercentage.toString(),
                             style: TextStyle(
                               color: textColor,
                               fontWeight: FontWeight.normal,
@@ -72,68 +78,12 @@ class _SingalProductState extends State<SingalProduct> {
                           height: 5,
                         ),
                         Text(
-                          '${"200"}\$/${unitData ?? firstValue}',
+                         "\$"+ widget.productData.price.toString(),
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black,
                           ),
                         ),
 
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: ProductUnit(
-                        //         onTap: () {
-                        //           showModalBottomSheet(
-                        //               context: context,
-                        //               builder: (context) {
-                        //                 return Column(
-                        //                   mainAxisSize: MainAxisSize.min,
-                        //                   crossAxisAlignment: CrossAxisAlignment.start,
-                        //                   children: widget.productUnit.productUnit.map<Widget>((data) {
-                        //                     return Column(
-                        //                       children: [
-                        //                         Padding(
-                        //                           padding: const EdgeInsets
-                        //                               .symmetric(
-                        //                               vertical: 10,
-                        //                               horizontal: 10),
-                        //                           child: InkWell(
-                        //                             onTap: () async {
-                        //                               setState(() {
-                        //                                 unitData = data;
-                        //                               });
-                        //                               Navigator.of(context)
-                        //                                   .pop();
-                        //                             },
-                        //                             child: Text(
-                        //                               data,
-                        //                               style: TextStyle(
-                        //                                   color: primaryColor,
-                        //                                   fontSize: 18),
-                        //                             ),
-                        //                           ),
-                        //                         ),
-                        //                       ],
-                        //                     );
-                        //                   }).toList(),
-                        //                 );
-                        //               });
-                        //         },
-                        //         title: unitData ?? firstValue,
-                        //       ),
-                        //     ),
-                        //     SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     Count(
-                        //       productId: widget.productId,
-                        //       productImage: widget.productImage,
-                        //       productName: widget.productName,
-                        //       productPrice: widget.productPrice,
-                        //       productUnit: unitData ?? firstValue,
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -143,7 +93,7 @@ class _SingalProductState extends State<SingalProduct> {
                   width: 30,
                     margin: EdgeInsets.only(right: 10,top:5),
                   decoration: BoxDecoration(
-                  color: Color(0xff929792),
+                  color: Color(0xffd2d4d2),
                   borderRadius: BorderRadius.circular(5)),
                   child: Icon(Icons.edit)
                 ),

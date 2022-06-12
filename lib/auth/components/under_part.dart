@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants.dart';
 
@@ -22,7 +23,7 @@ class UnderPart extends StatelessWidget {
           title,
           style: const TextStyle(
               fontFamily: 'OpenSans',
-              fontSize: 13,
+              fontSize: 15,
               color: Colors.grey,
               fontWeight: FontWeight.w600),
         ),
@@ -35,11 +36,13 @@ class UnderPart extends StatelessWidget {
           },
           child: Text(
             navigatorText,
-            style: const TextStyle(
-                color: kPrimaryColor,
+            style: GoogleFonts.besley(
+                color: Colors.black54,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'Opensans'),
+                decoration: TextDecoration.underline,
+                fontStyle: FontStyle.italic,
+            ),
           ),
         )
       ],

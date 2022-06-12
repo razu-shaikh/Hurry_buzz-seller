@@ -1,5 +1,7 @@
+import 'package:ecommerce_app/Provider/shop_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../../config/colors.dart';
 import 'allProduct/tab_bar.dart';
 
@@ -11,12 +13,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? shopName;
+  String? shopType;
+
+  Future<void> initialize() async {
+    final shopProvider = Provider.of<ShopProvider>(context,listen: false);
+    await shopProvider.getData();
+    final data = shopProvider.shopData;
+
+    setState(() {
+      shopName = data!.shopDetails!.shopName;
+      shopType = data.shopType;
+    });
+  }
+
+  @override
+  void initState() {
+    initialize();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.red,
     ));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -68,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 30,
                       margin: EdgeInsets.only(right: 10,bottom: 60),
                       decoration: BoxDecoration(
-                          color: Color(0xff929792),
+                          color: Color(0xffc2c6c2),
                           borderRadius: BorderRadius.circular(5)),
                       child: Icon(Icons.edit)
                   ),
@@ -85,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Shop Name', textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
-                    Text('Electronics', textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
-                  ],
+                     Text(shopName.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
+                      Text(shopType.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
+                   ],
                 ),
                 Row(
                   children: [
