@@ -59,83 +59,82 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-            backgroundColor: Colors.white,
-            // appBar: AppBar(
-            //   title: Text("Demo Shop"),
-            //   //automaticallyImplyLeading: false,
-            //   backgroundColor: Colors.red,
-            // ),
-            // drawer: Drawer(
-            //   child:DrawerSide(),
-            // ),
+            backgroundColor: Color(0xFFF8F8F8),
             body:RefreshIndicator(
               onRefresh: initialize,
               child: ListView(
                 children: [
-                  GridView.count(
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: GridView.count(
                       physics: NeverScrollableScrollPhysics(),
                       crossAxisCount: 2,
                       crossAxisSpacing: 4.0,
                       mainAxisSpacing: 8.0,
-                    childAspectRatio: 3/2,
+                      childAspectRatio: 3/2,
                       shrinkWrap: true,
                       children: List.generate(choices.length, (index) {
                         return Center(
                           child: SelectCard(choice: choices[index], key: null,),
                         );
                       }).toList(),
+                    ),
                   ),
                   Container(
                     height: 10.0,
                   ),
                   Center(
                       child:loading?CircularProgressIndicator(color:Colors.green):
-                          Text("")
+                      Text("")
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(left: 18, bottom: 10),
                     child:Text('Order Statistic',
-                      style: TextStyle(color: Colors.black, fontSize: 17),
+                      style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  GridView.count(
-                    physics: NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4.0,
-                    mainAxisSpacing: 8.0,
-                    childAspectRatio: 3/2,
-                    shrinkWrap: true,
-                    children: List.generate(choices2.length, (index) {
-                      return Center(
-                        child: SelectCard2(choice2: choices2[index], key: null,),
-                      );
-                    }).toList(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 8.0,
+                      childAspectRatio: 3/2,
+                      shrinkWrap: true,
+                      children: List.generate(choices2.length, (index) {
+                        return Center(
+                          child: SelectCard2(choice2: choices2[index], key: null,),
+                        );
+                      }).toList(),
+                    ),
                   ),
 
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Text('Order State',
-                      style: TextStyle(color: Colors.black, fontSize: 17),
+                      style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
                     width: 360,
                     height: 250,
                     child: Padding(padding: const EdgeInsets.only(right: 10),
-                    child: LineCharts(),),
+                      child: LineCharts(),),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Text('Sales State',
-                      style: TextStyle(color: Colors.black, fontSize: 17),
+                      style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
                     width: 360,
                     height: 250,
                     child: Padding(padding: const EdgeInsets.only(right: 10),
-                    child: DotCharts(),) ,
+                      child: DotCharts(),) ,
                   ),
 
                 ],
@@ -162,25 +161,31 @@ class SelectCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        color: Colors.white70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
-                Text(choice.title,textAlign: TextAlign.left,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0, top: 20),
+                  child: Text(choice.title,textAlign: TextAlign.left,),
+                ),
                 SizedBox(height: 5,),
-                Text(choice.value,textAlign: TextAlign.left,)
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: Text(choice.value,textAlign: TextAlign.left,),
+                )
               ],
 
             ),
-            Container(
-              margin: EdgeInsets.only(left: 10,top:30),
-              height: 25,
-              width: 25,
-              child: Image.asset(choice.icon, color: Colors.black54),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0,),
+              child: Image.asset(choice.icon, color: Colors.black54, height: 25,width: 25,),
             ),
 
           ],
@@ -195,25 +200,31 @@ class SelectCard2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        color: Colors.white70,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
-                Text(choice2.title,textAlign: TextAlign.left,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0, top: 20),
+                  child: Text(choice2.title,textAlign: TextAlign.left,),
+                ),
                 SizedBox(height: 5,),
-                Text(choice2.value,textAlign: TextAlign.left,)
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: Text(choice2.value,textAlign: TextAlign.left,),
+                )
               ],
 
             ),
-            Container(
-              margin: EdgeInsets.only(left: 10,top:30),
-              height: 25,
-              width: 25,
-              child: Image.asset(choice2.icon, color: Colors.black54),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0,),
+              child: Image.asset(choice2.icon, color: Colors.black54, height: 25,width: 25,),
             ),
 
           ],
