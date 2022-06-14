@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/auth_model.dart';
 import 'package:flutter/foundation.dart';

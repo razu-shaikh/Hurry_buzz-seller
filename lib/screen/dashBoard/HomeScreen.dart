@@ -2,6 +2,7 @@ import 'package:ecommerce_app/Provider/dashboard_provider.dart';
 import 'package:ecommerce_app/screen/dashBoard/dot_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'line_chart.dart';
 
 class MyApp extends StatefulWidget {
@@ -19,16 +20,16 @@ class _MyAppState extends State<MyApp> {
   setLoading(bool value){
     _loading = value;
   }
-
   List<Choice> choices =  <Choice>[];
   List<Choice> choices2 =  <Choice>[];
-
+  List<int> orderList = [];
+  List<double>  salesList = [];
+  String? token;
   Future<void> initialize() async {
-    // final token =  Provider.of<AuthProvider>(context,listen: false).token;
-    // print("init token============");
-    final provider =  Provider.of<DashboardProvider>(context,listen: false);
-    await provider.getData();
-
+    final  provider =  Provider.of<DashboardProvider>(context,listen: false);
+    await provider.getData(token!);
+    orderList = provider.orderStateList;
+    salesList = provider.sallerStateList;
     final data = provider.dashboardData;
 
     choices =  <Choice>[
@@ -51,13 +52,22 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     setLoading(true);
-    initialize();
+    getToken();
+    //initialize();
     // TODO: implement initState
     super.initState();
+  }
+  void getToken() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    token = pref.getString("token");
+    setState(() {
+
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    initialize();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -119,10 +129,10 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   Container(
-                    width: 360,
-                    height: 250,
-                    child: Padding(padding: const EdgeInsets.only(right: 10),
-                      child: LineCharts(),),
+                    // width: 370,
+                    // height: 260,
+                    child: Padding(padding: const EdgeInsets.only(left: 2),
+                      child: LineCharts(orderList),),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
@@ -134,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                     width: 360,
                     height: 250,
                     child: Padding(padding: const EdgeInsets.only(right: 10),
-                      child: DotCharts(),) ,
+                      child: DotCharts(salesList),) ,
                   ),
 
                 ],
@@ -143,6 +153,7 @@ class _MyAppState extends State<MyApp> {
         )
     );
   }
+
 }
 
 class Choice {

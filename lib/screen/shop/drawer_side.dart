@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/Provider/auth_provider.dart';
+import 'package:ecommerce_app/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen.dart';
 
@@ -33,9 +35,9 @@ class _DrawerSideState extends State<DrawerSide> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    var data = authProvider.authData!.data!.user;
-    final String? profilePic= data!.profileImage;
-    final String? phone= data.phone;
+    // var data = authProvider.authData!.data!.user;
+    // final String? profilePic= data!.profileImage;
+    // final String? phone= data.phone;
     return Drawer(
       child: Container(
         color: Colors.red,
@@ -51,7 +53,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       backgroundColor: Colors.white54,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(profilePic!),
+                        backgroundImage: NetworkImage(""),
                         radius: 40,
                       ),
                     ),
@@ -62,15 +64,15 @@ class _DrawerSideState extends State<DrawerSide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(data.fullName.toString(), style: TextStyle(
+                        Text("name", style: TextStyle(
                           color: Colors.white,
-                        ),),//
-                        Text(
-                          data.email.toString(),
+                        ),),//data.fullName.toString()
+                        Text("email"
+                          ,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
-                          ),
+                          ),//data.email.toString()
                         ),
                       ],
                     )
@@ -110,6 +112,15 @@ class _DrawerSideState extends State<DrawerSide> {
                 title: "Wishlist",
                 onTap: () {
                 }),
+            listTile(
+                iconData: Icons.logout,
+                title: "LogOut",
+                onTap: () async{
+                  await setToken(null);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen())
+                  );
+                }),
             listTile(iconData: Icons.copy_outlined, title: "Raise a Complaint"),
             listTile(iconData: Icons.format_quote_outlined, title: "FAQs"),
             Container(
@@ -128,7 +139,7 @@ class _DrawerSideState extends State<DrawerSide> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(phone!,style: TextStyle(color: Colors.white)),
+                      Text("01768598844",style: TextStyle(color: Colors.white)),
                     ],
                   ),
                   SizedBox(
@@ -143,7 +154,7 @@ class _DrawerSideState extends State<DrawerSide> {
                           width: 10,
                         ),
                         Text(
-                          data.email.toString(),style: TextStyle(color: Colors.white),
+                          "email",style: TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -156,5 +167,10 @@ class _DrawerSideState extends State<DrawerSide> {
         ),
       ),
     );
+  }
+  Future<void> setToken(token) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("token", "");
+
   }
 }

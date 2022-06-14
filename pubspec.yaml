@@ -28,9 +28,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   google_fonts: 2.2.0
-  fl_chart: 0.30.0
+  fl_chart: ^0.45.0
   syncfusion_flutter_charts: 20.1.57
   image_picker: ^0.8.5+3
+  email_validator: ^2.0.1
   flutter:
     sdk: flutter
 
