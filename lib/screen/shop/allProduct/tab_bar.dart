@@ -1,20 +1,19 @@
-import 'package:ecommerce_app/Provider/shop_provider.dart';
-import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/screen/shop/allProduct/all_productList.dart';
 import 'package:ecommerce_app/screen/shop/campaign/campaignList.dart';
 import 'package:ecommerce_app/screen/shop/draft/draft.dart';
 import 'package:ecommerce_app/screen/shop/sales/sales.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../offers/offers.dart';
 class TabBar_shop extends StatefulWidget {
+
+  ShopModel shopModel;
+  TabBar_shop(this.shopModel);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<TabBar_shop> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,8 +43,8 @@ class _MyHomePageState extends State<TabBar_shop> {
                         border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                     ),
                     child: Center(
-                               child: TabBarView(children: <Widget>[
-                                 AllProductList(),
+                      child: TabBarView(children: <Widget>[
+                                 AllProductList(widget.shopModel.published),
                                   DraftPages(),
                                  SalesPages(),
                                  CampaignPages()

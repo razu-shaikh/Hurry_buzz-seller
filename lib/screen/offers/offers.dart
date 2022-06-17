@@ -1,7 +1,11 @@
-import 'package:ecommerce_app/screen/offers/item_design.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import 'item_single.dart';
+import 'package:ecommerce_app/Model/offerModel.dart';
+import 'package:ecommerce_app/screen/offers/item_design.dart';
+import 'package:ecommerce_app/screen/offers/item_single.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class AllOfferList extends StatefulWidget {
   const AllOfferList({Key? key}) : super(key: key);
@@ -10,6 +14,38 @@ class AllOfferList extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<AllOfferList> {
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setLoading(bool value){
+    _loading = value;
+  }
+
+  Future<OfferModel> initialize() async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    print("token"+authToken.toString());
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/offers'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+    var data = jsonDecode(response.body.toString());
+    if(response.statusCode == 200){
+      return OfferModel.fromJson(data);
+    }else{
+      return OfferModel.fromJson(data);
+    }
+  }
+
+  @override
+  void initState() {
+    initialize();
+    setLoading(false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +68,41 @@ class _MyHomePageState extends State<AllOfferList> {
                 height: 10,
               ),
               Expanded(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index){
-                        return GestureDetector(
-                          child: ItemDesign(),
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemSingleDesign())),
-                        );
+                  child: FutureBuilder<OfferModel>(
+                      future: initialize(),
+                      builder: (context,snapShot){
+                        if(snapShot.hasData){
+                          return ListView.builder(
+                              itemCount: snapShot.data!.offers!.length,
+                              itemBuilder: (context, index){
+                                return GestureDetector(
+                                  child: ItemDesign(snapShot.data!.offers![index]),
+                                  onTap: () => Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => ItemSingleDesign(snapShot.data!.offers![index]))),
+                                );
+                              }
+                          );
+                        }
+                        else{
+                          return Center(
+                            child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
+
+                          );
+                        }
+
                       }
 
                   )
+                  // child: ListView.builder(
+                  //     itemCount: 10,
+                  //     itemBuilder: (context, index){
+                  //       return GestureDetector(
+                  //         child: ItemDesign(),
+                  //         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemSingleDesign())),
+                  //       );
+                  //     }
+                  //
+                  // )
               ),
 
             ],

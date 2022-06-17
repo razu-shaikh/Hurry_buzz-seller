@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/Model/offerModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../config/colors.dart';
@@ -5,7 +6,8 @@ import '../notification/notification.dart';
 import '../shop/drawer_side.dart';
 
 class ItemSingleDesign extends StatefulWidget {
-  ItemSingleDesign({Key? key}) : super(key: key);
+  Offers offers;
+  ItemSingleDesign(this.offers, {Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
         title:Column(
@@ -66,7 +69,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState?.openEndDrawer();
+              scaffoldKey.currentState?.openDrawer();
             },
             child: Container(
               padding: EdgeInsets.all(8), // Border width
@@ -84,7 +87,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
         ],
       ),
       key: scaffoldKey,
-      endDrawer: Drawer(
+      drawer: Drawer(
         child:DrawerSide(),
       ),
       body:Padding(

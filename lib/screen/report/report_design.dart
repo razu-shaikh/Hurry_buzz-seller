@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/Model/reportModel.dart';
 import 'package:flutter/material.dart';
 
 class report_design extends StatefulWidget {
-  report_design({Key? key}) : super(key: key);
+  Reports reportModelReports;
+  report_design(this.reportModelReports, {Key? key}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -23,7 +25,7 @@ class _MyHomePageState extends State<report_design> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text("React.js",style: TextStyle(color:Colors.black,fontSize:15),),
+                  child: Text(widget.reportModelReports.productName.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
                 ),
                 VerticalDivider(
                   width: 10,
@@ -51,7 +53,7 @@ class _MyHomePageState extends State<report_design> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text("MySQL",style: TextStyle(color:Colors.black,fontSize:15),),
+                  child: Text(widget.reportModelReports.hasVariant.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
                 ),
                 VerticalDivider(
                   width: 10,
@@ -65,7 +67,7 @@ class _MyHomePageState extends State<report_design> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text("MySQL",style: TextStyle(color:Colors.black,fontSize:15),),
+                  child: Text(widget.reportModelReports.category!.title.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
                 )
               ]
           ),

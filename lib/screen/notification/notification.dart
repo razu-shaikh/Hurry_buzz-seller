@@ -21,6 +21,7 @@ class _HomeScreenState extends State<notification> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
         title:Column(
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<notification> {
         actions: [
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState?.openEndDrawer();
+              scaffoldKey.currentState?.openDrawer();
             },
             child: Container(
               padding: EdgeInsets.all(8), // Border width
@@ -86,7 +87,7 @@ class _HomeScreenState extends State<notification> {
         ],
       ),
       key: scaffoldKey,
-      endDrawer: Drawer(
+      drawer: Drawer(
         child:DrawerSide(),
       ),
       body:Padding(

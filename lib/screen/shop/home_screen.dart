@@ -1,9 +1,11 @@
-import 'package:ecommerce_app/Provider/shop_provider.dart';
+import 'dart:convert';
+import 'package:ecommerce_app/Model/shopModel.dart';
+import 'package:ecommerce_app/screen/shop/allProduct/tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/colors.dart';
-import 'allProduct/tab_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,23 +15,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? shopName;
-  String? shopType;
 
-  Future<void> initialize() async {
-    final shopProvider = Provider.of<ShopProvider>(context,listen: false);
-    await shopProvider.getData();
-    final data = shopProvider.shopData;
+  bool _loading = false;
+  bool get loading => _loading;
 
-    setState(() {
-      shopName = data!.shopDetails!.shopName;
-      shopType = data.shopType;
-    });
+  setLoading(bool value){
+    _loading = value;
+  }
+
+  Future<ShopModel > initialize() async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/shop'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+     var data = jsonDecode(response.body.toString());
+    if(response.statusCode == 200){
+      return ShopModel.fromJson(data);
+    }else{
+      return ShopModel.fromJson(data);
+    }
   }
 
   @override
   void initState() {
-    initialize();
+    setLoading(false);
+      initialize();
     super.initState();
   }
 
@@ -105,13 +119,26 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(shopName.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
-                      Text(shopType.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
-                    ],
-                  ),
+                      FutureBuilder<ShopModel>(
+                          future: initialize(),
+                          builder: (context,snapShot){
+                            if(snapShot.hasData){
+                              return Column(
+                                children: [
+                                  Text(snapShot.data!.shopDetails!.shopName.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 18)),
+                                  Text(snapShot.data!.shopType.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 13)),
+                                ],
+                              );
+
+                            }else{
+                              return Center(
+                                child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
+
+                              );
+                            }
+
+                          }),
+
                   Row(
                     children: [
                       IconButton(
@@ -182,7 +209,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          TabBar_shop(),
+          FutureBuilder<ShopModel>(
+              future: initialize(),
+              builder: (context,snapShot){
+                if(snapShot.hasData){
+                  return TabBar_shop(snapShot.data!);
+
+                }else{
+                  return Center(
+                    child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
+
+                  );
+                }
+
+              }),
         ],
       ),
     );

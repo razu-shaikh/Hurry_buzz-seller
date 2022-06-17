@@ -1,9 +1,11 @@
+import 'package:ecommerce_app/Model/offerModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ItemDesign extends StatefulWidget {
-  ItemDesign({Key? key}) : super(key: key);
+  Offers offers;
+  ItemDesign(this.offers, {Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -42,7 +44,8 @@ class _HomeScreenState extends State<ItemDesign> {
                 child: Row(
                   children: [
                     Text(
-                      'Buy 1 & Get 1 Free',
+                      widget.offers.campaign!.currentLanguage![0].title.toString(),
+                      //"Buy 1 Get i Free"
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
@@ -51,7 +54,8 @@ class _HomeScreenState extends State<ItemDesign> {
                       width: 20,
                     ),
                     Text(
-                      '1 January- 5 January 2022',
+                      widget.offers.campaign!.campaignStartDate.toString()+"-"+widget.offers.campaign!.campaignEndDate.toString(),
+                      // '1 January- 5 January 2022',
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal),
@@ -63,7 +67,9 @@ class _HomeScreenState extends State<ItemDesign> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
+                    widget.offers.campaign!.currentLanguage![0].description.toString()+"first come first get hurry up avaiable "
+                        "from 31 st to 05 , come first get first",
+                    //'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.normal),

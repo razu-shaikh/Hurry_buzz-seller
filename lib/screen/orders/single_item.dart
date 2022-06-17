@@ -1,11 +1,11 @@
-import 'package:ecommerce_app/Model/order_model.dart';
+import 'package:ecommerce_app/Model/orderModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 
 class SingleItem extends StatefulWidget {
   bool? isBool = false;
 
-  final Order orderData;
+  final Orders orderData;
   final int index;
   SingleItem( this.orderData, this.index);
   @override
@@ -13,11 +13,9 @@ class SingleItem extends StatefulWidget {
 }
 
 class _SingleItemState extends State<SingleItem> {
-  //late ReviewCartProvider reviewCartProvider;
-
   @override
   Widget build(BuildContext context) {
-
+    print(widget.orderData);
     return Column(
       children: [
         Card(
@@ -59,8 +57,8 @@ class _SingleItemState extends State<SingleItem> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.orderData.billingAddress!.name.toString(),
-                                // "product name",
+                                widget.orderData.orderDetails![0].product!.productName.toString(),
+                                //"product name",
                                 style: TextStyle(
                                     color: textColor,
                                     fontWeight: FontWeight.bold,
@@ -72,7 +70,7 @@ class _SingleItemState extends State<SingleItem> {
                               Row(
                                 children: [
                                   Text(
-                                    widget.orderData.orderDetails![widget.index]!.orderId.toString(),
+                                    widget.orderData.orderDetails![0].product!.id.toString(),
                                     style: TextStyle(
                                         color: textColor, fontWeight: FontWeight.bold),
                                   ),
@@ -95,7 +93,7 @@ class _SingleItemState extends State<SingleItem> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$"+widget.orderData.orderDetails![widget.index]!.price.toString(),
+                                    "\$"+widget.orderData.orderDetails![0].price.toString(),
                                     style: TextStyle(
                                         color: textColor, fontWeight: FontWeight.bold),
                                   ),
@@ -103,7 +101,7 @@ class _SingleItemState extends State<SingleItem> {
                                     width: 10,
                                   ),
                                   Text(
-                                    widget.orderData.orderDetails![widget.index]!.quantity.toString()+"( pics)",
+                                    widget.orderData.orderDetails![0].quantity!.toString()+widget.orderData.orderDetails![0].product!.currentLanguage![0].unit.toString(),
                                     style: TextStyle(
                                         color: textColor, fontWeight: FontWeight.normal),
                                   ),
@@ -122,7 +120,7 @@ class _SingleItemState extends State<SingleItem> {
                   child:Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
                     child: Text(
-                      widget.orderData.deliveryStatus.toString(),
+                       widget.orderData.deliveryStatus.toString(),
                       style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.normal,

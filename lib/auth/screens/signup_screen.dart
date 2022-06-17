@@ -25,8 +25,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneController = TextEditingController();
   bool passObscure= true;
 
-  String dropdownvalue = 'Free';
+  String dropdownvalue = 'Account Type';
   var items = [
+    'Account Type',
     'Free',
     'Paid',
   ];
@@ -209,7 +210,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     value: dropdownvalue,
                                     isExpanded: true,
                                     iconSize: 36,
-                                    hint: Text("Account Type"),
                                     icon: const Icon(Icons.arrow_drop_down_outlined),
                                     items: items.map((String items) {
                                       return DropdownMenuItem(

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_app/Model/order_model.dart';
+import 'package:ecommerce_app/Model/profile_model.dart';
 import 'package:flutter/foundation.dart';
 
-class OrderProvider extends ChangeNotifier{
+class ProfileProvider extends ChangeNotifier{
 
-  List<Order> orderList = [];
+  Profile? profileData ;
   String? _authToken;
 
   bool _loading = false;
@@ -13,32 +13,31 @@ class OrderProvider extends ChangeNotifier{
   setLoading(bool value){
     _loading = value;
   }
-
   void update(String token) {
     _authToken = token;
     notifyListeners();
   }
-  Future<void> getProduct ()async{
+
+  Future<void> getData ()async{
     setLoading(true);
     print("token"+_authToken.toString());
     try {
-      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/orders',
+      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/me',
         options: Options(
             headers: {
               "apiKey": "sdfdge544364dg#",
               "Authorization": "Bearer $_authToken"}),
       );
-      Map<String,dynamic> ordersDataList= response.data;
-      if(response.statusCode == 200){
+      Map<String,dynamic> profileDataList= response.data;
+
+      if(response.statusCode == 200) {
         // _dashboardData.clear();
-        orderList = Order.fromJsonList(ordersDataList['orders']);
-        print("=========================");
+        profileData = Profile.fromJson(profileDataList);
         setLoading(false);
       }
     } catch (e) {
       print(e);
     }
+    notifyListeners();
   }
-
-
 }

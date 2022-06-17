@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/Model/shop_type_model.dart';
 import 'package:ecommerce_app/Provider/signIn_provider.dart';
 import 'package:ecommerce_app/auth/components/under_part.dart';
 import 'package:ecommerce_app/auth/widgets/text_field_container.dart';
+import 'package:ecommerce_app/widgets/shop_type_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -35,55 +37,36 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
   TextEditingController lonController = TextEditingController();
   bool passObscure= true;
 
-  // Future<void> shopType() async{
-  //   try {
-  //     Response response = await Dio().post('https://hurrybuzz.com/api/v1/seller/shop_types',
-  //       options: Options(
-  //         headers: {
-  //           "apiKey": "sdfdge544364dg#"},),
-  //     );
-  //     Map<String,dynamic> authDataList= response.data;
-  //     print(authDataList);
-  //
-  //     if(response.statusCode == 200){
-  //
-  //     }
-  //   } catch (e) {
-  //     print(e.toString);
-  //   }
-  //
-  // }
-
-  String shopTypeValue = '10';
-  String stateTypeValue = '10';
-  String cityTypeValue = '10';
-  String townTypeValue = '10';
+  String shopTypeValue = 'Shop Type';
+  String stateTypeValue = 'State';
+  String cityTypeValue = 'City';
+  String townTypeValue = 'Town';
   var itemsShopType = [
+    'Shop Type',
     '10',
-    'Item 2',
-    'Item 3',
-    'Item 4',
+    '12',
+    '14',
     'Item 5',
   ];
   var itemsState = [
+    'State',
     '10',
-    'Item 2',
-    'Item 3',
-    'Item 4',
+    '20',
+    '30',
     'Item 5',
   ];
   var itemsCity = [
+    'City',
     '10',
-    'Item 2',
-    'Item 3',
-    'Item 4',
+    '20',
+    '25',
     'Item 5',
   ];
   var itemsTown = [
+    'Town',
     '10',
-    'Item 2',
-    'Item 3',
-    'Item 4',
+    '20',
+    '40',
     'Item 5',
   ];
 
@@ -198,25 +181,26 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
-                                child: DropdownButton(
-                                  underline: SizedBox(),
-                                  value: shopTypeValue,
-                                  isExpanded: true,
-                                  iconSize: 36,
-                                  hint: Text("Shop Type"),
-                                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                                  items: itemsShopType.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      shopTypeValue = newValue!;
-                                    });
-                                  },
-                                ),
+                                child: ShopTypeDropDown(),
+                                // DropdownButton(
+                                //   underline: SizedBox(),
+                                //   value: shopTypeValue,
+                                //   isExpanded: true,
+                                //   iconSize: 36,
+                                //   hint: Text("Shop Type"),
+                                //   icon: const Icon(Icons.arrow_drop_down_outlined),
+                                //   items: itemsShopType.map((String items) {
+                                //     return DropdownMenuItem(
+                                //       value: items,
+                                //       child: Text(items),
+                                //     );
+                                //   }).toList(),
+                                //   onChanged: (String? newValue) {
+                                //     setState(() {
+                                //       shopTypeValue = newValue!;
+                                //     });
+                                //   },
+                                // ),
                               ),
                               SizedBox(height: 10),
                               TextFieldContainer(

@@ -1,18 +1,17 @@
-import 'package:ecommerce_app/Provider/dashboard_provider.dart';
+import 'package:dio/dio.dart';
+import 'package:ecommerce_app/Model/dashboard_model.dart';
 import 'package:ecommerce_app/screen/dashBoard/dot_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'line_chart.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class DashBoardPage extends StatefulWidget {
+  const DashBoardPage( {Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<DashBoardPage> createState() => _MyAppState();
 }
-
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<DashBoardPage> {
 
   bool _loading = false;
   bool get loading => _loading;
@@ -22,15 +21,47 @@ class _MyAppState extends State<MyApp> {
   }
   List<Choice> choices =  <Choice>[];
   List<Choice> choices2 =  <Choice>[];
-  List<int> orderList = [];
-  List<double>  salesList = [];
-  String? token;
+
+  List<DashboardOrderState?>orderState = [];
+  List<int> orderStateList = [];
+  List<DashboardSalesState?>sallerState = [];
+  List<double> sallerStateList = [];
+
   Future<void> initialize() async {
-    final  provider =  Provider.of<DashboardProvider>(context,listen: false);
-    await provider.getData(token!);
-    orderList = provider.orderStateList;
-    salesList = provider.sallerStateList;
-    final data = provider.dashboardData;
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+
+    Dashboard? dashboardData ;
+
+    print("getData token"+authToken.toString());
+    try {
+      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/dashboard',
+        options: Options(
+            headers: {
+              "apiKey": "sdfdge544364dg#",
+              "Authorization": "Bearer $authToken"}),
+      );
+      Map<String,dynamic> dashboardDataList= response.data;
+      if(response.statusCode == 200){
+        dashboardData = Dashboard.fromJson(dashboardDataList);
+        orderState = dashboardData.orderState!;
+        orderStateList.clear();
+        for (var i=0; i<orderState.length; i++) {
+          orderStateList.add(dashboardData.orderState![i]!.order!.toInt());
+        }
+        sallerStateList.clear();
+        sallerState = dashboardData.salesState!;
+        for (var i=0; i<sallerState.length; i++) {
+          sallerStateList.add(dashboardData.salesState![i]!.sales!.toDouble());
+        }
+        print(sallerStateList);
+
+      }
+    } catch (e) {
+      print(e);
+    }
+     final data = dashboardData;
 
     choices =  <Choice>[
       Choice(title: 'Order',value:data!.totalOrders.toString(),icon: "assets/order.png"),
@@ -52,22 +83,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     setLoading(true);
-    getToken();
-    //initialize();
-    // TODO: implement initState
+    initialize();
     super.initState();
-  }
-  void getToken() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token = pref.getString("token");
-    setState(() {
-
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    initialize();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -132,7 +153,7 @@ class _MyAppState extends State<MyApp> {
                     // width: 370,
                     // height: 260,
                     child: Padding(padding: const EdgeInsets.only(left: 2),
-                      child: LineCharts(orderList),),
+                      child: LineCharts(orderStateList),),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
@@ -144,7 +165,7 @@ class _MyAppState extends State<MyApp> {
                     width: 360,
                     height: 250,
                     child: Padding(padding: const EdgeInsets.only(right: 10),
-                      child: DotCharts(salesList),) ,
+                      child: DotCharts(sallerStateList),) ,
                   ),
 
                 ],

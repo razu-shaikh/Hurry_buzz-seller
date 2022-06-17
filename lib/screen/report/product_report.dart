@@ -1,7 +1,9 @@
-import 'package:ecommerce_app/config/colors.dart';
+import 'dart:convert';
+import 'package:ecommerce_app/Model/reportModel.dart';
 import 'package:ecommerce_app/screen/report/report_headLine.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'report_design.dart';
 
 class AllProductReport extends StatefulWidget {
@@ -11,6 +13,38 @@ class AllProductReport extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<AllProductReport> {
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setLoading(bool value){
+    _loading = value;
+  }
+
+  Future<ReportModel> initialize() async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    print("token"+authToken.toString());
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/reports'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+    var data = jsonDecode(response.body.toString());
+    if(response.statusCode == 200){
+      return ReportModel.fromJson(data);
+    }else{
+      return ReportModel.fromJson(data);
+    }
+  }
+
+  @override
+  void initState() {
+    initialize();
+    setLoading(false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +87,29 @@ class _MyHomePageState extends State<AllProductReport> {
               ),
               report_head(),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) =>
-                      report_design(),
-                )
+                  child: FutureBuilder<ReportModel>(
+                      future: initialize(),
+                      builder: (context,snapShot){
+                        if(snapShot.hasData){
+                          return ListView.builder(
+                              itemCount: snapShot.data!.reports!.length,
+                              itemBuilder: (context, index){
+                                return GestureDetector(
+                                  child: report_design(snapShot.data!.reports![index]),
+                                );
+                              }
+                          );
+                        }
+                        else{
+                          return Center(
+                            child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
+
+                          );
+                        }
+
+                      }
+
+                  )
               ),
             ],
           ),

@@ -1,11 +1,10 @@
-import 'package:ecommerce_app/Model/shop_model.dart';
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
-import 'package:ecommerce_app/screen/shop/allProduct/all_productList.dart';
 import 'package:flutter/material.dart';
 
 class SingalProduct extends StatefulWidget {
 
-  final ShopAllProducts productData;
+  ShopModelPublished productData;
   SingalProduct( this.productData,);
 
   @override

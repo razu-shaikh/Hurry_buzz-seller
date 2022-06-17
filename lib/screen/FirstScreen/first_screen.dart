@@ -1,9 +1,11 @@
+import 'package:ecommerce_app/Model/profile_model.dart';
+import 'package:ecommerce_app/Provider/profile_provider.dart';
 import 'package:ecommerce_app/auth/widgets/text_field_container.dart';
 import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
 import 'package:ecommerce_app/screen/shop/home_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../config/colors.dart';
 import '../notification/notification.dart';
 import '../offers/offers.dart';
@@ -12,6 +14,7 @@ import '../report/product_report.dart';
 import '../shop/drawer_side.dart';
 
 class MyNavigationBar extends StatefulWidget {
+
   @override
   _MyNavigationBarState createState() => _MyNavigationBarState();
 }
@@ -20,9 +23,10 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   int _selectedIndex = 0;
   late String _title;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
   static  List<Widget> _widgetOptions = <Widget>[
     //HomePage(),
-    MyApp(),
+    DashBoardPage(),
     HomeScreen(),
     Order_pages(),
     AllOfferList(),
@@ -47,10 +51,19 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
       }
     });
   }
-  @override
-  initState(){
-    _title = 'DashBoard';
+   Profile? data;
+  Future<void> initialize() async {
+    final  provider =  Provider.of<ProfileProvider>(context,listen: false);
+    await provider.getData();//token
+    data = provider.profileData;
   }
+  @override
+  void initState() {
+    _title = 'DashBoard';
+    initialize();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +71,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
       onWillPop: () => Future.value(false),
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           iconTheme: IconThemeData(color: textColor),
           backgroundColor: Colors.red,
           title:Column(
@@ -97,7 +111,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
             if (_selectedIndex == 0)
               GestureDetector(
                 onTap: () {
-                 scaffoldKey.currentState?.openEndDrawer();
+                 scaffoldKey.currentState?.openDrawer();
                  },
                 child: Container(
                   padding: EdgeInsets.all(8), // Border width
@@ -115,7 +129,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           ],
         ),
         key: scaffoldKey,
-        endDrawer: Drawer(
+        drawer: Drawer(
           child:DrawerSide(),
         ),
         body: Center(

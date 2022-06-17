@@ -1,9 +1,10 @@
-import 'package:ecommerce_app/Model/order_model.dart';
+
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
+import '../../Model/orderModel.dart';
 import '../../widgets/count.dart';
 import '../../widgets/product_unit.dart';
 import '../notification/notification.dart';
@@ -12,7 +13,7 @@ import '../shop/drawer_side.dart';
 class SingleItemPreview extends StatefulWidget {
    bool? isBool = false;
 
-   final Order orderData;
+   final Orders orderData;
    final int index;
    SingleItemPreview( this.orderData, this.index);
 
@@ -22,7 +23,6 @@ class SingleItemPreview extends StatefulWidget {
 
 class _SingleItemState extends State<SingleItemPreview> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  //late ReviewCartProvider reviewCartProvider;
 
   var unitData;
   var firstValue;
@@ -49,6 +49,7 @@ class _SingleItemState extends State<SingleItemPreview> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: Colors.red,
         title:Column(
@@ -93,7 +94,7 @@ class _SingleItemState extends State<SingleItemPreview> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState?.openEndDrawer();
+              scaffoldKey.currentState?.openDrawer();
             },
             child: Container(
               padding: EdgeInsets.all(8), // Border width
@@ -111,13 +112,13 @@ class _SingleItemState extends State<SingleItemPreview> {
         ],
       ),
       key: scaffoldKey,
-      endDrawer: Drawer(
+      drawer: Drawer(
         child:DrawerSide(),
       ),
       body:Column(
         children: [
           SizedBox(height: 10),
-          Text('Order Details #'+widget.orderData.orderDetails![widget.index]!.orderId.toString(),
+          Text('Order Details #',//+widget.orderData.orderDetails![widget.index]!.orderId.toString(),
             style: TextStyle(color: Colors.black, fontSize: 17),
           ),
           SizedBox(height: 20),
@@ -158,8 +159,8 @@ class _SingleItemState extends State<SingleItemPreview> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                   widget.orderData.billingAddress!.name.toString(),
+                                Text("",
+                                   //widget.orderData.billingAddress!.name.toString(),
                                   style: TextStyle(
                                       color: textColor,
                                       fontWeight: FontWeight.bold,
@@ -170,8 +171,8 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(
-                                      widget.orderData.orderDetails![widget.index]!.orderId.toString(),
+                                    Text("",
+                                     // widget.orderData.orderDetails![widget.index]!.orderId.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -199,8 +200,8 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(
-                                      "\$"+widget.orderData.orderDetails![widget.index]!.price.toString(),
+                                    Text("",
+                                      //"\$"+widget.orderData.orderDetails![widget.index]!.price.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
