@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
-
-import 'package:ecommerce_app/config/colors.dart';
 import 'package:ecommerce_app/widgets/costom_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import '../notification/notification.dart';
 
 class AddItemDetails extends StatefulWidget {
@@ -14,13 +15,17 @@ class AddItemDetails extends StatefulWidget {
   _AddDeliverAddressState createState() => _AddDeliverAddressState();
 }
 
-enum AddressTypes {
-  Home,
-  Work,
-  Other,
-}
-
 class _AddDeliverAddressState extends State<AddItemDetails> {
+
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController tagController = TextEditingController();
+  TextEditingController slugController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
+  TextEditingController unitController = TextEditingController();
+  TextEditingController unitPriceController = TextEditingController();
+  TextEditingController minimumOrderController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController discountAmountController = TextEditingController();
 
   Widget bonntonNavigatorBar({
     Color? iconColor,
@@ -57,11 +62,32 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
       ),
     );
   }
-  var myType = AddressTypes.Home;
-  PickedFile?imageFile= null;
-  String dropdownvalue = 'Item 1';
-  var items = [
-    'Item 1',
+  PickedFile? imageFile ;
+  File? storedImage ;
+
+  final ImagePicker _picker = ImagePicker();
+  File? image;
+  List<File> multipleImages = [];
+
+  String categoryValue= 'Select Category';
+  String brandValue= 'Brand';
+  String discountTypeValue= 'Discount Type';
+  var category = [
+    'Select Category',
+    '10',
+    '13',
+    'I20',
+    'Item 5',
+  ];
+  var brand = [
+    'Brand',
+    '10',
+    '17',
+    '120',
+    'Item 5',
+  ];
+  var discountType = [
+    'Discount Type',
     'Item 2',
     'Item 3',
     'Item 4',
@@ -100,8 +126,87 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
     });
     }
 
+
+  Future<String?> addData(
+      String name,
+      var category_id,
+      var brand_id,
+      // String tags,
+      // String slug,
+      var current_stock,
+      String unit,
+      var price,
+      // var minimum_order_quantity,
+      var special_discount,
+      // var special_discount_type,
+      // var special_discount_period,
+      // String description,
+      String sku,
+      // File imageFile,
+      // List<File> files,
+      String status) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+
+    var uri = Uri.parse("https://hurrybuzz.com/api/v1/seller/add_product");
+    var request = http.MultipartRequest("POST", uri);
+
+    Map<String, String> headers = {
+      "apiKey": "sdfdge544364dg#",
+      "Authorization": "Bearer $authToken"
+    };
+    request.headers.addAll(headers);
+
+    // var stream = http.ByteStream(imageFile.openRead());
+    //     stream.cast();
+    // var length = await imageFile.length();
+    //
+    // var multipartFile =  http.MultipartFile('thumbnail', stream, length, filename: imageFile.path);
+    // request.files.add(multipartFile);
+    //
+    // //multiple images
+    // for (var file in files) {
+    //   String fileName = file.path.split("/").last;
+    //   var stream =  http.ByteStream(file.openRead());
+    //   stream.cast();
+    //   var length = await file.length(); //imageFile is your image file
+    //
+    //   var multipartFileSign =  http.MultipartFile('images', stream, length, filename: fileName);
+    //
+    //   request.files.add(multipartFileSign);
+    // }
+    //ignore this headers if there is no authentication
+
+//adding params
+    request.fields['name'] = name;
+    request.fields['category_id'] = category_id;
+    request.fields['brand_id'] = brand_id;
+    // request.fields['tags'] = tags;
+    // request.fields['slug'] = slug;
+    request.fields['current_stock'] = current_stock;
+    request.fields['unit'] = unit;
+    request.fields['price'] = price;
+   // request.fields['minimum_order_quantity'] = minimum_order_quantity;
+    request.fields['special_discount'] = special_discount;
+    //request.fields['special_discount_type'] = special_discount_type;
+    //request.fields['special_discount_period'] = special_discount_period;
+    //request.fields['description'] = description;
+    request.fields['sku'] = sku;
+    request.fields['status'] = status;
+
+    var response = await request.send();
+
+    print(response.statusCode);
+
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -141,12 +246,33 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
               color: Colors.white70,
               iconColor: Colors.white70,
               title: "Published",
-              onTap: () {
+              onTap: () async {
+                await addData(productNameController.text.toString(),
+                  categoryValue,
+                  brandValue,
+                  // tagController.text.toString(),
+                  // slugController.text.toString(),
+                  stockController.text.toString(),
+                  unitController.text.toString(),
+                    unitPriceController.text.toString(),
+                // minimumOrderController.text.toString(),
+                  discountAmountController.text.toString(),
+                 //discountTypeValue,
+                   // "1234",
+                   // descriptionController.text.toString(),
+                  "sku",
+                     // storedImage!,
+                     // multipleImages,
+                  "status"
+
+                 );
               }),
         ],
       ),
 
       body:ListView(
+        shrinkWrap: true,
+        physics: ScrollPhysics(),
         children: [
           Stack(
             children: [
@@ -208,7 +334,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                         child:Align(
                           alignment: Alignment.center,
                           child:IconButton(onPressed: (){
-                            _showChoiceDialog(context);
+                            _openImageMulti(context);
                           },
                             icon: Icon(Icons.add_circle_outline_sharp,size: 30,color: Colors.white70,),) ,
                         ) ,
@@ -217,7 +343,26 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                     ],
                   ),
                 ),
+
             ],
+          ),
+          Container(
+            height: 150,
+              child: GridView.builder(
+                shrinkWrap: true,
+                itemCount: multipleImages.isEmpty ? 1: multipleImages.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4),
+                itemBuilder: (context,index)=> Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.withOpacity(.5))
+
+                  ),
+                  child: multipleImages.isEmpty ? Icon(CupertinoIcons.person):Image.file(File(multipleImages[index].path)),
+                ),
+              ),
+
           ),
          Padding(
              padding: EdgeInsets.all(10),
@@ -225,12 +370,12 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
-              obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter product Name',
                 hintText: 'Product Name',
               ),
+              controller: productNameController,
             ),
           ),
           Row(
@@ -238,15 +383,18 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
             children: [
               Container(
                 width: 180,
+                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black12),
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: Center(
                   child: DropdownButton(
-                    value: dropdownvalue,
+                    underline: SizedBox(),
+                    value: categoryValue,
+                    isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
+                    items: category.map((String items) {
                       return DropdownMenuItem(
                         value: items,
                         child: Text(items),
@@ -254,7 +402,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                     }).toList(),
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownvalue = newValue!;
+                        categoryValue = newValue!;
                       });
                     },
                   ),
@@ -262,23 +410,26 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
               ),
               Container(
                 width: 180,
+                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: Center(
                   child: DropdownButton(
-                    value: dropdownvalue,
+                    underline: SizedBox(),
+                    value: brandValue,
+                    isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
+                    items: brand.map((String brand) {
                       return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
+                        value: brand,
+                        child: Text(brand),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownvalue = newValue!;
+                        brandValue = newValue!;
                       });
                     },
                   ),
@@ -289,39 +440,24 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
           ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter Tags',
+                hintText: 'Tags',
               ),
-              child: Center(
-                child: DropdownButton(
-                  value: dropdownvalue,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: items.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
-                ),
-              ),
+              controller: tagController,
             ),
           ),
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
-              obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter Slug',
                 hintText: 'Slug',
               ),
+              controller: slugController,
             ),
           ),
           Row(
@@ -334,12 +470,12 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter Stock',
                     hintText: 'Stock',
                   ),
+                  controller: stockController,
                 ),
               ),
               Container(
@@ -349,12 +485,12 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Unit KG',
                     hintText: 'KG',
                   ),
+                  controller: unitController,
                 ),
               ),
 
@@ -373,12 +509,12 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Unit Price',
                     hintText: 'Price',
                   ),
+                  controller: unitPriceController,
                 ),
               ),
               Container(
@@ -388,7 +524,6 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Minimum Order',
@@ -430,24 +565,27 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                width: 190,
+                width: 180,
+                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: Center(
                   child: DropdownButton(
-                    value: dropdownvalue,
+                    underline: SizedBox(),
+                    value: discountTypeValue,
+                    isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
+                    items: discountType.map((String discountType) {
                       return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
+                        value: discountType,
+                        child: Text(discountType),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownvalue = newValue!;
+                        discountTypeValue = newValue!;
                       });
                     },
                   ),
@@ -459,22 +597,13 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
-                child: Center(
-                  child: DropdownButton(
-                    value: dropdownvalue,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter Discount Amount',
+                    hintText: 'Discount Amount',
                   ),
+                  controller: discountAmountController,
                 ),
               ),
 
@@ -483,7 +612,6 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
-              obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Discount Period",
@@ -528,70 +656,10 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                   labText: "PinCode",
                   //controller: checkoutProvider.pincode,
                 ),
-                InkWell(
-                  onTap: () {
-                  },
-                  child: Container(
-                    height: 47,
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //checkoutProvider.setLoaction == null? Text("Set Location"):
-                        Text("Done!"),
-                      ],
-                    ),
-                  ),
-                ),
                 Divider(
                   color: Colors.black,
                 ),
-                ListTile(
-                  title: Text("Address Type*"),
-                ),
-                RadioListTile(
-                  value: AddressTypes.Home,
-                  groupValue: myType,
-                  title: Text("Home"),
-                  onChanged: (AddressTypes? value) {
-                    setState(() {
-                      myType = value!;
-                    });
-                  },
-                  secondary: Icon(
-                    Icons.home,
-                    color: primaryColor,
-                  ),
-                ),
-                RadioListTile(
-                  value: AddressTypes.Work,
-                  groupValue: myType,
-                  title: Text("Work"),
-                  onChanged: (AddressTypes? value) {
-                    setState(() {
-                      myType = value!;
-                    });
-                  },
-                  secondary: Icon(
-                    Icons.work,
-                    color: primaryColor,
-                  ),
-                ),
-                RadioListTile(
-                  value: AddressTypes.Other,
-                  groupValue: myType,
-                  title: Text("Other"),
-                  onChanged: (AddressTypes? value) {
-                    setState(() {
-                      myType = value!;
-                    });
-                  },
-                  secondary: Icon(
-                    Icons.devices_other,
-                    color: primaryColor,
-                  ),
-                )
+
               ],
             ),
     );
@@ -604,6 +672,8 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
     );
     setState(() {
       imageFile = pickedFile!;
+      storedImage = File(imageFile!.path);
+      print(imageFile);
     });
 
     Navigator.pop(context);
@@ -615,7 +685,16 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
     );
     setState(() {
       imageFile = pickedFile!;
+     storedImage = File(imageFile!.path);
     });
     Navigator.pop(context);
+  }
+
+  void _openImageMulti(BuildContext context)  async{
+    List<XFile>? picked = await _picker.pickMultiImage();
+    setState(() {
+      multipleImages = picked!.map((e) => File(e.path)).toList();
+    });
+   // Navigator.pop(context);
   }
 }

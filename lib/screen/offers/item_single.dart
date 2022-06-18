@@ -115,8 +115,8 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Text(
-                        'Buy 1 Get 1 Free',
+                      Text(widget.offers.campaign!.currentLanguage![0].title.toString(),
+                        //'Buy 1 Get 1 Free',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
@@ -124,8 +124,8 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                       SizedBox(
                         width: 20,
                       ),
-                      Text(
-                        '1 January- 5 January 2022',
+                      Text( widget.offers.campaign!.campaignStartDate.toString()+"-"+widget.offers.campaign!.campaignEndDate.toString(),
+                        //'1 January- 5 January 2022',
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
@@ -136,8 +136,9 @@ class _HomeScreenState extends State<ItemSingleDesign> {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
+                  child: Text( widget.offers.campaign!.currentLanguage![0].description.toString()+"first come first get hurry up avaiable "
+                      "from 31 st to 05 , come first get first",
+                      //'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal),

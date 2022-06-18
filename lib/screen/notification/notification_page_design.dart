@@ -1,7 +1,11 @@
+import 'package:ecommerce_app/Model/notificationModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 
 class SingalNotification extends StatefulWidget {
+  Notifications notifications;
+  SingalNotification(this.notifications);
+
 
   @override
   _SingalProductState createState() => _SingalProductState();
@@ -49,7 +53,8 @@ class _SingalProductState extends State<SingalNotification> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Very Good Product",
+                              widget.notifications.title.toString(),
+                              //"Very Good Product",
                               style: TextStyle(
                                 color: textColor,
                                 fontWeight: FontWeight.bold,
@@ -60,7 +65,8 @@ class _SingalProductState extends State<SingalNotification> {
                             ),
                             Container(
                               child: Text(
-                                "SirajGonj  8 AM - 5 PM",
+                                widget.notifications.date.toString(),
+                               // "SirajGonj  8 AM - 5 PM",
                                 style: TextStyle(
                                   color: textColor,
                                   fontWeight: FontWeight.normal,
@@ -92,13 +98,23 @@ class _SingalProductState extends State<SingalNotification> {
                       ),
                     ),
                     Container(
-                        height: 30,
-                        width: 30,
-                        margin: EdgeInsets.only(right: 10,top:5),
-                        decoration: BoxDecoration(
-                            color: Color(0xffc6c9c6),
-                            borderRadius: BorderRadius.circular(100)),
-                        child: Icon(Icons.remove,color: Colors.white,)
+                      child:Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                        child: Text(
+                          widget.notifications.status.toString(),
+                          style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+
+                      ),
+
                     ),
                   ],
                 ),

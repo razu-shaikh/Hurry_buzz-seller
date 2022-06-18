@@ -16,10 +16,9 @@ class TabBar_shop extends StatefulWidget {
 class _MyHomePageState extends State<TabBar_shop> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
+    return Column(
             children: <Widget>[
-          DefaultTabController(
+           DefaultTabController(
               length: 4, // length of tabs
               initialIndex: 0,
               child: Column(
@@ -38,7 +37,7 @@ class _MyHomePageState extends State<TabBar_shop> {
                   ),
                 ),
                 Container(
-                    height:320, //height of TabBarView
+                    height:440, //height of TabBarView
                     decoration: BoxDecoration(
                         border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                     ),
@@ -51,12 +50,11 @@ class _MyHomePageState extends State<TabBar_shop> {
                       ]
                       ),
                     )
-                )
-              ])
-          ), SizedBox( // <-- use a sized box and change the height
-                  height: 30.0)
-        ]),
+                ),
 
-    );
+              ])
+          ),
+        ]);
+
   }
 }

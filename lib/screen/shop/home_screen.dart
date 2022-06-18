@@ -214,7 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context,snapShot){
                 if(snapShot.hasData){
                   return TabBar_shop(snapShot.data!);
-
                 }else{
                   return Center(
                     child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,

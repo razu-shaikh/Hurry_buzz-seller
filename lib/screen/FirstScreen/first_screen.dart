@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/Model/profile_model.dart';
 import 'package:ecommerce_app/Provider/profile_provider.dart';
-import 'package:ecommerce_app/auth/widgets/text_field_container.dart';
 import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
 import 'package:ecommerce_app/screen/shop/home_screen.dart';

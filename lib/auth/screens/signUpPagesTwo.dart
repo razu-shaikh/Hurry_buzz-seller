@@ -1,14 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_app/Model/shop_type_model.dart';
-import 'package:ecommerce_app/Provider/signIn_provider.dart';
+import 'package:ecommerce_app/Model/registration_model.dart';
 import 'package:ecommerce_app/auth/components/under_part.dart';
 import 'package:ecommerce_app/auth/widgets/text_field_container.dart';
-import 'package:ecommerce_app/widgets/shop_type_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'login_screen.dart';
 
 class SignUpScreenTwo extends StatefulWidget {
@@ -69,15 +66,89 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
     '40',
     'Item 5',
   ];
+  Registration? registrationData;
+
+  String? _token;
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setLoading(bool value){
+    _loading = value;
+  }
+  Future<void> signUp(
+      String email,
+      String password,
+      String firstName,
+      String lastName,
+      String accountType,
+      String phone,
+      String shopName,
+      String slug,    //shop user name
+      String address,
+      String latitude,
+      String longitude,
+      String shop_type_id,
+      String state_id,
+      String city_id,
+      String town_id,
+      String logo,
+      String banner
+      ) async{
+    print(email+password+firstName+lastName+accountType+phone+shopName+slug+address+latitude+longitude+shop_type_id+state_id+city_id+town_id);
+    setLoading(true);
+    try{
+      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/register',
+        options: Options(
+          headers: {"apiKey": "sdfdge544364dg#"},
+        ),
+        data: {
+          "email": email,
+          "password": password,
+          "first_name":firstName,
+          "last_name":lastName,
+          "account_type":accountType,
+          "phone":phone,
+          "shop_name":shopName,
+          "slug":slug,
+          "address":address,
+          "latitude":latitude,
+          "longitude":longitude,
+          "shop_type_id":shop_type_id, //must be a number
+          "state_id":state_id,//must be a number
+          "city_id":city_id,//must be a number
+          "town_id":town_id,//must be a number
+          "logo":logo,
+          "banner":banner
+        },
+      );
+      Map<String,dynamic> authDataList= response.data;
+        if(response.statusCode == 200){
+          registrationData = Registration.fromJson(authDataList);
+          _token = registrationData!.data!.token;
+          print(_token);
+
+        }
+
+    }
+    catch(e){
+      print(e.toString);
+      setLoading(false);
+
+    }
+
+  }
+  String? get token {
+    return _token;
+  }
+
+  @override
+  void initState() {
+    setLoading(false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    // print(widget.email);
-    // print(widget.firstName);
-    // print(widget.accountType);
-
-    final signInProvider = Provider.of<SignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.red,
@@ -181,26 +252,26 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
-                                child: ShopTypeDropDown(),
-                                // DropdownButton(
-                                //   underline: SizedBox(),
-                                //   value: shopTypeValue,
-                                //   isExpanded: true,
-                                //   iconSize: 36,
-                                //   hint: Text("Shop Type"),
-                                //   icon: const Icon(Icons.arrow_drop_down_outlined),
-                                //   items: itemsShopType.map((String items) {
-                                //     return DropdownMenuItem(
-                                //       value: items,
-                                //       child: Text(items),
-                                //     );
-                                //   }).toList(),
-                                //   onChanged: (String? newValue) {
-                                //     setState(() {
-                                //       shopTypeValue = newValue!;
-                                //     });
-                                //   },
-                                // ),
+                                child: //ShopTypeDropDown(),
+                                DropdownButton(
+                                  underline: SizedBox(),
+                                  value: shopTypeValue,
+                                  isExpanded: true,
+                                  iconSize: 36,
+                                  hint: Text("Shop Type"),
+                                  icon: const Icon(Icons.arrow_drop_down_outlined),
+                                  items: itemsShopType.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      shopTypeValue = newValue!;
+                                    });
+                                  },
+                                ),
                               ),
                               SizedBox(height: 10),
                               TextFieldContainer(
@@ -343,7 +414,7 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                               ),
                               InkWell(
                                 onTap: () async{
-                                  await signInProvider.signUp(
+                                  await signUp(
                                       widget.email,
                                       widget.password,
                                       widget.firstName,
@@ -362,7 +433,7 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                       logoController.text.toString(),
                                       bannerController.text.toString(),
                                   );
-                                  signInProvider.token == null ? Fluttertoast.showToast(msg: "Fill Up correctly !!"):
+                                  token == null ? Fluttertoast.showToast(msg: "Fill Up correctly !!"):
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) => LoginScreen())
                                   );
@@ -376,7 +447,7 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
-                                      child:signInProvider.loading? CircularProgressIndicator(color:Colors.white):
+                                      child:loading? CircularProgressIndicator(color:Colors.white):
                                       Text("SignUp",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
                                       )),
                                     ),
