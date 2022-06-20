@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/registration_model.dart';
 import 'package:ecommerce_app/auth/components/under_part.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_screen.dart';
+import 'package:http/http.dart' as http;
+
 
 class SignUpScreenTwo extends StatefulWidget {
   //const SignUpScreenTwo({Key? key}) : super(key: key);
@@ -34,38 +38,58 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
   TextEditingController lonController = TextEditingController();
   bool passObscure= true;
 
-  String shopTypeValue = 'Shop Type';
-  String stateTypeValue = 'State';
-  String cityTypeValue = 'City';
-  String townTypeValue = 'Town';
-  var itemsShopType = [
-    'Shop Type',
-    '10',
-    '12',
-    '14',
-    'Item 5',
-  ];
-  var itemsState = [
-    'State',
-    '10',
-    '20',
-    '30',
-    'Item 5',
-  ];
-  var itemsCity = [
-    'City',
-    '10',
-    '20',
-    '25',
-    'Item 5',
-  ];
-  var itemsTown = [
-    'Town',
-    '10',
-    '20',
-    '40',
-    'Item 5',
-  ];
+  var shopSelection;
+  var stateSelection ;
+  var citySelection;
+  var townSelection;
+  //shop
+  final String url = "https://hurrybuzz.com/api/v1/seller/";
+  List shopData = []; //edited line
+  Future<String> getSWDataShop() async {
+    var res = await http
+        .post(Uri.parse(url+"shop_types"),
+        headers: {"apiKey": "sdfdge544364dg#"});
+    var resBody = jsonDecode(res.body);
+    setState(() {
+      shopData = resBody;
+    });
+    return "Sucess";
+  }
+
+  List stateData = []; //edited line
+  Future<String> getSWDataState() async {
+    var res = await http
+        .post(Uri.parse(url+"states"),
+        headers: {"apiKey": "sdfdge544364dg#"});
+    var resBody = jsonDecode(res.body);
+    setState(() {
+      stateData = resBody;
+    });
+    return "Sucess";
+  }
+  List cityData = []; //edited line
+  Future<String> getSWDataCity() async {
+    var res = await http
+        .post(Uri.parse(url+"cities"),
+        headers: {"apiKey": "sdfdge544364dg#"});
+    var resBody = jsonDecode(res.body);
+    setState(() {
+      cityData = resBody;
+    });
+    return "Sucess";
+  }
+  List townData = []; //edited line
+  Future<String> getSWDataTown() async {
+    var res = await http
+        .post(Uri.parse(url+"towns"),
+        headers: {"apiKey": "sdfdge544364dg#"});
+    var resBody = jsonDecode(res.body);
+
+    setState(() {
+      townData = resBody;
+    });
+    return "Sucess";
+  }
   Registration? registrationData;
 
   String? _token;
@@ -126,27 +150,25 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
           registrationData = Registration.fromJson(authDataList);
           _token = registrationData!.data!.token;
           print(_token);
-
         }
-
     }
     catch(e){
       print(e.toString);
       setLoading(false);
-
     }
-
   }
   String? get token {
     return _token;
   }
-
   @override
   void initState() {
     setLoading(false);
+    getSWDataShop();
+    getSWDataState();
+    getSWDataCity();
+    getSWDataTown();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -167,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
               children: [
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 50),
+                    padding: const EdgeInsets.only(right: 10),
                     child: Image.asset(
                       "assets/images/login.PNG",
                       alignment: Alignment.center,
@@ -252,26 +274,26 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
-                                child: //ShopTypeDropDown(),
-                                DropdownButton(
+                                //child: ShopTypeDropDown(shopSelection),
+                                child: DropdownButton(
+                                  hint: Text("Shop Type"),
                                   underline: SizedBox(),
-                                  value: shopTypeValue,
                                   isExpanded: true,
                                   iconSize: 36,
-                                  hint: Text("Shop Type"),
-                                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                                  items: itemsShopType.map((String items) {
+                                  items: shopData.map((item) {
                                     return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
+                                      child: Text(item['name']),
+                                      value: item['id'],
                                     );
                                   }).toList(),
-                                  onChanged: (String? newValue) {
+                                  onChanged: ( newVal) {
                                     setState(() {
-                                      shopTypeValue = newValue!;
+                                      shopSelection = newVal;
                                     });
                                   },
+                                  value: shopSelection,
                                 ),
+
                               ),
                               SizedBox(height: 10),
                               TextFieldContainer(
@@ -309,24 +331,52 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
+                                // child:StateTypeDropDown(stateSelection),
                                 child: DropdownButton(
+                                  hint: Text("Select State"),
                                   underline: SizedBox(),
-                                  value: stateTypeValue,
                                   isExpanded: true,
                                   iconSize: 36,
-                                  hint: Text("State"),
-                                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                                  items: itemsState.map((String items) {
+                                  items: stateData.map((item) {
                                     return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
+                                      child: Text(item['name']),
+                                      value: item['id'],
                                     );
                                   }).toList(),
-                                  onChanged: (String? newValue) {
+                                  onChanged: ( newVal) {
                                     setState(() {
-                                      stateTypeValue = newValue!;
+                                      stateSelection = newVal;
                                     });
                                   },
+                                  value: stateSelection,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                width: size.width *0.8,
+                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color:Colors.black26,width: 1),
+                                ),
+                                //child: CityTypeDropDown(citySelection),
+                                child: DropdownButton(
+                                  hint: Text("Select City "),
+                                  underline: SizedBox(),
+                                  isExpanded: true,
+                                  iconSize: 36,
+                                  items: cityData.map((item) {
+                                    return DropdownMenuItem(
+                                      child: Text(item['name']),
+                                      value: item['id'],
+                                    );
+                                  }).toList(),
+                                  onChanged: ( newVal) {
+                                    setState(() {
+                                      citySelection = newVal;
+                                    });
+                                  },
+                                  value: citySelection,
                                 ),
                               ),
                               SizedBox(height: 20),
@@ -337,52 +387,24 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
+                               // child: TownTypeDropDown(townSelection),
                                 child: DropdownButton(
+                                  hint: Text("Select Town"),
                                   underline: SizedBox(),
-                                  value: cityTypeValue,
                                   isExpanded: true,
                                   iconSize: 36,
-                                  hint: Text("City"),
-                                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                                  items: itemsCity.map((String items) {
+                                  items: townData.map((item) {
                                     return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
+                                      child: Text(item['name']),
+                                      value: item['id'],
                                     );
                                   }).toList(),
-                                  onChanged: (String? newValue) {
+                                  onChanged: ( newVal) {
                                     setState(() {
-                                      cityTypeValue = newValue!;
+                                      townSelection = newVal;
                                     });
                                   },
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Container(
-                                width: size.width *0.8,
-                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color:Colors.black26,width: 1)
-                                ),
-                                child: DropdownButton(
-                                  underline: SizedBox(),
-                                  value: townTypeValue,
-                                  isExpanded: true,
-                                  iconSize: 36,
-                                  hint: Text("Town"),
-                                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                                  items: itemsTown.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      townTypeValue = newValue!;
-                                    });
-                                  },
+                                  value: townSelection,
                                 ),
                               ),
                               SizedBox(height: 10),
@@ -426,10 +448,10 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                       addressController.text.toString(),
                                       latController.text.toString(),
                                       lonController.text.toString(),
-                                      shopTypeValue,
-                                      stateTypeValue,
-                                      cityTypeValue,
-                                      townTypeValue,
+                                      shopSelection,
+                                      stateSelection,
+                                      citySelection,
+                                      townSelection,
                                       logoController.text.toString(),
                                       bannerController.text.toString(),
                                   );

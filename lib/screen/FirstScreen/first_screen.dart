@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/profile_model.dart';
 import 'package:ecommerce_app/Provider/profile_provider.dart';
 import 'package:ecommerce_app/screen/addItem/add_item.dart';
@@ -5,6 +6,7 @@ import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
 import 'package:ecommerce_app/screen/shop/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/colors.dart';
 import '../notification/notification.dart';
 import '../offers/offers.dart';
@@ -33,13 +35,45 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
 
   ];
 
+  String? image;
+  String? shopnName;
+  String? address;
+
+  Future<void> initialize() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    Profile? profileData ;
+    try {
+      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/me',
+        options: Options(
+            headers: {
+              "apiKey": "sdfdge544364dg#",
+              "Authorization": "Bearer $authToken"}),
+      );
+      Map<String,dynamic> profileDataList= response.data;
+
+      if(response.statusCode == 200) {
+        // _dashboardData.clear();
+        profileData = Profile.fromJson(profileDataList);
+        setState(() {
+          image = profileData!.user!.profileImage;
+          shopnName = profileData.user!.sellerProfile!.shopName;
+          address = profileData.user!.sellerProfile!.address;
+
+        });
+
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       switch(index) {
         case 0: { _title = 'Demo Shop'; }
         break;
-        case 1: { _title = 'Shop Name'; }
+        case 1: { _title = shopnName!; }
         break;
         case 2: { _title = 'Orders'; }
         break;
@@ -50,12 +84,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
       }
     });
   }
-   Profile? data;
-  Future<void> initialize() async {
-    final  provider =  Provider.of<ProfileProvider>(context,listen: false);
-    await provider.getData();//token
-    data = provider.profileData;
-  }
+
   @override
   void initState() {
     _title = 'DashBoard';
@@ -78,15 +107,33 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
             children: [
               Row(
                 children: [
-                  Image.asset("assets/giftbox.png",width: 25,height: 25,),
+                  GestureDetector(
+                    onTap: () {
+                      scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8), // Border width
+                      decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: SizedBox.fromSize(
+                          size: Size.fromRadius(20), // Image radius
+                          child: Image.network(image??"", fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(width: 5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_title,
+                      _selectedIndex == 0 ?
+                      Text(shopnName??"",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ):Text(_title,
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
-                        Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
+                        Text(address??"",style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                     ],
                   )
@@ -107,23 +154,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
                 icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
               ),
             ),
-            if (_selectedIndex == 0)
-              GestureDetector(
-                onTap: () {
-                 scaffoldKey.currentState?.openDrawer();
-                 },
-                child: Container(
-                  padding: EdgeInsets.all(8), // Border width
-                  decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: SizedBox.fromSize(
-                      size: Size.fromRadius(20), // Image radius
-                      child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-              ),
+
 
           ],
         ),

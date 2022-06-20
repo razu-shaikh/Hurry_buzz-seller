@@ -1,8 +1,12 @@
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SingleCampaignItem extends StatefulWidget {
+  ShopModelCampaigns shopModelCampaigns;
+  SingleCampaignItem(this.shopModelCampaigns);
+
   get isBool => null;
 
 
@@ -11,17 +15,7 @@ class SingleCampaignItem extends StatefulWidget {
 }
 
 class _SingleItemState extends State<SingleCampaignItem> {
-  //late ReviewCartProvider reviewCartProvider;
 
-  bool? isBool = false;
-  var unitData;
-  var firstValue;
-
-  int count=0;
-  getCount() {
-    setState(() {
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,148 +23,68 @@ class _SingleItemState extends State<SingleCampaignItem> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
-            child: Container(
-              height: 120,
-              decoration: BoxDecoration(
-                color: Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.circular(10),
+         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child:Card(
+              shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.only(
+           topRight: Radius.circular(10),
+            topLeft: Radius.circular(10)),
+              side: BorderSide(width: 1, color: Color(0xFFD4D4D4))),
+              child: Column(
+             children: [
+                Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                   fit: BoxFit.cover,
+                   image: NetworkImage(
+                   'https://cdn.shopify.com/s/files/1/0623/0687/7667/articles/3-Reasons-Getting-Those-Fresh-Veggies-To-Your-Table-Is-More-Complicated-Than-You-Think.jpg?v=1642268664'),
+                 ),
+                   borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
-                      ),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10)),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'productName',
-                            style: TextStyle(
-                              color: textColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
+    ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                     child: Row(
+                      children: [
                               Text(
-                                "#123456",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "10",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "min ago",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "\$10",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "1",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "pics",
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Publish",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                      height: 30,
-                      width: 30,
-                      margin: EdgeInsets.only(right: 10, top: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Icon(Icons.edit_outlined)),
-                ],
-              ),
-            ),
-          ),
-        ),
+                         widget.shopModelCampaigns.campaign!.currentLanguage![0]!.title.toString(),
+                        //"Buy 1 Get i Free"
+                      style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+    ),
+                         SizedBox(
+                          width: 20,
+    ),
+                           Text(
+                           widget.shopModelCampaigns.campaign!.campaignStartDate.toString()+"-"+widget.shopModelCampaigns.campaign!.campaignEndDate.toString(),
+    // '1 January- 5 January 2022',
+                          style: TextStyle(
+                         fontSize: 12,
+                         fontWeight: FontWeight.normal),
+    ),
+    ],
+    ) ,
+    ),
+
+                      Padding(
+                         padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                         widget.shopModelCampaigns.campaign!.currentLanguage![0]!.description.toString()+"first come first get hurry up avaiable "
+    "from 31 st to 05 , come first get first",
+    //'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
+                        style: TextStyle(
+                            fontSize: 12,
+                             fontWeight: FontWeight.normal),
+                             overflow: TextOverflow.ellipsis,
+                               maxLines: 3
+    ),
+    ),
+    ],
+    ) ,
+    )
+    )
       ],
     );
   }

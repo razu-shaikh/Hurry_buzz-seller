@@ -93,23 +93,21 @@ class _LoginScreenState extends State<LoginScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.red,
     ));
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
-      child: SafeArea(
+    return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text("LogIn",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, ),),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.red,
-          ),
+          // appBar: AppBar(
+          //   title: Text("LogIn",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, ),),
+          //   automaticallyImplyLeading: false,
+          //   backgroundColor: Colors.red,
+          // ),
           body: Center(
             child: SingleChildScrollView(
               child: Stack(
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 10),
                       child: Image.asset(
                        "assets/images/login.PNG",
                        alignment: Alignment.center,
@@ -242,8 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
   Future<void> setToken(token) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();

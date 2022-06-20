@@ -1,10 +1,12 @@
 
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:flutter/material.dart';
 
 import 'draft_item_design.dart';
 
 class DraftPages extends StatefulWidget {
-  const DraftPages({Key? key}) : super(key: key);
+  List<ShopModelDraft?>? draft;
+  DraftPages(this.draft, {Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,10 +24,10 @@ class _HomeScreenState extends State<DraftPages> {
           children: [
             Expanded(
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: widget.draft!.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        child: SingleDraftItem(),
+                        child: SingleDraftItem(widget.draft![index]!),
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }

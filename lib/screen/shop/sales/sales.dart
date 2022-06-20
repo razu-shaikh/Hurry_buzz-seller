@@ -1,10 +1,12 @@
 
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:flutter/material.dart';
 
 import 'sales_pages_design.dart';
 
 class SalesPages extends StatefulWidget {
-  const SalesPages({Key? key}) : super(key: key);
+  List<ShopModelSales?>? sales;
+  SalesPages(this.sales, {Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,10 +24,10 @@ class _HomeScreenState extends State<SalesPages> {
           children: [
             Expanded(
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: widget.sales!.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        child: SingleSalesItem(),
+                        child: SingleSalesItem(widget.sales![index]!),
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }

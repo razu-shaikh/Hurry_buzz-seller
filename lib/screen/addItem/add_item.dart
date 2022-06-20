@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:ecommerce_app/Model/category_model.dart';
 import 'package:ecommerce_app/widgets/costom_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,16 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
       ),
     );
   }
+
+  bool _loading = false;
+  bool get loading => _loading;
+
+  setLoading(bool value){
+    setState(() {
+      _loading = value;
+    });
+  }
+
   PickedFile? imageFile ;
   File? storedImage ;
 
@@ -69,9 +80,37 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
   File? image;
   List<File> multipleImages = [];
 
-  String categoryValue= 'Select Category';
-  String brandValue= 'Brand';
+  String  categoryValue = 'Select Category';
+  String brandValue = 'Brand' ;
   String discountTypeValue= 'Discount Type';
+
+  // final String url = "https://hurrybuzz.com/api/v1/seller/";
+  // List <CategoryModel> categoryData = []; //edited line
+  // Future<String?> getSWDataCategory() async {
+  //   var res = await http
+  //       .post(Uri.parse(url+"categories"),
+  //       headers: {"apiKey": "sdfdge544364dg#"});
+  //   var resBody = jsonDecode(res.body);
+  //   setState(() {
+  //     categoryData = resBody;
+  //   });
+  //   return "success";
+  // }
+  //
+  // List brandData = []; //edited line
+  // Future<String> getSWDataBrand() async {
+  //   var res = await http
+  //       .post(Uri.parse(url+"brands"),
+  //       headers: {"apiKey": "sdfdge544364dg#"});
+  //   var resBody = jsonDecode(res.body);
+  //   setState(() {
+  //     brandData = resBody;
+  //   });
+  //   return "Sucess";
+  // }
+
+
+
   var category = [
     'Select Category',
     '10',
@@ -122,7 +161,8 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
               ),
             ],
           ),
-        ),);
+        ),
+      );
     });
     }
 
@@ -145,6 +185,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
       // File imageFile,
       // List<File> files,
       String status) async {
+    setLoading(true);
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? authToken = pref.getString("token");
 
@@ -201,8 +242,14 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
     response.stream.transform(utf8.decoder).listen((value) {
       print(value);
     });
+    setLoading(false);
   }
-
+  @override
+  void initState() {
+    // getSWDataCategory();
+    // getSWDataBrand();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +307,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                  //discountTypeValue,
                    // "1234",
                    // descriptionController.text.toString(),
-                  "sku",
+                  "skue",
                      // storedImage!,
                      // multipleImages,
                   "status"
@@ -307,10 +354,11 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                             ),
                             child:Padding(
                               padding: const EdgeInsets.all(2),
-                              child:( imageFile == null)?Text(""):Image.file(
-                                File(imageFile!.path),
-                                fit: BoxFit.cover,
-                              ),
+                              child:Padding(
+                                padding: const EdgeInsets.only(bottom: 40),
+                                child: Center(
+                                    child: Text("Add Images ",style: TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold),)),
+                              )
                             ),
 
                           ),
@@ -319,7 +367,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                             child:Align(
                               alignment: Alignment.center,
                               child:IconButton(onPressed: (){
-                                _showChoiceDialog(context);
+                                _openImageMulti(context);
                               },
                                 icon: Icon(Icons.add_circle_outline_sharp,size: 30,color: Colors.white70,),) ,
                             ) ,
@@ -334,7 +382,7 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                         child:Align(
                           alignment: Alignment.center,
                           child:IconButton(onPressed: (){
-                            _openImageMulti(context);
+                            _showChoiceDialog(context);
                           },
                             icon: Icon(Icons.add_circle_outline_sharp,size: 30,color: Colors.white70,),) ,
                         ) ,
@@ -347,19 +395,23 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
             ],
           ),
           Container(
-            height: 150,
+            height: 100,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
               child: GridView.builder(
                 shrinkWrap: true,
                 itemCount: multipleImages.isEmpty ? 1: multipleImages.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
-                itemBuilder: (context,index)=> Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.withOpacity(.5))
-
+                itemBuilder: (context,index)=>
+                    Container(
+                       decoration: BoxDecoration(
+                        color: Colors.white,
                   ),
-                  child: multipleImages.isEmpty ? Icon(CupertinoIcons.person):Image.file(File(multipleImages[index].path)),
+                     child: multipleImages.isEmpty ? Text(""):Image.file(File(multipleImages[index].path)),
                 ),
               ),
 
@@ -394,10 +446,10 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                     value: categoryValue,
                     isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: category.map((String items) {
+                    items: category.map((String discountType) {
                       return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
+                        value: discountType,
+                        child: Text(discountType),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
@@ -421,10 +473,10 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
                     value: brandValue,
                     isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: brand.map((String brand) {
+                    items: brand.map((String discountType) {
                       return DropdownMenuItem(
-                        value: brand,
-                        child: Text(brand),
+                        value: discountType,
+                        child: Text(discountType),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {

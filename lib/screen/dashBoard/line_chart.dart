@@ -46,7 +46,7 @@ class LineCharts extends StatelessWidget {
                 // FlSpot(11, 11),
 
               isCurved: true,
-              barWidth: 2,
+              barWidth: 1,
               colors: [
                 Colors.black,
               ],
@@ -120,7 +120,7 @@ class LineCharts extends StatelessWidget {
           gridData: FlGridData(
             show: true,
             checkToShowHorizontalLine: (double value) {
-              return value == 1 || value == 2 || value == 3 || value == 4 || value == 5 || value == 6 || value == 7 || value == 8 ;
+              return value == 1 || value == 2 || value == 3 || value == 4  ;
             },
           ),
         ),

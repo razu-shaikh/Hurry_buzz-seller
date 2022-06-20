@@ -23,6 +23,7 @@ class _MyAppState extends State<MyApp> {
     String? _token = pref.getString("token");
     setState(() {
       token = _token;
+      print(token);
     });
   }
 
@@ -56,9 +57,9 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor),
-        debugShowCheckedModeBanner: false,
-        //home: token == null && token==""? LoginScreen() : MyNavigationBar()
-      home:LoginScreen()
+           debugShowCheckedModeBanner: false,
+        home: token == null ? LoginScreen() : MyNavigationBar()
+      //home:LoginScreen()
     );
   }
 }

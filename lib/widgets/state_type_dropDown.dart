@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-class ShopTypeDropDown extends StatefulWidget {
-  var shopSelection;
-  ShopTypeDropDown(this.shopSelection);
+class StateTypeDropDown extends StatefulWidget {
+  var stateSelection;
+  StateTypeDropDown(this.stateSelection);
 
   State createState() => new MyAppState();
 }
-class MyAppState extends State<ShopTypeDropDown> {
+class MyAppState extends State<StateTypeDropDown> {
 
-  final String url = "https://hurrybuzz.com/api/v1/seller/shop_types";
+  final String url = "https://hurrybuzz.com/api/v1/seller/states";
 
   List data = []; //edited line
 
@@ -38,28 +38,28 @@ class MyAppState extends State<ShopTypeDropDown> {
 
   @override
   Widget build(BuildContext context) {
-   // print(users);
+    // print(users);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-           child: DropdownButton(
-             underline: SizedBox(),
-             isExpanded: true,
-             iconSize: 36,
-                items: data.map((item) {
-                 return DropdownMenuItem(
-                 child: Text(item['name']),
-                 value: item['id'],
+          child: DropdownButton(
+            underline: SizedBox(),
+            isExpanded: true,
+            iconSize: 36,
+            items: data.map((item) {
+              return DropdownMenuItem(
+                child: Text(item['name']),
+                value: item['id'],
               );
-         }).toList(),
+            }).toList(),
             onChanged: ( newVal) {
-           setState(() {
-             widget.shopSelection = newVal;
-           });
-        },
-         value: widget.shopSelection,
-        ),
+              setState(() {
+                widget.stateSelection = newVal;
+              });
+            },
+            value: widget.stateSelection,
+          ),
         ),
       ],
     );

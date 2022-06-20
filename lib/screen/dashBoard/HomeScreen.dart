@@ -95,7 +95,9 @@ class _MyAppState extends State<DashBoardPage> {
             backgroundColor: Color(0xFFF8F8F8),
             body:RefreshIndicator(
               onRefresh: initialize,
-              child: ListView(
+              child:Center(
+                child: loading?CircularProgressIndicator(color:Colors.green):
+                ListView(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -115,10 +117,6 @@ class _MyAppState extends State<DashBoardPage> {
                   ),
                   Container(
                     height: 10.0,
-                  ),
-                  Center(
-                      child:loading?CircularProgressIndicator(color:Colors.green):
-                      Text("")
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 18, bottom: 10),
@@ -170,6 +168,7 @@ class _MyAppState extends State<DashBoardPage> {
 
                 ],
               ),
+              ),
             )
         )
     );
@@ -217,7 +216,7 @@ class SelectCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 50.0,),
-              child: Image.asset(choice.icon, color: Colors.black54, height: 25,width: 25,),
+              child: Image.asset(choice.icon, color: Colors.black, height: 25,width: 25,),
             ),
 
           ],

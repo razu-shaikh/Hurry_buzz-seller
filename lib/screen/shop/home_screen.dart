@@ -4,6 +4,7 @@ import 'package:ecommerce_app/screen/shop/allProduct/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/colors.dart';
 
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return ShopModel.fromJson(data);
     }
   }
+
 
   @override
   void initState() {
@@ -148,7 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 23,),
                       ),
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async{
+                          await Share.share("Share somethings");
+
                         },
                         icon: Icon(
                           Icons.share,

@@ -44,19 +44,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text("Sign Up",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
-            ),),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.red,
-          ),
+          // appBar: AppBar(
+          //   title: Text("Sign Up",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
+          //   ),),
+          //   automaticallyImplyLeading: false,
+          //   backgroundColor: Colors.red,
+          // ),
           body: Center(
             child: SingleChildScrollView(
               child: Stack(
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 10),
                       child: Image.asset(
                         "assets/images/login.PNG",
                         alignment: Alignment.center,

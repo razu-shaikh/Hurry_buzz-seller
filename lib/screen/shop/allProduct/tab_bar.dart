@@ -44,9 +44,9 @@ class _MyHomePageState extends State<TabBar_shop> {
                     child: Center(
                       child: TabBarView(children: <Widget>[
                                  AllProductList(widget.shopModel.published),
-                                  DraftPages(),
-                                 SalesPages(),
-                                 CampaignPages()
+                                  DraftPages(widget.shopModel.draft),
+                                 SalesPages(widget.shopModel.sales),
+                                 CampaignPages(widget.shopModel.campaigns)
                       ]
                       ),
                     )

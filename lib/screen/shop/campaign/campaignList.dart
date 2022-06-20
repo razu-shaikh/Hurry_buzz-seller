@@ -1,10 +1,12 @@
 
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/screen/shop/campaign/single_campaign_design.dart';
 import 'package:flutter/material.dart';
 
 
 class CampaignPages extends StatefulWidget {
-  const CampaignPages({Key? key}) : super(key: key);
+  List<ShopModelCampaigns?>? campaigns;
+  CampaignPages(this.campaigns, {Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,10 +24,10 @@ class _HomeScreenState extends State<CampaignPages> {
           children: [
             Expanded(
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: widget.campaigns!.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        child: SingleCampaignItem(),
+                        child: SingleCampaignItem(widget.campaigns![index]!),
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }

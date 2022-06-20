@@ -1,61 +1,21 @@
+import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SingleDraftItem extends StatefulWidget {
-  bool? isBool = false;
-  String? productId;
-  String? productImage;
-  String? productName;
-  bool? wishList = false;
-  int? productPrice;
-  int? productQuantity;
-  final void Function()? onDelete;
-  var productUnit;
 
-  // final ProductModel? unitProduct;
-
-  SingleDraftItem({
-    this.productQuantity,
-    this.productId,
-    this.productUnit,
-    this.onDelete,
-    this.isBool,
-    this.productImage,
-    this.productName,
-    this.productPrice,
-    this.wishList,
-    //this.unitProduct
-  });
+  ShopModelDraft shopModelDraft;
+  SingleDraftItem(this.shopModelDraft, );
 
   @override
   _SingleItemState createState() => _SingleItemState();
 }
 
 class _SingleItemState extends State<SingleDraftItem> {
-  //late ReviewCartProvider reviewCartProvider;
-
-  var unitData;
-  var firstValue;
-
-  int count = 0;
-
-  getCount() {
-    setState(() {
-      count = widget.productQuantity ?? 0;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    widget.isBool == false
-        ? widget.productUnit.productUnit.firstWhere((element) {
-      setState(() {
-        firstValue = element;
-      });
-      return true;
-    })
-        : getCount();
     return Column(
       children: [
         Padding(
@@ -94,8 +54,8 @@ class _SingleItemState extends State<SingleDraftItem> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'productName',
+                          Text(widget.shopModelDraft.productName.toString(),
+                            //'productName',
                             style: TextStyle(
                               color: textColor,
                               fontWeight: FontWeight.bold,
@@ -106,8 +66,8 @@ class _SingleItemState extends State<SingleDraftItem> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                "#123456",
+                              Text(widget.shopModelDraft.productLanguages![0]!.productId.toString(),
+                                //"#123456",
                                 style: TextStyle(
                                     color: textColor,
                                     fontWeight: FontWeight.bold),
@@ -138,7 +98,9 @@ class _SingleItemState extends State<SingleDraftItem> {
                           Row(
                             children: [
                               Text(
-                                "\$10",
+                                 widget.shopModelDraft.price.toString()
+                                ,
+                               // "\$10",
                                 style: TextStyle(
                                     color: textColor,
                                     fontWeight: FontWeight.bold),
@@ -155,8 +117,8 @@ class _SingleItemState extends State<SingleDraftItem> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "pics",
+                              Text(widget.shopModelDraft.productLanguages![0]!.unit.toString(),
+                                //"pics",
                                 style: TextStyle(
                                     color: textColor,
                                     fontWeight: FontWeight.normal),
@@ -170,8 +132,8 @@ class _SingleItemState extends State<SingleDraftItem> {
                               child: Container(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Publish",
+                                  child: Text(widget.shopModelDraft.status.toString(),
+                                    //"Publish",
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                     ),
