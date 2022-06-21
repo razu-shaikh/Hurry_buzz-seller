@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ecommerce_app/Model/notificationModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../shop/drawer_side.dart';
@@ -71,16 +72,13 @@ class _HomeScreenState extends State<notification> {
                     Navigator.pop(context);
                   },
                 ),
-                  Image.asset("assets/giftbox.png",width: 25,height: 25,),
-                SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Dhaka",
+                    Text("Notifications",
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
-                      Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
+
                   ],
                 )
 
@@ -89,72 +87,93 @@ class _HomeScreenState extends State<notification> {
 
           ],
         ) ,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              scaffoldKey.currentState?.openDrawer();
-            },
-            child: Container(
-              padding: EdgeInsets.all(8), // Border width
-              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox.fromSize(
-                  size: Size.fromRadius(20), // Image radius
-                  child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
-                ),
-              ),
-            ),
-          ),
-          CircleAvatar(
-            radius: 20,
-            backgroundColor:Colors.red,
-            child: IconButton(
-              onPressed: () {
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
-              },
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ),
-        ],
+         actions: [
+        //   // GestureDetector(
+        //   //   onTap: () {
+        //   //     scaffoldKey.currentState?.openDrawer();
+        //   //   },
+        //   //   child: Container(
+        //   //     padding: EdgeInsets.all(8), // Border width
+        //   //     decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+        //   //     child: ClipRRect(
+        //   //       borderRadius: BorderRadius.circular(20),
+        //   //       child: SizedBox.fromSize(
+        //   //         size: Size.fromRadius(20), // Image radius
+        //   //         child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
+        //   //       ),
+        //   //     ),
+        //   //   ),
+        //   // ),
+           CircleAvatar(
+             radius: 20,
+             backgroundColor:Colors.red,
+             child: IconButton(
+               onPressed: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => notification()));
+               },
+               icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
+             ),
+           ),
+         ],
       ),
-      key: scaffoldKey,
-      drawer: Drawer(
-        child:DrawerSide(),
-      ),
+      // key: scaffoldKey,
+      // drawer: Drawer(
+      //   child:DrawerSide(),
+      // ),
       body:Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Container(
-              height: 52,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                onChanged: (value) {
-                  setState(() {
-                    //query = value;
-                  });
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
-                    fillColor: Color(0xfff3f1f1),
-                  filled: true,
-                  hintText: "Search for items in the store",
-                  suffixIcon: Icon(Icons.search),
-                ),
-              ),
-            ),
+            // Container(
+            //   height: 52,
+            //   margin: EdgeInsets.symmetric(horizontal: 20),
+            //   child: TextField(
+            //     onChanged: (value) {
+            //       setState(() {
+            //         //query = value;
+            //       });
+            //     },
+            //     decoration: InputDecoration(
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide.none,
+            //       ),
+            //         fillColor: Color(0xfff3f1f1),
+            //       filled: true,
+            //       hintText: "Search for items in the store",
+            //       suffixIcon: Icon(Icons.search),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 10,
             ),
-            Text('Notification',style: TextStyle(color: Colors.black, fontSize: 15)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('Notification',style: TextStyle(color: Colors.black, fontSize: 15)),
+                InkWell(
+                  onTap: () async{
+                  } ,
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Center(
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                             child:Text("Marked as read",style: GoogleFonts.roboto(fontSize: 12,color:Colors.white, // light
+                          )),
+                        )
+
+                      ),
+                    ),
+
+                ),
+              ],
+            ),
             SizedBox(
               height: 10,
             ),

@@ -63,16 +63,13 @@ class _SingleItemState extends State<SingleItemPreview> {
                     Navigator.pop(context);
                   },
                 ),
-                Image.asset("assets/giftbox.png",width: 25,height: 25,),
-                SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Order Details",
+                    Text("Order Id #"+widget.orderData.orderDetails![0].product!.id.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
-                      Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
+
                   ],
                 )
 
@@ -92,29 +89,29 @@ class _SingleItemState extends State<SingleItemPreview> {
               icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              scaffoldKey.currentState?.openDrawer();
-            },
-            child: Container(
-              padding: EdgeInsets.all(8), // Border width
-              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox.fromSize(
-                  size: Size.fromRadius(20), // Image radius
-                  child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     scaffoldKey.currentState?.openDrawer();
+          //   },
+          //   child: Container(
+          //     padding: EdgeInsets.all(8), // Border width
+          //     decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(20),
+          //       child: SizedBox.fromSize(
+          //         size: Size.fromRadius(20), // Image radius
+          //         child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
         ],
       ),
-      key: scaffoldKey,
-      drawer: Drawer(
-        child:DrawerSide(),
-      ),
+      // key: scaffoldKey,
+      // drawer: Drawer(
+      //   child:DrawerSide(),
+      // ),
       body:Column(
         children: [
           SizedBox(height: 10),
@@ -126,17 +123,14 @@ class _SingleItemState extends State<SingleItemPreview> {
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             child:Container(
               margin: EdgeInsets.only(right: 5,left: 5,top:2,bottom:2),
-              height: 120,
               decoration: BoxDecoration(
-                color: Color(0xfff3f1f1),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 120,
-                    width: 120,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
@@ -148,7 +142,6 @@ class _SingleItemState extends State<SingleItemPreview> {
                   ),
                   SizedBox(width: 20),
                   Container(
-                      height: 120,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: widget.isBool == false ?
@@ -159,8 +152,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("",
-                                   //widget.orderData.billingAddress!.name.toString(),
+                                Text( widget.orderData.billingAddress!.name.toString(),
                                   style: TextStyle(
                                       color: textColor,
                                       fontWeight: FontWeight.bold,
@@ -171,8 +163,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text("",
-                                     // widget.orderData.orderDetails![widget.index]!.orderId.toString(),
+                                    Text(widget.orderData.orderDetails![0].orderId.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -200,8 +191,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text("",
-                                      //"\$"+widget.orderData.orderDetails![widget.index]!.price.toString(),
+                                    Text("\$"+widget.orderData.orderDetails![0].price.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),

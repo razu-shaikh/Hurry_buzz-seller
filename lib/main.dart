@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,10 +23,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> getToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String? _token = pref.getString("token");
+    pref.reload();
+    token = pref.getString("token");
     setState(() {
-      token = _token;
-      print(token);
     });
   }
 
@@ -59,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: scaffoldBackgroundColor),
            debugShowCheckedModeBanner: false,
         home: token == null ? LoginScreen() : MyNavigationBar()
-      //home:LoginScreen()
+       //home:LoginScreen()
     );
   }
 }

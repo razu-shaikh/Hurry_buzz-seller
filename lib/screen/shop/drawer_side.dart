@@ -168,7 +168,8 @@ class _DrawerSideState extends State<DrawerSide> {
                 iconData: Icons.logout,
                 title: "LogOut",
                 onTap: () async{
-                  await setToken(null);
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  pref.remove("token");
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen())
                   );
@@ -219,9 +220,5 @@ class _DrawerSideState extends State<DrawerSide> {
       ),
     );
   }
-  Future<void> setToken(token) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("token", "");
 
-  }
 }

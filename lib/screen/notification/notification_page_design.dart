@@ -110,8 +110,8 @@ class _SingalProductState extends State<SingalNotification> {
 
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.yellow,
-                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                        color: Colors.greenAccent,
+                        borderRadius: BorderRadius.only(topRight:Radius.circular(10) ),
 
                       ),
 

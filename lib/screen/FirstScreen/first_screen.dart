@@ -1,11 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/profile_model.dart';
-import 'package:ecommerce_app/Provider/profile_provider.dart';
 import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
 import 'package:ecommerce_app/screen/shop/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/colors.dart';
 import '../notification/notification.dart';
@@ -21,6 +22,11 @@ class MyNavigationBar extends StatefulWidget {
 }
 
 class _MyNavigationBarState extends State<MyNavigationBar > {
+
+  bool status = false ;
+  Connectivity _connectivity = Connectivity();
+  late StreamSubscription _streamSubscription;
+
   int _selectedIndex = 0;
   late String _title;
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -87,17 +93,36 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
 
   @override
   void initState() {
+    checkRealtimeConnection();
     _title = 'DashBoard';
     initialize();
     super.initState();
   }
+  void checkRealtimeConnection() {
+    _streamSubscription = _connectivity.onConnectivityChanged.listen((event) {
+      setState(() {
+        if (event == ConnectivityResult.mobile) {
+          status = true;
+        } else if (event == ConnectivityResult.wifi) {
+          status = true;
+        } else {
+          status = false;
+        }
+      });
+    });
+  }
 
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => Future.value(false),
-      child: Scaffold(
+      child:Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           iconTheme: IconThemeData(color: textColor),
@@ -163,7 +188,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           child:DrawerSide(),
         ),
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child:status?_widgetOptions.elementAt(_selectedIndex):Text("No Internet Connection"),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type:BottomNavigationBarType.fixed,

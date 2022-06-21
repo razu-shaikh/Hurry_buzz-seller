@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ecommerce_app/Model/category_model.dart';
 import 'package:ecommerce_app/widgets/costom_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -171,21 +169,23 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
       String name,
       var category_id,
       var brand_id,
-      // String tags,
-      // String slug,
+      String tags,
+      String slug,
       var current_stock,
       String unit,
       var price,
-      // var minimum_order_quantity,
-      var special_discount,
+      var minimum_order_quantity,
+      // var special_discount,
       // var special_discount_type,
       // var special_discount_period,
-      // String description,
+      String description,
       String sku,
-      // File imageFile,
-      // List<File> files,
+      File imageFile,
+      List<File> files,
       String status) async {
-    setLoading(true);
+
+    print("click");
+
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? authToken = pref.getString("token");
 
@@ -198,41 +198,42 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
     };
     request.headers.addAll(headers);
 
-    // var stream = http.ByteStream(imageFile.openRead());
-    //     stream.cast();
-    // var length = await imageFile.length();
-    //
-    // var multipartFile =  http.MultipartFile('thumbnail', stream, length, filename: imageFile.path);
-    // request.files.add(multipartFile);
-    //
-    // //multiple images
-    // for (var file in files) {
-    //   String fileName = file.path.split("/").last;
-    //   var stream =  http.ByteStream(file.openRead());
-    //   stream.cast();
-    //   var length = await file.length(); //imageFile is your image file
-    //
-    //   var multipartFileSign =  http.MultipartFile('images', stream, length, filename: fileName);
-    //
-    //   request.files.add(multipartFileSign);
-    // }
-    //ignore this headers if there is no authentication
+    var stream = http.ByteStream(imageFile.openRead());
+        stream.cast();
+    var length = await imageFile.length();
+
+    var multipartFile =  http.MultipartFile('thumbnail', stream, length, filename: imageFile.path);
+
+
+   // ignore this headers if there is no authentication
 
 //adding params
     request.fields['name'] = name;
     request.fields['category_id'] = category_id;
     request.fields['brand_id'] = brand_id;
-    // request.fields['tags'] = tags;
-    // request.fields['slug'] = slug;
+    request.fields['tags'] = tags;
+    request.fields['slug'] = slug;
     request.fields['current_stock'] = current_stock;
     request.fields['unit'] = unit;
     request.fields['price'] = price;
-   // request.fields['minimum_order_quantity'] = minimum_order_quantity;
-    request.fields['special_discount'] = special_discount;
-    //request.fields['special_discount_type'] = special_discount_type;
-    //request.fields['special_discount_period'] = special_discount_period;
-    //request.fields['description'] = description;
+    request.fields['minimum_order_quantity'] = minimum_order_quantity;
+    // request.fields['special_discount'] = special_discount;
+    // request.fields['special_discount_type'] = special_discount_type;
+    // request.fields['special_discount_period'] = special_discount_period;
+    request.fields['description'] = description;
     request.fields['sku'] = sku;
+    request.files.add(multipartFile);
+    //multiple images
+    for (var file in files) {
+      String fileName = file.path.split("/").last;
+      var stream =  http.ByteStream(file.openRead());
+      stream.cast();
+      var length = await file.length(); //imageFile is your image file
+
+      var multipartFileSign =  http.MultipartFile('images', stream, length, filename: fileName);
+
+      request.files.add(multipartFileSign);
+    }
     request.fields['status'] = status;
 
     var response = await request.send();
@@ -294,23 +295,24 @@ class _AddDeliverAddressState extends State<AddItemDetails> {
               iconColor: Colors.white70,
               title: "Published",
               onTap: () async {
-                await addData(productNameController.text.toString(),
-                  categoryValue,
-                  brandValue,
-                  // tagController.text.toString(),
-                  // slugController.text.toString(),
-                  stockController.text.toString(),
-                  unitController.text.toString(),
+                await addData(
+                    productNameController.text.toString(),
+                    categoryValue,
+                    brandValue,
+                    tagController.text.toString(),
+                    slugController.text.toString(),
+                    stockController.text.toString(),
+                    unitController.text.toString(),
                     unitPriceController.text.toString(),
-                // minimumOrderController.text.toString(),
-                  discountAmountController.text.toString(),
-                 //discountTypeValue,
-                   // "1234",
-                   // descriptionController.text.toString(),
-                  "skue",
-                     // storedImage!,
-                     // multipleImages,
-                  "status"
+                    minimumOrderController.text.toString(),
+                   // discountAmountController.text.toString(),
+                   // discountTypeValue,
+                    //"1234",
+                   descriptionController.text.toString(),
+                   "skue",
+                    storedImage!,
+                    multipleImages,
+                   "status"
 
                  );
               }),

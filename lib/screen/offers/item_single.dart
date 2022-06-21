@@ -23,6 +23,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
     ));
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: textColor),
@@ -38,15 +39,11 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                     Navigator.pop(context);
                   },
                 ),
-                Image.asset("assets/giftbox.png",width: 25,height: 25,),
-                SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Offers",
+                    Text(widget.offers.campaign!.currentLanguage![0].title.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 17),
-                    ),
-                    Text('Mohammadpur Dhaka 1212',style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ],
                 )
@@ -67,36 +64,31 @@ class _HomeScreenState extends State<ItemSingleDesign> {
               icon:Image.asset("assets/notification.png",width: 25,height: 25,color: Colors.white,),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              scaffoldKey.currentState?.openDrawer();
-            },
-            child: Container(
-              padding: EdgeInsets.all(8), // Border width
-              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox.fromSize(
-                  size: Size.fromRadius(20), // Image radius
-                  child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     scaffoldKey.currentState?.openDrawer();
+          //   },
+          //   child: Container(
+          //     padding: EdgeInsets.all(8), // Border width
+          //     decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(20),
+          //       child: SizedBox.fromSize(
+          //         size: Size.fromRadius(20), // Image radius
+          //         child: Image.network('https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612', fit: BoxFit.cover),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
         ],
       ),
-      key: scaffoldKey,
-      drawer: Drawer(
-        child:DrawerSide(),
-      ),
+      // key: scaffoldKey,
+      // drawer: Drawer(
+      //   child:DrawerSide(),
+      // ),
       body:Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          child:Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10))),
             child: Column(
               children: [
                 Container(
@@ -107,7 +99,6 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                       image: NetworkImage(
                           'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
                     ),
-                    color: Colors.red,
                     borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
                   ),
                 ),
@@ -146,7 +137,6 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                 ),
               ],
             ) ,
-          )
       ) ,
     ) ;
   }
