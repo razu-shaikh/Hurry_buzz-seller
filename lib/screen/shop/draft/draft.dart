@@ -23,7 +23,7 @@ class _HomeScreenState extends State<DraftPages> {
         child: Column(
           children: [
             Expanded(
-                child: ListView.builder(
+                child:widget.draft!.isNotEmpty? ListView.builder(
                     itemCount: widget.draft!.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<DraftPages> {
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }
-                )
+                ):Center(child: Text("No data found !!"))
             ),
           ],
         ),

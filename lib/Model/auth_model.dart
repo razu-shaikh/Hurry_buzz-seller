@@ -37,6 +37,8 @@ const String _jsonKeyAuthDataUserSellerProfileShopName = 'shop_name';
 const String _jsonKeyAuthDataUserSellerProfileSlug = 'slug';
 const String _jsonKeyAuthDataUserSellerProfileVerifiedAt = 'verified_at';
 const String _jsonKeyAuthDataUserSellerProfileLicenseNo = 'license_no';
+const String _jsonKeyAuthDataUserSellerProfileLogo = 'logo';
+const String _jsonKeyAuthDataUserSellerProfileBanner = 'banner';
 const String _jsonKeyAuthDataUserSellerProfileShopBannerId = 'shop_banner_id';
 const String _jsonKeyAuthDataUserSellerProfileShopTagline = 'shop_tagline';
 const String _jsonKeyAuthDataUserSellerProfilePhoneNo = 'phone_no';
@@ -71,13 +73,192 @@ const String _jsonKeyAuthDataUserSellerProfileImage_297x146 = 'image_297x146';
 const String _jsonKeyAuthDataUserSellerProfileImage_617x145 = 'image_617x145';
 const String _jsonKeyAuthDataUserSellerProfileStartDate = 'start_date';
 const String _jsonKeyAuthDataUserSellerProfileImage_1920x412 = 'image_1920x412';
+const String _jsonKeyAuthDataUserSellerProfileBannerStorage = 'storage';
+const String _jsonKeyAuthDataUserSellerProfileBannerOriginalImage = 'original_image';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_100x38 = 'image_100x38';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_89x33 = 'image_89x33';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_118x45 = 'image_118x45';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_48x25 = 'image_48x25';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_40x40 = 'image_40x40';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_197x152 = 'image_197x152';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_120x80 = 'image_120x80';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_82x82 = 'image_82x82';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_617x145 = 'image_617x145';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_297x146 = 'image_297x146';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_72x72 = 'image_72x72';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_270x260 = 'image_270x260';
+const String _jsonKeyAuthDataUserSellerProfileBannerImage_320x320 = 'image_320x320';
+class AuthDataUserSellerProfileBanner {
+
+  String? storage;
+  String? originalImage;
+  String? image_100x38;
+  String? image_89x33;
+  String? image_118x45;
+  String? image_48x25;
+  String? image_40x40;
+  String? image_197x152;
+  String? image_120x80;
+  String? image_82x82;
+  String? image_617x145;
+  String? image_297x146;
+  String? image_72x72;
+  String? image_270x260;
+  String? image_320x320;
+
+  AuthDataUserSellerProfileBanner({
+    this.storage,
+    this.originalImage,
+    this.image_100x38,
+    this.image_89x33,
+    this.image_118x45,
+    this.image_48x25,
+    this.image_40x40,
+    this.image_197x152,
+    this.image_120x80,
+    this.image_82x82,
+    this.image_617x145,
+    this.image_297x146,
+    this.image_72x72,
+    this.image_270x260,
+    this.image_320x320,
+  });
+  AuthDataUserSellerProfileBanner.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyAuthDataUserSellerProfileBannerStorage]?.toString();
+    originalImage = json[_jsonKeyAuthDataUserSellerProfileBannerOriginalImage]?.toString();
+    image_100x38 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_100x38]?.toString();
+    image_89x33 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_89x33]?.toString();
+    image_118x45 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_118x45]?.toString();
+    image_48x25 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_48x25]?.toString();
+    image_40x40 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_40x40]?.toString();
+    image_197x152 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_197x152]?.toString();
+    image_120x80 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_120x80]?.toString();
+    image_82x82 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_82x82]?.toString();
+    image_617x145 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_617x145]?.toString();
+    image_297x146 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_297x146]?.toString();
+    image_72x72 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_72x72]?.toString();
+    image_270x260 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_270x260]?.toString();
+    image_320x320 = json[_jsonKeyAuthDataUserSellerProfileBannerImage_320x320]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyAuthDataUserSellerProfileBannerStorage] = storage;
+    data[_jsonKeyAuthDataUserSellerProfileBannerOriginalImage] = originalImage;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_100x38] = image_100x38;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_89x33] = image_89x33;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_118x45] = image_118x45;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_48x25] = image_48x25;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_40x40] = image_40x40;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_197x152] = image_197x152;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_120x80] = image_120x80;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_82x82] = image_82x82;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_617x145] = image_617x145;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_297x146] = image_297x146;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_72x72] = image_72x72;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_270x260] = image_270x260;
+    data[_jsonKeyAuthDataUserSellerProfileBannerImage_320x320] = image_320x320;
+    return data;
+  }
+}
+
+const String _jsonKeyAuthDataUserSellerProfileLogoStorage = 'storage';
+const String _jsonKeyAuthDataUserSellerProfileLogoOriginalImage = 'original_image';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_100x38 = 'image_100x38';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_89x33 = 'image_89x33';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_118x45 = 'image_118x45';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_48x25 = 'image_48x25';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_40x40 = 'image_40x40';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_197x152 = 'image_197x152';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_120x80 = 'image_120x80';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_82x82 = 'image_82x82';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_617x145 = 'image_617x145';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_297x146 = 'image_297x146';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_72x72 = 'image_72x72';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_270x260 = 'image_270x260';
+const String _jsonKeyAuthDataUserSellerProfileLogoImage_320x320 = 'image_320x320';
+class AuthDataUserSellerProfileLogo {
+
+  String? storage;
+  String? originalImage;
+  String? image_100x38;
+  String? image_89x33;
+  String? image_118x45;
+  String? image_48x25;
+  String? image_40x40;
+  String? image_197x152;
+  String? image_120x80;
+  String? image_82x82;
+  String? image_617x145;
+  String? image_297x146;
+  String? image_72x72;
+  String? image_270x260;
+  String? image_320x320;
+
+  AuthDataUserSellerProfileLogo({
+    this.storage,
+    this.originalImage,
+    this.image_100x38,
+    this.image_89x33,
+    this.image_118x45,
+    this.image_48x25,
+    this.image_40x40,
+    this.image_197x152,
+    this.image_120x80,
+    this.image_82x82,
+    this.image_617x145,
+    this.image_297x146,
+    this.image_72x72,
+    this.image_270x260,
+    this.image_320x320,
+  });
+  AuthDataUserSellerProfileLogo.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyAuthDataUserSellerProfileLogoStorage]?.toString();
+    originalImage = json[_jsonKeyAuthDataUserSellerProfileLogoOriginalImage]?.toString();
+    image_100x38 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_100x38]?.toString();
+    image_89x33 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_89x33]?.toString();
+    image_118x45 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_118x45]?.toString();
+    image_48x25 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_48x25]?.toString();
+    image_40x40 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_40x40]?.toString();
+    image_197x152 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_197x152]?.toString();
+    image_120x80 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_120x80]?.toString();
+    image_82x82 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_82x82]?.toString();
+    image_617x145 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_617x145]?.toString();
+    image_297x146 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_297x146]?.toString();
+    image_72x72 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_72x72]?.toString();
+    image_270x260 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_270x260]?.toString();
+    image_320x320 = json[_jsonKeyAuthDataUserSellerProfileLogoImage_320x320]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyAuthDataUserSellerProfileLogoStorage] = storage;
+    data[_jsonKeyAuthDataUserSellerProfileLogoOriginalImage] = originalImage;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_100x38] = image_100x38;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_89x33] = image_89x33;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_118x45] = image_118x45;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_48x25] = image_48x25;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_40x40] = image_40x40;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_197x152] = image_197x152;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_120x80] = image_120x80;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_82x82] = image_82x82;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_617x145] = image_617x145;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_297x146] = image_297x146;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_72x72] = image_72x72;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_270x260] = image_270x260;
+    data[_jsonKeyAuthDataUserSellerProfileLogoImage_320x320] = image_320x320;
+    return data;
+  }
+}
+
 class AuthDataUserSellerProfile {
+
   int? id;
   String? userId;
   String? shopName;
   String? slug;
   String? verifiedAt;
   String? licenseNo;
+  AuthDataUserSellerProfileLogo? logo;
+  AuthDataUserSellerProfileBanner? banner;
   String? shopBannerId;
   String? shopTagline;
   String? phoneNo;
@@ -120,6 +301,8 @@ class AuthDataUserSellerProfile {
     this.slug,
     this.verifiedAt,
     this.licenseNo,
+    this.logo,
+    this.banner,
     this.shopBannerId,
     this.shopTagline,
     this.phoneNo,
@@ -162,6 +345,8 @@ class AuthDataUserSellerProfile {
     slug = json[_jsonKeyAuthDataUserSellerProfileSlug]?.toString();
     verifiedAt = json[_jsonKeyAuthDataUserSellerProfileVerifiedAt]?.toString();
     licenseNo = json[_jsonKeyAuthDataUserSellerProfileLicenseNo]?.toString();
+    logo = (json[_jsonKeyAuthDataUserSellerProfileLogo] != null) ? AuthDataUserSellerProfileLogo.fromJson(json[_jsonKeyAuthDataUserSellerProfileLogo]) : null;
+    banner = (json[_jsonKeyAuthDataUserSellerProfileBanner] != null) ? AuthDataUserSellerProfileBanner.fromJson(json[_jsonKeyAuthDataUserSellerProfileBanner]) : null;
     shopBannerId = json[_jsonKeyAuthDataUserSellerProfileShopBannerId]?.toString();
     shopTagline = json[_jsonKeyAuthDataUserSellerProfileShopTagline]?.toString();
     phoneNo = json[_jsonKeyAuthDataUserSellerProfilePhoneNo]?.toString();
@@ -205,6 +390,12 @@ class AuthDataUserSellerProfile {
     data[_jsonKeyAuthDataUserSellerProfileSlug] = slug;
     data[_jsonKeyAuthDataUserSellerProfileVerifiedAt] = verifiedAt;
     data[_jsonKeyAuthDataUserSellerProfileLicenseNo] = licenseNo;
+    if (logo != null) {
+      data[_jsonKeyAuthDataUserSellerProfileLogo] = logo!.toJson();
+    }
+    if (banner != null) {
+      data[_jsonKeyAuthDataUserSellerProfileBanner] = banner!.toJson();
+    }
     data[_jsonKeyAuthDataUserSellerProfileShopBannerId] = shopBannerId;
     data[_jsonKeyAuthDataUserSellerProfileShopTagline] = shopTagline;
     data[_jsonKeyAuthDataUserSellerProfilePhoneNo] = phoneNo;
@@ -244,6 +435,7 @@ class AuthDataUserSellerProfile {
 }
 
 class AuthDataUser {
+
   int? id;
   String? email;
   String? phone;
@@ -370,6 +562,7 @@ class AuthDataUser {
 }
 
 class AuthData {
+
   String? token;
   AuthDataUser? user;
 

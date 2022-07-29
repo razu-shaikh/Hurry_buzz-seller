@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../config/colors.dart';
 import '../notification/notification.dart';
-import '../shop/drawer_side.dart';
 
 class ItemSingleDesign extends StatefulWidget {
   Offers offers;
@@ -97,7 +96,7 @@ class _HomeScreenState extends State<ItemSingleDesign> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          'https://media.gettyimages.com/photos/healthy-fresh-organic-vegetables-in-a-crate-isolated-on-white-picture-id1247073860?s=612x612'),
+                          'https://hurrybuzz.com/public/'+widget.offers.product!.images![0].originalImage.toString()),
                     ),
                     borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
                   ),

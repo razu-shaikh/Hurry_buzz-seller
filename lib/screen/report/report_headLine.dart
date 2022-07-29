@@ -57,7 +57,7 @@ class _MyHomePageState extends State<report_head> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text("Varient",style: TextStyle(color:Colors.black,fontSize:15,fontWeight: FontWeight. bold),),
+                  child: Text("Stock",style: TextStyle(color:Colors.black,fontSize:15,fontWeight: FontWeight. bold),),
                 ),
                 VerticalDivider(
                   width: 10,
@@ -71,7 +71,21 @@ class _MyHomePageState extends State<report_head> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text("Category",style: TextStyle(color:Colors.black,fontSize:15,fontWeight: FontWeight. bold),),
+                  child: Text("Total Sales",style: TextStyle(color:Colors.black,fontSize:15,fontWeight: FontWeight. bold),),
+                ),
+                VerticalDivider(
+                  width: 10,
+                  thickness: 1,
+                  color: Colors.black26,
+                ),
+                Container(
+                  width: 70.0,
+                  height: 50.0,
+                  decoration:BoxDecoration(
+                    borderRadius:BorderRadius.circular(2),
+
+                  ),
+                  child: Text("Order Amount",style: TextStyle(color:Colors.black,fontSize:15,fontWeight: FontWeight. bold),),
                 )
               ]
           ),

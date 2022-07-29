@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,7 +14,7 @@ class SingleSalesItem extends StatefulWidget {
 
 class _SingleItemState extends State<SingleSalesItem> {
 
-
+  bool update = true;
   @override
   Widget build(BuildContext context) {
 
@@ -40,7 +41,9 @@ class _SingleItemState extends State<SingleSalesItem> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
+                        image: widget.shopModelSales.images!.isNotEmpty? NetworkImage(
+                            'https://hurrybuzz.com/public/'+widget.shopModelSales.images![0]!.originalImage.toString()
+                        ):NetworkImage(
                             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
                       ),
                       borderRadius: BorderRadius.only(
@@ -56,6 +59,7 @@ class _SingleItemState extends State<SingleSalesItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.shopModelSales.productLanguages![0]!.name.toString(),
+                            overflow: TextOverflow.ellipsis,
                             //'productName',
                             style: TextStyle(
                               color: textColor,
@@ -150,14 +154,39 @@ class _SingleItemState extends State<SingleSalesItem> {
                       ),
                     ),
                   ),
-                  Container(
-                      height: 30,
-                      width: 30,
-                      margin: EdgeInsets.only(right: 10, top: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Icon(Icons.edit_outlined)),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddItemDetails(
+                        update,
+                        widget.shopModelSales.id,
+                        widget.shopModelSales.productName,
+                        widget.shopModelSales.categoryId,
+                        widget.shopModelSales.brandId,
+                        widget.shopModelSales.productLanguages![0]?.tags,
+                        widget.shopModelSales.slug,
+                        widget.shopModelSales.currentStock,
+                        widget.shopModelSales.productLanguages![0]?.unit,
+                        widget.shopModelSales.price,
+                        widget.shopModelSales.minimumOrderQuantity,
+                        widget.shopModelSales.productLanguages![0]?.description,
+                        widget.shopModelSales.productLanguages![0]?.shortDescription,
+                        widget.shopModelSales.status,
+                        widget.shopModelSales.specialDiscountType,
+                        widget.shopModelSales.specialDiscount,
+                        widget.shopModelSales.specialDiscountStart,
+                        widget.shopModelSales.specialDiscountEnd,
+
+                      )));
+                    },
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        margin: EdgeInsets.only(right: 10, top: 5),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Icon(Icons.edit_outlined)),
+                  ),
                 ],
               ),
             ),

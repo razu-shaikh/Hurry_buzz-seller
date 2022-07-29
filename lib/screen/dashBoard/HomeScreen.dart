@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/dashboard_model.dart';
+import 'package:ecommerce_app/auth/screens/login_screen.dart';
+import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:ecommerce_app/screen/dashBoard/dot_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,7 +36,7 @@ class _MyAppState extends State<DashBoardPage> {
 
     Dashboard? dashboardData ;
 
-    print("getData token"+authToken.toString());
+    print("get token"+authToken.toString());
     try {
       final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/dashboard',
         options: Options(
@@ -42,6 +44,7 @@ class _MyAppState extends State<DashBoardPage> {
               "apiKey": "sdfdge544364dg#",
               "Authorization": "Bearer $authToken"}),
       );
+      print(response.statusCode);
       Map<String,dynamic> dashboardDataList= response.data;
       if(response.statusCode == 200){
         dashboardData = Dashboard.fromJson(dashboardDataList);
@@ -55,11 +58,10 @@ class _MyAppState extends State<DashBoardPage> {
         for (var i=0; i<sallerState.length; i++) {
           sallerStateList.add(dashboardData.salesState![i]!.sales!.toDouble());
         }
-        print(sallerStateList);
 
       }
     } catch (e) {
-      print(e);
+      print("error"+e.toString());
     }
      final data = dashboardData;
 
@@ -255,7 +257,7 @@ class SelectCard2 extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 50.0,),
-              child: Image.asset(choice2.icon, color: Colors.black54, height: 25,width: 25,),
+              child: Image.asset(choice2.icon, color: Colors.black, height: 25,width: 25,),
             ),
 
           ],

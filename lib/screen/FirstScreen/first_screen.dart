@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/profile_model.dart';
+import 'package:ecommerce_app/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:ecommerce_app/screen/dashBoard/HomeScreen.dart';
 import 'package:ecommerce_app/screen/shop/home_screen.dart';
@@ -23,7 +24,7 @@ class MyNavigationBar extends StatefulWidget {
 
 class _MyNavigationBarState extends State<MyNavigationBar > {
 
-  bool status = false ;
+  bool status = true ;
   Connectivity _connectivity = Connectivity();
   late StreamSubscription _streamSubscription;
 
@@ -57,7 +58,8 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
               "Authorization": "Bearer $authToken"}),
       );
       Map<String,dynamic> profileDataList= response.data;
-
+      // print("sssssssssssssss");
+      // print(response.statusCode);
       if(response.statusCode == 200) {
         // _dashboardData.clear();
         profileData = Profile.fromJson(profileDataList);
@@ -67,8 +69,23 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           address = profileData.user!.sellerProfile!.address;
 
         });
+       }else if(response.statusCode == 401){
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.remove("token");
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+                (Route<dynamic> route) => false
+        );
+      }else{
 
       }
+      //else{
+      //   SharedPreferences pref = await SharedPreferences.getInstance();
+      //   pref.remove("token");
+      //   Navigator.push(context,
+      //       MaterialPageRoute(builder: (context) => LoginScreen())
+      //   );
+      // }
     } catch (e) {
       print(e);
     }
@@ -120,8 +137,35 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
 
   @override
   Widget build(BuildContext context) {
+
+    Future<bool> showExitPopup() async {
+      return await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Exit App'),
+          content: Text('Do you want to exit an App?'),
+          actions:[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.red),
+              onPressed: () => Navigator.of(context).pop(false),
+              child:Text('No' ),
+            ),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.red),
+              onPressed: () => Navigator.of(context).pop(true),
+              child:Text('Yes'),
+            ),
+
+          ],
+        ),
+      )??false;
+    }
+
     return WillPopScope(
-      onWillPop: () => Future.value(false),
+      onWillPop: showExitPopup,
       child:Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -143,7 +187,9 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
                         borderRadius: BorderRadius.circular(20),
                         child: SizedBox.fromSize(
                           size: Size.fromRadius(20), // Image radius
-                          child: Image.network(image??"", fit: BoxFit.cover),
+                          child: status?Image.network(image??"", fit: BoxFit.cover):Icon(
+                          Icons.person,color: Colors.white,
+                        ),
                         ),
                       ),
                     ),
@@ -152,14 +198,16 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _selectedIndex == 0 ?
-                      Text(shopnName??"",
+                      status?(
+                      _selectedIndex == 0 ? Text(shopnName??"",
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ):Text(_title,
                         style: TextStyle(color: Colors.white, fontSize: 17),
+                      )):Text("Shop Name",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
-                        Text(address??"",style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
+                        status?Text(address??"",style: TextStyle(color: Colors.white, fontSize: 12),):
+                        Text("Address",style: TextStyle(color: Colors.white, fontSize: 12)),
                     ],
                   )
 
@@ -225,7 +273,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AddItemDetails()),
+              MaterialPageRoute(builder: (context) => AddItemDetails(false,null,"","","","","","","","","","","","","","","","")),
             );
           },
           backgroundColor: Colors.black54,

@@ -126,13 +126,16 @@ class Product {
       String? specialDiscountEnd, 
       String? purchaseCost, 
       String? barcode, 
-      dynamic videoProvider, 
-      dynamic videoUrl, 
-      dynamic vatTaxes, 
+      String? videoProvider, 
+      String? videoUrl, 
+      List<String>? colors, 
+      List<String>? attributeSets, 
+      String? vatTaxes, 
       String? hasVariant, 
-      Thumbnail? thumbnail, 
+      //Thumbnail? thumbnail,
+      List<Images>? images, 
       String? thumbnailId, 
-      dynamic imageIds, 
+      String? imageIds, 
       String? currentStock, 
       String? minimumOrderQuantity, 
       String? stockNotification, 
@@ -142,7 +145,7 @@ class Product {
       String? status, 
       String? isApproved, 
       String? isCatalog, 
-      dynamic externalLink, 
+      String? externalLink, 
       String? isFeatured, 
       String? isClassified, 
       String? isWholesale, 
@@ -151,14 +154,14 @@ class Product {
       String? todaysDeal, 
       int? rating, 
       String? viewed, 
-      dynamic shippingType, 
+      String? shippingType, 
       String? shippingFee, 
       String? shippingFeeDependOnQuantity, 
       String? estimatedShippingDays, 
       String? cashOnDelivery, 
-      MetaImage? metaImage, 
-      dynamic productFile, 
-      dynamic productFileId, 
+      //MetaImage? metaImage,
+      String? productFile, 
+      String? productFileId, 
       String? metaImageId, 
       String? reward, 
       String? isDeleted, 
@@ -170,9 +173,8 @@ class Product {
       String? image40x40, 
       String? image72x72, 
       String? image110x122, 
-      int? specialDiscountCheck, 
-      int? discountPercentage, 
-      List<ProductLanguages>? productLanguages,}){
+      String? specialDiscountCheck, 
+      int? discountPercentage,}){
     _id = id;
     _brandId = brandId;
     _categoryId = categoryId;
@@ -188,9 +190,12 @@ class Product {
     _barcode = barcode;
     _videoProvider = videoProvider;
     _videoUrl = videoUrl;
+    _colors = colors;
+    _attributeSets = attributeSets;
     _vatTaxes = vatTaxes;
     _hasVariant = hasVariant;
-    _thumbnail = thumbnail;
+   // _thumbnail = thumbnail;
+    _images = images;
     _thumbnailId = thumbnailId;
     _imageIds = imageIds;
     _currentStock = currentStock;
@@ -216,7 +221,7 @@ class Product {
     _shippingFeeDependOnQuantity = shippingFeeDependOnQuantity;
     _estimatedShippingDays = estimatedShippingDays;
     _cashOnDelivery = cashOnDelivery;
-    _metaImage = metaImage;
+    //_metaImage = metaImage;
     _productFile = productFile;
     _productFileId = productFileId;
     _metaImageId = metaImageId;
@@ -232,7 +237,6 @@ class Product {
     _image110x122 = image110x122;
     _specialDiscountCheck = specialDiscountCheck;
     _discountPercentage = discountPercentage;
-    _productLanguages = productLanguages;
 }
 
   Product.fromJson(dynamic json) {
@@ -251,9 +255,17 @@ class Product {
     _barcode = json['barcode'];
     _videoProvider = json['video_provider'];
     _videoUrl = json['video_url'];
+    _colors = json['colors'] != null ? json['colors'].cast<String>() : [];
+    _attributeSets = json['attribute_sets'] != null ? json['attribute_sets'].cast<String>() : [];
     _vatTaxes = json['vat_taxes'];
     _hasVariant = json['has_variant'];
-    _thumbnail = json['thumbnail'] != null ? Thumbnail.fromJson(json['thumbnail']) : null;
+   // _thumbnail = json['thumbnail'] != null ? Thumbnail.fromJson(json['thumbnail']) : null;
+    if (json['images'] != null) {
+      _images = [];
+      json['images'].forEach((v) {
+        _images?.add(Images.fromJson(v));
+      });
+    }
     _thumbnailId = json['thumbnail_id'];
     _imageIds = json['image_ids'];
     _currentStock = json['current_stock'];
@@ -279,7 +291,7 @@ class Product {
     _shippingFeeDependOnQuantity = json['shipping_fee_depend_on_quantity'];
     _estimatedShippingDays = json['estimated_shipping_days'];
     _cashOnDelivery = json['cash_on_delivery'];
-    _metaImage = json['meta_image'] != null ? MetaImage.fromJson(json['meta_image']) : null;
+    //_metaImage = json['meta_image'] != null ? MetaImage.fromJson(json['meta_image']) : null;
     _productFile = json['product_file'];
     _productFileId = json['product_file_id'];
     _metaImageId = json['meta_image_id'];
@@ -295,12 +307,6 @@ class Product {
     _image110x122 = json['image_110x122'];
     _specialDiscountCheck = json['special_discount_check'];
     _discountPercentage = json['discount_percentage'];
-    if (json['product_languages'] != null) {
-      _productLanguages = [];
-      json['product_languages'].forEach((v) {
-        _productLanguages?.add(ProductLanguages.fromJson(v));
-      });
-    }
   }
   int? _id;
   String? _brandId;
@@ -315,13 +321,16 @@ class Product {
   String? _specialDiscountEnd;
   String? _purchaseCost;
   String? _barcode;
-  dynamic _videoProvider;
-  dynamic _videoUrl;
-  dynamic _vatTaxes;
+  String? _videoProvider;
+  String? _videoUrl;
+  List<String>? _colors;
+  List<String>? _attributeSets;
+  String? _vatTaxes;
   String? _hasVariant;
-  Thumbnail? _thumbnail;
+  //Thumbnail? _thumbnail;
+  List<Images>? _images;
   String? _thumbnailId;
-  dynamic _imageIds;
+  String? _imageIds;
   String? _currentStock;
   String? _minimumOrderQuantity;
   String? _stockNotification;
@@ -331,7 +340,7 @@ class Product {
   String? _status;
   String? _isApproved;
   String? _isCatalog;
-  dynamic _externalLink;
+  String? _externalLink;
   String? _isFeatured;
   String? _isClassified;
   String? _isWholesale;
@@ -340,14 +349,14 @@ class Product {
   String? _todaysDeal;
   int? _rating;
   String? _viewed;
-  dynamic _shippingType;
+  String? _shippingType;
   String? _shippingFee;
   String? _shippingFeeDependOnQuantity;
   String? _estimatedShippingDays;
   String? _cashOnDelivery;
-  MetaImage? _metaImage;
-  dynamic _productFile;
-  dynamic _productFileId;
+  //MetaImage? _metaImage;
+  String? _productFile;
+  String? _productFileId;
   String? _metaImageId;
   String? _reward;
   String? _isDeleted;
@@ -359,9 +368,8 @@ class Product {
   String? _image40x40;
   String? _image72x72;
   String? _image110x122;
-  int? _specialDiscountCheck;
+  dynamic _specialDiscountCheck;
   int? _discountPercentage;
-  List<ProductLanguages>? _productLanguages;
 
   int? get id => _id;
   String? get brandId => _brandId;
@@ -376,13 +384,16 @@ class Product {
   String? get specialDiscountEnd => _specialDiscountEnd;
   String? get purchaseCost => _purchaseCost;
   String? get barcode => _barcode;
-  dynamic get videoProvider => _videoProvider;
-  dynamic get videoUrl => _videoUrl;
-  dynamic get vatTaxes => _vatTaxes;
+  String? get videoProvider => _videoProvider;
+  String? get videoUrl => _videoUrl;
+  List<String>? get colors => _colors;
+  List<String>? get attributeSets => _attributeSets;
+  String? get vatTaxes => _vatTaxes;
   String? get hasVariant => _hasVariant;
-  Thumbnail? get thumbnail => _thumbnail;
+  //Thumbnail? get thumbnail => _thumbnail;
+  List<Images>? get images => _images;
   String? get thumbnailId => _thumbnailId;
-  dynamic get imageIds => _imageIds;
+  String? get imageIds => _imageIds;
   String? get currentStock => _currentStock;
   String? get minimumOrderQuantity => _minimumOrderQuantity;
   String? get stockNotification => _stockNotification;
@@ -392,7 +403,7 @@ class Product {
   String? get status => _status;
   String? get isApproved => _isApproved;
   String? get isCatalog => _isCatalog;
-  dynamic get externalLink => _externalLink;
+  String? get externalLink => _externalLink;
   String? get isFeatured => _isFeatured;
   String? get isClassified => _isClassified;
   String? get isWholesale => _isWholesale;
@@ -401,14 +412,14 @@ class Product {
   String? get todaysDeal => _todaysDeal;
   int? get rating => _rating;
   String? get viewed => _viewed;
-  dynamic get shippingType => _shippingType;
+  String? get shippingType => _shippingType;
   String? get shippingFee => _shippingFee;
   String? get shippingFeeDependOnQuantity => _shippingFeeDependOnQuantity;
   String? get estimatedShippingDays => _estimatedShippingDays;
   String? get cashOnDelivery => _cashOnDelivery;
-  MetaImage? get metaImage => _metaImage;
-  dynamic get productFile => _productFile;
-  dynamic get productFileId => _productFileId;
+  //MetaImage? get metaImage => _metaImage;
+  String? get productFile => _productFile;
+  String? get productFileId => _productFileId;
   String? get metaImageId => _metaImageId;
   String? get reward => _reward;
   String? get isDeleted => _isDeleted;
@@ -420,9 +431,8 @@ class Product {
   String? get image40x40 => _image40x40;
   String? get image72x72 => _image72x72;
   String? get image110x122 => _image110x122;
-  int? get specialDiscountCheck => _specialDiscountCheck;
+  String? get specialDiscountCheck => _specialDiscountCheck;
   int? get discountPercentage => _discountPercentage;
-  List<ProductLanguages>? get productLanguages => _productLanguages;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -441,10 +451,15 @@ class Product {
     map['barcode'] = _barcode;
     map['video_provider'] = _videoProvider;
     map['video_url'] = _videoUrl;
+    map['colors'] = _colors;
+    map['attribute_sets'] = _attributeSets;
     map['vat_taxes'] = _vatTaxes;
     map['has_variant'] = _hasVariant;
-    if (_thumbnail != null) {
-      map['thumbnail'] = _thumbnail?.toJson();
+    // if (_thumbnail != null) {
+    //   map['thumbnail'] = _thumbnail?.toJson();
+    // }
+    if (_images != null) {
+      map['images'] = _images?.map((v) => v.toJson()).toList();
     }
     map['thumbnail_id'] = _thumbnailId;
     map['image_ids'] = _imageIds;
@@ -471,9 +486,9 @@ class Product {
     map['shipping_fee_depend_on_quantity'] = _shippingFeeDependOnQuantity;
     map['estimated_shipping_days'] = _estimatedShippingDays;
     map['cash_on_delivery'] = _cashOnDelivery;
-    if (_metaImage != null) {
-      map['meta_image'] = _metaImage?.toJson();
-    }
+    // if (_metaImage != null) {
+    //   map['meta_image'] = _metaImage?.toJson();
+    // }
     map['product_file'] = _productFile;
     map['product_file_id'] = _productFileId;
     map['meta_image_id'] = _metaImageId;
@@ -489,121 +504,76 @@ class Product {
     map['image_110x122'] = _image110x122;
     map['special_discount_check'] = _specialDiscountCheck;
     map['discount_percentage'] = _discountPercentage;
-    if (_productLanguages != null) {
-      map['product_languages'] = _productLanguages?.map((v) => v.toJson()).toList();
-    }
     return map;
   }
 
 }
 
-class ProductLanguages {
-  ProductLanguages({
-      int? id, 
-      String? productId, 
-      String? lang, 
-      String? name, 
-      String? shortDescription, 
-      String? description, 
-      dynamic pdfSpecificationId, 
-      String? tags, 
-      String? unit, 
-      String? metaTitle, 
-      String? metaDescription, 
-      String? metaKeywords, 
-      String? createdAt, 
-      String? updatedAt, 
-      bool? specification,}){
-    _id = id;
-    _productId = productId;
-    _lang = lang;
-    _name = name;
-    _shortDescription = shortDescription;
-    _description = description;
-    _pdfSpecificationId = pdfSpecificationId;
-    _tags = tags;
-    _unit = unit;
-    _metaTitle = metaTitle;
-    _metaDescription = metaDescription;
-    _metaKeywords = metaKeywords;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _specification = specification;
-}
+// class MetaImage {
+//   MetaImage({
+//       String? storage,
+//       String? originalImage,
+//       String? image40x40,
+//       String? image72x72,
+//       String? image190x230,
+//       String? image110x122,
+//       String? image320x320,
+//       String? imageThumbnail,}){
+//     _storage = storage;
+//     _originalImage = originalImage;
+//     _image40x40 = image40x40;
+//     _image72x72 = image72x72;
+//     _image190x230 = image190x230;
+//     _image110x122 = image110x122;
+//     _image320x320 = image320x320;
+//     _imageThumbnail = imageThumbnail;
+// }
+//
+//   MetaImage.fromJson(dynamic json) {
+//     _storage = json['storage'];
+//     _originalImage = json['original_image'];
+//     _image40x40 = json['image_40x40'];
+//     _image72x72 = json['image_72x72'];
+//     _image190x230 = json['image_190x230'];
+//     _image110x122 = json['image_110x122'];
+//     _image320x320 = json['image_320x320'];
+//     _imageThumbnail = json['image_thumbnail'];
+//   }
+//   String? _storage;
+//   String? _originalImage;
+//   String? _image40x40;
+//   String? _image72x72;
+//   String? _image190x230;
+//   String? _image110x122;
+//   String? _image320x320;
+//   String? _imageThumbnail;
+//
+//   String? get storage => _storage;
+//   String? get originalImage => _originalImage;
+//   String? get image40x40 => _image40x40;
+//   String? get image72x72 => _image72x72;
+//   String? get image190x230 => _image190x230;
+//   String? get image110x122 => _image110x122;
+//   String? get image320x320 => _image320x320;
+//   String? get imageThumbnail => _imageThumbnail;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['storage'] = _storage;
+//     map['original_image'] = _originalImage;
+//     map['image_40x40'] = _image40x40;
+//     map['image_72x72'] = _image72x72;
+//     map['image_190x230'] = _image190x230;
+//     map['image_110x122'] = _image110x122;
+//     map['image_320x320'] = _image320x320;
+//     map['image_thumbnail'] = _imageThumbnail;
+//     return map;
+//   }
+//
+// }
 
-  ProductLanguages.fromJson(dynamic json) {
-    _id = json['id'];
-    _productId = json['product_id'];
-    _lang = json['lang'];
-    _name = json['name'];
-    _shortDescription = json['short_description'];
-    _description = json['description'];
-    _pdfSpecificationId = json['pdf_specification_id'];
-    _tags = json['tags'];
-    _unit = json['unit'];
-    _metaTitle = json['meta_title'];
-    _metaDescription = json['meta_description'];
-    _metaKeywords = json['meta_keywords'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-    _specification = json['specification'];
-  }
-  int? _id;
-  String? _productId;
-  String? _lang;
-  String? _name;
-  String? _shortDescription;
-  String? _description;
-  dynamic _pdfSpecificationId;
-  String? _tags;
-  String? _unit;
-  String? _metaTitle;
-  String? _metaDescription;
-  String? _metaKeywords;
-  String? _createdAt;
-  String? _updatedAt;
-  bool? _specification;
-
-  int? get id => _id;
-  String? get productId => _productId;
-  String? get lang => _lang;
-  String? get name => _name;
-  String? get shortDescription => _shortDescription;
-  String? get description => _description;
-  dynamic get pdfSpecificationId => _pdfSpecificationId;
-  String? get tags => _tags;
-  String? get unit => _unit;
-  String? get metaTitle => _metaTitle;
-  String? get metaDescription => _metaDescription;
-  String? get metaKeywords => _metaKeywords;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  bool? get specification => _specification;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['product_id'] = _productId;
-    map['lang'] = _lang;
-    map['name'] = _name;
-    map['short_description'] = _shortDescription;
-    map['description'] = _description;
-    map['pdf_specification_id'] = _pdfSpecificationId;
-    map['tags'] = _tags;
-    map['unit'] = _unit;
-    map['meta_title'] = _metaTitle;
-    map['meta_description'] = _metaDescription;
-    map['meta_keywords'] = _metaKeywords;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    map['specification'] = _specification;
-    return map;
-  }
-
-}
-
-class MetaImage {
-  MetaImage({
+class Images {
+  Images({
       String? storage, 
       String? originalImage, 
       String? image40x40, 
@@ -622,7 +592,7 @@ class MetaImage {
     _imageThumbnail = imageThumbnail;
 }
 
-  MetaImage.fromJson(dynamic json) {
+  Images.fromJson(dynamic json) {
     _storage = json['storage'];
     _originalImage = json['original_image'];
     _image40x40 = json['image_40x40'];
@@ -664,6 +634,70 @@ class MetaImage {
   }
 
 }
+
+// class Thumbnail {
+//   Thumbnail({
+//       String? storage,
+//       String? originalImage,
+//       String? image40x40,
+//       String? image72x72,
+//       String? image190x230,
+//       String? image110x122,
+//       String? image320x320,
+//       String? imageThumbnail,}){
+//     _storage = storage;
+//     _originalImage = originalImage;
+//     _image40x40 = image40x40;
+//     _image72x72 = image72x72;
+//     _image190x230 = image190x230;
+//     _image110x122 = image110x122;
+//     _image320x320 = image320x320;
+//     _imageThumbnail = imageThumbnail;
+// }
+//
+//   Thumbnail.fromJson(dynamic json) {
+//     _storage = json['storage'];
+//     _originalImage = json['original_image'];
+//     _image40x40 = json['image_40x40'];
+//     _image72x72 = json['image_72x72'];
+//     _image190x230 = json['image_190x230'];
+//     _image110x122 = json['image_110x122'];
+//     _image320x320 = json['image_320x320'];
+//     _imageThumbnail = json['image_thumbnail'];
+//   }
+//   String? _storage;
+//   String? _originalImage;
+//   String? _image40x40;
+//   String? _image72x72;
+//   String? _image190x230;
+//   String? _image110x122;
+//   String? _image320x320;
+//   String? _imageThumbnail;
+//
+//   String? get storage => _storage;
+//   String? get originalImage => _originalImage;
+//   String? get image40x40 => _image40x40;
+//   String? get image72x72 => _image72x72;
+//   String? get image190x230 => _image190x230;
+//   String? get image110x122 => _image110x122;
+//   String? get image320x320 => _image320x320;
+//   String? get imageThumbnail => _imageThumbnail;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['storage'] = _storage;
+//     map['original_image'] = _originalImage;
+//     map['image_40x40'] = _image40x40;
+//     map['image_72x72'] = _image72x72;
+//     map['image_190x230'] = _image190x230;
+//     map['image_110x122'] = _image110x122;
+//     map['image_320x320'] = _image320x320;
+//     map['image_thumbnail'] = _imageThumbnail;
+//     return map;
+//   }
+//
+// }
+
 class Campaign {
   Campaign({
       int? id, 
@@ -672,7 +706,7 @@ class Campaign {
       String? textColor, 
       String? bannerId, 
       Banner? banner, 
-      Thumbnail? thumbnail, 
+      //Thumbnail? thumbnail,
       String? thumbnailId, 
       String? startDate, 
       String? endDate, 
@@ -695,7 +729,7 @@ class Campaign {
     _textColor = textColor;
     _bannerId = bannerId;
     _banner = banner;
-    _thumbnail = thumbnail;
+    //_thumbnail = thumbnail;
     _thumbnailId = thumbnailId;
     _startDate = startDate;
     _endDate = endDate;
@@ -721,7 +755,7 @@ class Campaign {
     _textColor = json['text_color'];
     _bannerId = json['banner_id'];
     _banner = json['banner'] != null ? Banner.fromJson(json['banner']) : null;
-    _thumbnail = json['thumbnail'] != null ? Thumbnail.fromJson(json['thumbnail']) : null;
+    //_thumbnail = json['thumbnail'] != null ? Thumbnail.fromJson(json['thumbnail']) : null;
     _thumbnailId = json['thumbnail_id'];
     _startDate = json['start_date'];
     _endDate = json['end_date'];
@@ -750,7 +784,7 @@ class Campaign {
   String? _textColor;
   String? _bannerId;
   Banner? _banner;
-  Thumbnail? _thumbnail;
+  //Thumbnail? _thumbnail;
   String? _thumbnailId;
   String? _startDate;
   String? _endDate;
@@ -774,7 +808,7 @@ class Campaign {
   String? get textColor => _textColor;
   String? get bannerId => _bannerId;
   Banner? get banner => _banner;
-  Thumbnail? get thumbnail => _thumbnail;
+  //Thumbnail? get thumbnail => _thumbnail;
   String? get thumbnailId => _thumbnailId;
   String? get startDate => _startDate;
   String? get endDate => _endDate;
@@ -802,9 +836,9 @@ class Campaign {
     if (_banner != null) {
       map['banner'] = _banner?.toJson();
     }
-    if (_thumbnail != null) {
-      map['thumbnail'] = _thumbnail?.toJson();
-    }
+    // if (_thumbnail != null) {
+    //   map['thumbnail'] = _thumbnail?.toJson();
+    // }
     map['thumbnail_id'] = _thumbnailId;
     map['start_date'] = _startDate;
     map['end_date'] = _endDate;
@@ -885,80 +919,6 @@ class CurrentLanguage {
 
 }
 
-class Thumbnail {
-  Thumbnail({
-      String? storage, 
-      String? originalImage, 
-      String? image40x40, 
-      String? image72x72, 
-      String? image190x230, 
-      String? image110x122, 
-      String? image320x320, 
-      String? imageThumbnail, 
-      String? image406x235, 
-      String? image374x374,}){
-    _storage = storage;
-    _originalImage = originalImage;
-    _image40x40 = image40x40;
-    _image72x72 = image72x72;
-    _image190x230 = image190x230;
-    _image110x122 = image110x122;
-    _image320x320 = image320x320;
-    _imageThumbnail = imageThumbnail;
-    _image406x235 = image406x235;
-    _image374x374 = image374x374;
-}
-
-  Thumbnail.fromJson(dynamic json) {
-    _storage = json['storage'];
-    _originalImage = json['original_image'];
-    _image40x40 = json['image_40x40'];
-    _image72x72 = json['image_72x72'];
-    _image190x230 = json['image_190x230'];
-    _image110x122 = json['image_110x122'];
-    _image320x320 = json['image_320x320'];
-    _imageThumbnail = json['image_thumbnail'];
-    _image406x235 = json['image_406x235'];
-    _image374x374 = json['image_374x374'];
-  }
-  String? _storage;
-  String? _originalImage;
-  String? _image40x40;
-  String? _image72x72;
-  String? _image190x230;
-  String? _image110x122;
-  String? _image320x320;
-  String? _imageThumbnail;
-  String? _image406x235;
-  String? _image374x374;
-
-  String? get storage => _storage;
-  String? get originalImage => _originalImage;
-  String? get image40x40 => _image40x40;
-  String? get image72x72 => _image72x72;
-  String? get image190x230 => _image190x230;
-  String? get image110x122 => _image110x122;
-  String? get image320x320 => _image320x320;
-  String? get imageThumbnail => _imageThumbnail;
-  String? get image406x235 => _image406x235;
-  String? get image374x374 => _image374x374;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['storage'] = _storage;
-    map['original_image'] = _originalImage;
-    map['image_40x40'] = _image40x40;
-    map['image_72x72'] = _image72x72;
-    map['image_190x230'] = _image190x230;
-    map['image_110x122'] = _image110x122;
-    map['image_320x320'] = _image320x320;
-    map['image_thumbnail'] = _imageThumbnail;
-    map['image_406x235'] = _image406x235;
-    map['image_374x374'] = _image374x374;
-    return map;
-  }
-
-}
 
 class Banner {
   Banner({
@@ -970,11 +930,6 @@ class Banner {
       String? image110x122, 
       String? image320x320, 
       String? imageThumbnail, 
-      String? image1260x452, 
-      String? image620x320, 
-      String? image400x235, 
-      String? image300x170, 
-      String? image1905x464, 
       String? image1920x412,}){
     _storage = storage;
     _originalImage = originalImage;
@@ -984,11 +939,6 @@ class Banner {
     _image110x122 = image110x122;
     _image320x320 = image320x320;
     _imageThumbnail = imageThumbnail;
-    _image1260x452 = image1260x452;
-    _image620x320 = image620x320;
-    _image400x235 = image400x235;
-    _image300x170 = image300x170;
-    _image1905x464 = image1905x464;
     _image1920x412 = image1920x412;
 }
 
@@ -1001,11 +951,6 @@ class Banner {
     _image110x122 = json['image_110x122'];
     _image320x320 = json['image_320x320'];
     _imageThumbnail = json['image_thumbnail'];
-    _image1260x452 = json['image_1260x452'];
-    _image620x320 = json['image_620x320'];
-    _image400x235 = json['image_400x235'];
-    _image300x170 = json['image_300x170'];
-    _image1905x464 = json['image_1905x464'];
     _image1920x412 = json['image_1920x412'];
   }
   String? _storage;
@@ -1016,11 +961,6 @@ class Banner {
   String? _image110x122;
   String? _image320x320;
   String? _imageThumbnail;
-  String? _image1260x452;
-  String? _image620x320;
-  String? _image400x235;
-  String? _image300x170;
-  String? _image1905x464;
   String? _image1920x412;
 
   String? get storage => _storage;
@@ -1031,11 +971,6 @@ class Banner {
   String? get image110x122 => _image110x122;
   String? get image320x320 => _image320x320;
   String? get imageThumbnail => _imageThumbnail;
-  String? get image1260x452 => _image1260x452;
-  String? get image620x320 => _image620x320;
-  String? get image400x235 => _image400x235;
-  String? get image300x170 => _image300x170;
-  String? get image1905x464 => _image1905x464;
   String? get image1920x412 => _image1920x412;
 
   Map<String, dynamic> toJson() {
@@ -1048,11 +983,6 @@ class Banner {
     map['image_110x122'] = _image110x122;
     map['image_320x320'] = _image320x320;
     map['image_thumbnail'] = _imageThumbnail;
-    map['image_1260x452'] = _image1260x452;
-    map['image_620x320'] = _image620x320;
-    map['image_400x235'] = _image400x235;
-    map['image_300x170'] = _image300x170;
-    map['image_1905x464'] = _image1905x464;
     map['image_1920x412'] = _image1920x412;
     return map;
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app/Model/offerModel.dart';
+import 'package:ecommerce_app/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/screen/offers/item_design.dart';
 import 'package:ecommerce_app/screen/offers/item_single.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,20 @@ class _MyHomePageState extends State<AllOfferList> {
     );
     var data = jsonDecode(response.body.toString());
     if(response.statusCode == 200){
+      setLoading(false);
       return OfferModel.fromJson(data);
+    }else if(response.statusCode == 401){
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.remove("token");
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+              (Route<dynamic> route) => false
+      );
+      return OfferModel.fromJson(data) ;
     }else{
-      return OfferModel.fromJson(data);
+      setLoading(false);
+        return OfferModel.fromJson(data) ;
+
     }
   }
 
@@ -68,7 +80,7 @@ class _MyHomePageState extends State<AllOfferList> {
                 height: 10,
               ),
               Expanded(
-                  child: FutureBuilder<OfferModel>(
+                  child:loading?CircularProgressIndicator(color:Colors.blue): FutureBuilder<OfferModel>(
                       future: initialize(),
                       builder: (context,snapShot){
                         if(snapShot.hasData){
@@ -82,8 +94,8 @@ class _MyHomePageState extends State<AllOfferList> {
                                 );
                               }
                           );
-                        }
-                        else{
+                        } else{
+                             return Center(child: Text("No data found !!"));
                           return Center(
                             child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
 

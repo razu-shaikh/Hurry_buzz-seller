@@ -1,21 +1,22 @@
-
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-
-import '../../Model/orderModel.dart';
-import '../../widgets/count.dart';
-import '../../widgets/product_unit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:ecommerce_app/Model/OrderModel.dart';
 import '../notification/notification.dart';
-import '../shop/drawer_side.dart';
 
 class SingleItemPreview extends StatefulWidget {
-   bool? isBool = false;
+  BillingAddress? billingAddress;
+  ShippingAddress? shippingAddress;
+  List<OrderDetails>? orderDetails;
+  int index;
+  SingleItemPreview(this.billingAddress,this.shippingAddress,this.orderDetails,this.index);
 
-   final Orders orderData;
-   final int index;
-   SingleItemPreview( this.orderData, this.index);
+
+
+   // final Order? orders;
+   // final int index;
+   // SingleItemPreview( this.orders, this.index);
 
   @override
   _SingleItemState createState() => _SingleItemState();
@@ -23,15 +24,42 @@ class SingleItemPreview extends StatefulWidget {
 
 class _SingleItemState extends State<SingleItemPreview> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _loading = true;
+  bool get loading => _loading;
 
-  var unitData;
-  var firstValue;
-
-  int count=0;
-  getCount() {
+  setLoading(bool value){
     setState(() {
-     // count = widget.productQuantity?? 0;
+      _loading = value;
     });
+  }
+
+  //OrderDetailsModel? orderDetailsModel;
+
+  // Future<void> initialize() async {
+  //   print("initializing=====");
+  //   setLoading(true);
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? authToken = pref.getString("token");
+  //   print("token"+authToken.toString());
+  //   final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/orders/view/'+widget.id.toString()),
+  //     headers: {
+  //       "apiKey": "sdfdge544364dg#",
+  //       "Authorization": "Bearer $authToken"},
+  //   );
+  //
+  //   if(response.statusCode == 200){
+  //     var data = jsonDecode(response.body.toString());
+  //     orderDetailsModel = OrderDetailsModel.fromJson(data);
+  //     // return OrderModel.fromJson(data);
+  //   }
+  //
+  //   setLoading(false);
+  // }
+
+  @override
+  void initState() {
+   // initialize();
+    super.initState();
   }
 
   @override
@@ -45,7 +73,6 @@ class _SingleItemState extends State<SingleItemPreview> {
     //   return true;
     // }):
 
-    getCount();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -63,10 +90,10 @@ class _SingleItemState extends State<SingleItemPreview> {
                     Navigator.pop(context);
                   },
                 ),
-                Column(
+                 (loading && widget.orderDetails== null) ?Text("Order Id #"):Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Order Id #"+widget.orderData.orderDetails![0].product!.id.toString(),
+                    Text("Order Id #"+widget.orderDetails![0].productId.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
 
@@ -112,10 +139,25 @@ class _SingleItemState extends State<SingleItemPreview> {
       // drawer: Drawer(
       //   child:DrawerSide(),
       // ),
-      body:Column(
+      body:(loading && widget.orderDetails == null) ? Center(child: CircularProgressIndicator(),) : Column(
         children: [
           SizedBox(height: 10),
-          Text('Order Details #',//+widget.orderData.orderDetails![widget.index]!.orderId.toString(),
+          Container(
+            height: 100,
+            width: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: widget.orderDetails![0].product!.images!.isNotEmpty? NetworkImage(
+                    'https://hurrybuzz.com/public/'+widget.orderDetails![0].product!.images![0].originalImage.toString()
+                ):NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+          ),
+          SizedBox(height: 10),
+          Text('Order Details #'+widget.orderDetails![0].orderId.toString(),
             style: TextStyle(color: Colors.black, fontSize: 17),
           ),
           SizedBox(height: 20),
@@ -130,29 +172,16 @@ class _SingleItemState extends State<SingleItemPreview> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
-                      ),
-                      borderRadius: BorderRadius.only(topLeft:Radius.circular(10),bottomLeft: Radius.circular(10)),
-                    ),
-                  ),
                   SizedBox(width: 20),
                   Container(
                       child: Center(
                         child: Column(
-                          mainAxisAlignment: widget.isBool == false ?
-                          MainAxisAlignment.spaceAround
-                              : MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text( widget.orderData.billingAddress!.name.toString(),
+                                Text(widget.orderDetails![0].product!.productName.toString(),
                                   style: TextStyle(
                                       color: textColor,
                                       fontWeight: FontWeight.bold,
@@ -163,7 +192,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(widget.orderData.orderDetails![0].orderId.toString(),
+                                    Text(widget.orderDetails![0].orderId.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -191,7 +220,7 @@ class _SingleItemState extends State<SingleItemPreview> {
                                 ),
                                 Row(
                                   children: [
-                                    Text("\$"+widget.orderData.orderDetails![0].price.toString(),
+                                    Text("\$"+widget.orderDetails![0].price.toString(),
                                       style: TextStyle(
                                           color: textColor, fontWeight: FontWeight.bold),
                                     ),
@@ -214,31 +243,134 @@ class _SingleItemState extends State<SingleItemPreview> {
                         ),
                       )
                   ),
-                  // Container(
-                  //   child:Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
-                  //     child: Text(
-                  //       "pending",
-                  //       style: TextStyle(
-                  //         color: textColor,
-                  //         fontWeight: FontWeight.normal,
-                  //       ),
-                  //     ),
-                  //
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.yellow,
-                  //     borderRadius: BorderRadius.only(topLeft:Radius.circular(5),bottomLeft: Radius.circular(5)),
-                  //
-                  //   ),
-                  //
-                  // ),
 
                 ],
               ),
             ),
 
           ),
+          Column(
+            children: [
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    "Billing:",
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                ),
+
+              ),
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.billingAddress!.name.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.billingAddress!.phoneNo.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.billingAddress!.address.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    "Shipping:",
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                ),
+
+              ),
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.shippingAddress!.name.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.shippingAddress!.phoneNo.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+              Container(
+                child:Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                  child: Text(
+                    widget.shippingAddress!.address.toString(),
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ),
+
+              ),
+            ],
+          )
         ],
       ),
     );

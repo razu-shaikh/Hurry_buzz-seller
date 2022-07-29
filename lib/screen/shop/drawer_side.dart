@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/profile_model.dart';
 import 'package:ecommerce_app/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerSide extends StatefulWidget {
@@ -44,6 +47,7 @@ class _DrawerSideState extends State<DrawerSide> {
   Future<void> initialize() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? authToken = pref.getString("token");
+    print(authToken);
     Profile? profileData ;
     try {
       final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/me',
@@ -64,10 +68,38 @@ class _DrawerSideState extends State<DrawerSide> {
 
         });
         setLoading(false);
+      }else if(response.statusCode == 401){
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.remove("token");
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+                (Route<dynamic> route) => false
+        );
+      }else{
+
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void>logOutCall() async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/logout'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+
+    var data = jsonDecode(response.body.toString());
+    print(data);
+    // if(response.statusCode == 200){
+    //   return NotificationModel.fromJson(data);
+    // }else{
+    //   return NotificationModel.fromJson(data);
+    // }
   }
   @override
   void initState() {
@@ -78,10 +110,6 @@ class _DrawerSideState extends State<DrawerSide> {
 
   @override
   Widget build(BuildContext context) {
-   // final authProvider = Provider.of<AuthProvider>(context);
-    // var data = authProvider.authData!.data!.user;
-    // final String? profilePic= data!.profileImage;
-    // final String? phone= data.phone;
     return Drawer(
       child: Container(
         color: Colors.red,
@@ -168,10 +196,12 @@ class _DrawerSideState extends State<DrawerSide> {
                 iconData: Icons.logout,
                 title: "LogOut",
                 onTap: () async{
+                  await logOutCall();
                   SharedPreferences pref = await SharedPreferences.getInstance();
                   pref.remove("token");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen())
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+                          (Route<dynamic> route) => false
                   );
                 }),
             listTile(iconData: Icons.copy_outlined, title: "Raise a Complaint"),

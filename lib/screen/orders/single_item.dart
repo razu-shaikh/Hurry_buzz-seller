@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/Model/orderModel.dart';
+import 'package:ecommerce_app/Model/OrderModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,9 @@ class _SingleItemState extends State<SingleItem> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
+                      image: widget.orderData.orderDetails![0].product!.images!.isNotEmpty? NetworkImage(
+                          'https://hurrybuzz.com/public/'+widget.orderData.orderDetails![0].product!.images![0].originalImage.toString()
+                      ):NetworkImage(
                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
                     ),
                     borderRadius: BorderRadius.only(topLeft:Radius.circular(10),bottomLeft: Radius.circular(10)),

@@ -53,7 +53,7 @@ class _MyHomePageState extends State<report_design> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text(widget.reportModelReports.hasVariant.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
+                  child: Text(widget.reportModelReports.currentStock.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
                 ),
                 VerticalDivider(
                   width: 10,
@@ -67,7 +67,21 @@ class _MyHomePageState extends State<report_design> {
                     borderRadius:BorderRadius.circular(2),
 
                   ),
-                  child: Text(widget.reportModelReports.category!.title.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
+                  child: Text(widget.reportModelReports.totalSale.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
+                ),
+                VerticalDivider(
+                  width: 10,
+                  thickness: 2,
+                  color: Colors.black12,
+                ),
+                Container(
+                  width: 70.0,
+                  height: 50.0,
+                  decoration:BoxDecoration(
+                    borderRadius:BorderRadius.circular(2),
+
+                  ),
+                  child: Text(widget.reportModelReports.ordersSumQuantity.toString(),style: TextStyle(color:Colors.black,fontSize:15),),
                 )
               ]
           ),

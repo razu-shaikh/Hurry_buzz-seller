@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:ecommerce_app/screen/FirstScreen/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,20 +10,56 @@ void main(){
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        theme: ThemeData(
+            primaryColor: primaryColor,
+            scaffoldBackgroundColor: scaffoldBackgroundColor),
+           debugShowCheckedModeBanner: false,
+        home: RouteNavigationScreen(),
+       //home:LoginScreen()
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  String? token;
+class RouteNavigationScreen extends StatefulWidget {
+  const RouteNavigationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RouteNavigationScreen> createState() => _RouteNavigationScreenState();
+}
+
+class _RouteNavigationScreenState extends State<RouteNavigationScreen> {
+
+  bool? initialRoute;
 
   Future<void> getToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.reload();
-    token = pref.getString("token");
+    String? token = pref.getString("token");
+
+    if(token != null) {
+      try {
+        Response response = await Dio().post('https://hurrybuzz.com/api/v1/seller/me',
+          options: Options(
+              headers: {
+                "apiKey": "sdfdge544364dg#",
+                "Authorization": "Bearer $token"}),
+        );
+        if(response.statusCode == 200) {
+          initialRoute = true;
+        } else {
+          initialRoute = false;
+        }
+      } catch(e) {
+        initialRoute = false;
+      }
+    } else {
+      initialRoute = false;
+    }
     setState(() {
     });
   }
@@ -35,33 +70,17 @@ class _MyAppState extends State<MyApp> {
     getToken();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    //print("token"+token.toString());
-    // return MultiProvider(providers: [
-    //   ChangeNotifierProvider(create: (_) => SignInProvider()),
-    //   ChangeNotifierProvider(create: (_) => OrderProvider()),
-    //   ChangeNotifierProvider(create: (_) => ShopProvider()),
-    //   ChangeNotifierProvider(create: (_) => ProfileProvider()),
-    //   ChangeNotifierProxyProvider<AuthProvider, ShopProvider>(
-    //       create: (context) => ShopProvider(),
-    //       update:(context,auth,authToken)=> authToken!..update(auth.token!)),
-    //   ChangeNotifierProxyProvider<AuthProvider, OrderProvider>(
-    //       create: (context) => OrderProvider(),
-    //       update:(context,auth,authToken)=> authToken!..update(auth.token!)),
-    //   ChangeNotifierProxyProvider<AuthProvider, ProfileProvider>(
-    //       create: (context) => ProfileProvider(),
-    //       update:(context,auth,authToken)=> authToken!..update(auth.token!)),
-    //
-    // ],
-    return MaterialApp(
-        theme: ThemeData(
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor),
-           debugShowCheckedModeBanner: false,
-        home: token == null ? LoginScreen() : MyNavigationBar()
-       //home:LoginScreen()
+    if(initialRoute == true) {
+      return MyNavigationBar();
+    }
+    if(initialRoute == false) {
+      return LoginScreen();
+    }
+    return Scaffold(
+      body: Center(child: CircularProgressIndicator(color: Colors.blue,),),
     );
   }
 }
+

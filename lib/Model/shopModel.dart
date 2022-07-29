@@ -1,5 +1,6 @@
 const String _jsonKeyShopModelShopDetails = 'shop_details';
 const String _jsonKeyShopModelShopType = 'shop_type';
+const String _jsonKeyShopModelAllProducts = 'all_products';
 const String _jsonKeyShopModelPublished = 'published';
 const String _jsonKeyShopModelDraft = 'draft';
 const String _jsonKeyShopModelSales = 'sales';
@@ -30,8 +31,12 @@ const String _jsonKeyShopModelCampaignsProductPurchaseCost = 'purchase_cost';
 const String _jsonKeyShopModelCampaignsProductBarcode = 'barcode';
 const String _jsonKeyShopModelCampaignsProductVideoProvider = 'video_provider';
 const String _jsonKeyShopModelCampaignsProductVideoUrl = 'video_url';
+const String _jsonKeyShopModelCampaignsProductColors = 'colors';
+const String _jsonKeyShopModelCampaignsProductAttributeSets = 'attribute_sets';
 const String _jsonKeyShopModelCampaignsProductVatTaxes = 'vat_taxes';
 const String _jsonKeyShopModelCampaignsProductHasVariant = 'has_variant';
+const String _jsonKeyShopModelCampaignsProductThumbnail = 'thumbnail';
+const String _jsonKeyShopModelCampaignsProductImages = 'images';
 const String _jsonKeyShopModelCampaignsProductThumbnailId = 'thumbnail_id';
 const String _jsonKeyShopModelCampaignsProductImageIds = 'image_ids';
 const String _jsonKeyShopModelCampaignsProductCurrentStock = 'current_stock';
@@ -57,6 +62,7 @@ const String _jsonKeyShopModelCampaignsProductShippingFee = 'shipping_fee';
 const String _jsonKeyShopModelCampaignsProductShippingFeeDependOnQuantity = 'shipping_fee_depend_on_quantity';
 const String _jsonKeyShopModelCampaignsProductEstimatedShippingDays = 'estimated_shipping_days';
 const String _jsonKeyShopModelCampaignsProductCashOnDelivery = 'cash_on_delivery';
+const String _jsonKeyShopModelCampaignsProductMetaImage = 'meta_image';
 const String _jsonKeyShopModelCampaignsProductProductFile = 'product_file';
 const String _jsonKeyShopModelCampaignsProductProductFileId = 'product_file_id';
 const String _jsonKeyShopModelCampaignsProductMetaImageId = 'meta_image_id';
@@ -89,7 +95,6 @@ const String _jsonKeyShopModelCampaignsProductProductLanguagesCreatedAt = 'creat
 const String _jsonKeyShopModelCampaignsProductProductLanguagesUpdatedAt = 'updated_at';
 const String _jsonKeyShopModelCampaignsProductProductLanguagesSpecification = 'specification';
 class ShopModelCampaignsProductProductLanguages {
-
   int? id;
   String? productId;
   String? lang;
@@ -104,7 +109,7 @@ class ShopModelCampaignsProductProductLanguages {
   String? metaKeywords;
   String? createdAt;
   String? updatedAt;
-  bool? specification;
+  dynamic specification;
 
   ShopModelCampaignsProductProductLanguages({
     this.id,
@@ -161,8 +166,163 @@ class ShopModelCampaignsProductProductLanguages {
   }
 }
 
-class ShopModelCampaignsProduct {
+const String _jsonKeyShopModelCampaignsProductMetaImageStorage = 'storage';
+const String _jsonKeyShopModelCampaignsProductMetaImageOriginalImage = 'original_image';
+const String _jsonKeyShopModelCampaignsProductMetaImageImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelCampaignsProductMetaImageImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelCampaignsProductMetaImageImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelCampaignsProductMetaImageImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelCampaignsProductMetaImageImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelCampaignsProductMetaImageImageThumbnail = 'image_thumbnail';
+class ShopModelCampaignsProductMetaImage {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
 
+  ShopModelCampaignsProductMetaImage({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelCampaignsProductMetaImage.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelCampaignsProductMetaImageStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelCampaignsProductMetaImageOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelCampaignsProductMetaImageImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelCampaignsProductMetaImageImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelCampaignsProductMetaImageImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelCampaignsProductMetaImageImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelCampaignsProductMetaImageImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelCampaignsProductMetaImageImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelCampaignsProductMetaImageStorage] = storage;
+    data[_jsonKeyShopModelCampaignsProductMetaImageOriginalImage] = originalImage;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelCampaignsProductMetaImageImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelCampaignsProductImagesStorage = 'storage';
+const String _jsonKeyShopModelCampaignsProductImagesOriginalImage = 'original_image';
+const String _jsonKeyShopModelCampaignsProductImagesImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelCampaignsProductImagesImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelCampaignsProductImagesImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelCampaignsProductImagesImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelCampaignsProductImagesImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelCampaignsProductImagesImageThumbnail = 'image_thumbnail';
+class ShopModelCampaignsProductImages {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelCampaignsProductImages({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelCampaignsProductImages.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelCampaignsProductImagesStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelCampaignsProductImagesOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelCampaignsProductImagesImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelCampaignsProductImagesImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelCampaignsProductImagesImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelCampaignsProductImagesImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelCampaignsProductImagesImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelCampaignsProductImagesImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelCampaignsProductImagesStorage] = storage;
+    data[_jsonKeyShopModelCampaignsProductImagesOriginalImage] = originalImage;
+    data[_jsonKeyShopModelCampaignsProductImagesImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelCampaignsProductImagesImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelCampaignsProductImagesImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelCampaignsProductImagesImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelCampaignsProductImagesImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelCampaignsProductImagesImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelCampaignsProductThumbnailStorage = 'storage';
+const String _jsonKeyShopModelCampaignsProductThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelCampaignsProductThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelCampaignsProductThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelCampaignsProductThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelCampaignsProductThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelCampaignsProductThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelCampaignsProductThumbnailImageThumbnail = 'image_thumbnail';
+class ShopModelCampaignsProductThumbnail {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelCampaignsProductThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelCampaignsProductThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelCampaignsProductThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelCampaignsProductThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelCampaignsProductThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelCampaignsProductThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelCampaignsProductThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelCampaignsProductThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelCampaignsProductThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelCampaignsProductThumbnailImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelCampaignsProductThumbnailStorage] = storage;
+    data[_jsonKeyShopModelCampaignsProductThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelCampaignsProductThumbnailImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+class ShopModelCampaignsProduct {
   int? id;
   String? brandId;
   String? categoryId;
@@ -178,8 +338,12 @@ class ShopModelCampaignsProduct {
   String? barcode;
   String? videoProvider;
   String? videoUrl;
+  List<String?>? colors;
+  List<String?>? attributeSets;
   String? vatTaxes;
   String? hasVariant;
+  ShopModelCampaignsProductThumbnail? thumbnail;
+  List<ShopModelCampaignsProductImages?>? images;
   String? thumbnailId;
   String? imageIds;
   String? currentStock;
@@ -205,6 +369,7 @@ class ShopModelCampaignsProduct {
   String? shippingFeeDependOnQuantity;
   String? estimatedShippingDays;
   String? cashOnDelivery;
+  ShopModelCampaignsProductMetaImage? metaImage;
   String? productFile;
   String? productFileId;
   String? metaImageId;
@@ -218,7 +383,7 @@ class ShopModelCampaignsProduct {
   String? image_40x40;
   String? image_72x72;
   String? image_110x122;
-  int? specialDiscountCheck;
+  String? specialDiscountCheck;
   int? discountPercentage;
   List<ShopModelCampaignsProductProductLanguages?>? productLanguages;
 
@@ -238,8 +403,12 @@ class ShopModelCampaignsProduct {
     this.barcode,
     this.videoProvider,
     this.videoUrl,
+    this.colors,
+    this.attributeSets,
     this.vatTaxes,
     this.hasVariant,
+    this.thumbnail,
+    this.images,
     this.thumbnailId,
     this.imageIds,
     this.currentStock,
@@ -265,6 +434,7 @@ class ShopModelCampaignsProduct {
     this.shippingFeeDependOnQuantity,
     this.estimatedShippingDays,
     this.cashOnDelivery,
+    this.metaImage,
     this.productFile,
     this.productFileId,
     this.metaImageId,
@@ -283,7 +453,7 @@ class ShopModelCampaignsProduct {
     this.productLanguages,
   });
   ShopModelCampaignsProduct.fromJson(Map<String, dynamic> json) {
-    id = json[_jsonKeyShopModelCampaignsProductId1]?.toInt();
+    id = json[_jsonKeyShopModelCampaignsProductId]?.toInt();
     brandId = json[_jsonKeyShopModelCampaignsProductBrandId]?.toString();
     categoryId = json[_jsonKeyShopModelCampaignsProductCategoryId]?.toString();
     userId = json[_jsonKeyShopModelCampaignsProductUserId]?.toString();
@@ -298,8 +468,33 @@ class ShopModelCampaignsProduct {
     barcode = json[_jsonKeyShopModelCampaignsProductBarcode]?.toString();
     videoProvider = json[_jsonKeyShopModelCampaignsProductVideoProvider]?.toString();
     videoUrl = json[_jsonKeyShopModelCampaignsProductVideoUrl]?.toString();
+    if (json[_jsonKeyShopModelCampaignsProductColors] != null) {
+      final v = json[_jsonKeyShopModelCampaignsProductColors];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      colors = arr0;
+    }
+    if (json[_jsonKeyShopModelCampaignsProductAttributeSets] != null) {
+      final v = json[_jsonKeyShopModelCampaignsProductAttributeSets];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      attributeSets = arr0;
+    }
     vatTaxes = json[_jsonKeyShopModelCampaignsProductVatTaxes]?.toString();
     hasVariant = json[_jsonKeyShopModelCampaignsProductHasVariant]?.toString();
+   //thumbnail = (json[_jsonKeyShopModelCampaignsProductThumbnail] != null) ? ShopModelCampaignsProductThumbnail.fromJson(json[_jsonKeyShopModelCampaignsProductThumbnail]) : null;
+    if (json[_jsonKeyShopModelCampaignsProductImages] != null) {
+      final v = json[_jsonKeyShopModelCampaignsProductImages];
+      final arr0 = <ShopModelCampaignsProductImages>[];
+      v.forEach((v) {
+        arr0.add(ShopModelCampaignsProductImages.fromJson(v));
+      });
+      images = arr0;
+    }
     thumbnailId = json[_jsonKeyShopModelCampaignsProductThumbnailId]?.toString();
     imageIds = json[_jsonKeyShopModelCampaignsProductImageIds]?.toString();
     currentStock = json[_jsonKeyShopModelCampaignsProductCurrentStock]?.toString();
@@ -325,6 +520,7 @@ class ShopModelCampaignsProduct {
     shippingFeeDependOnQuantity = json[_jsonKeyShopModelCampaignsProductShippingFeeDependOnQuantity]?.toString();
     estimatedShippingDays = json[_jsonKeyShopModelCampaignsProductEstimatedShippingDays]?.toString();
     cashOnDelivery = json[_jsonKeyShopModelCampaignsProductCashOnDelivery]?.toString();
+    //metaImage = (json[_jsonKeyShopModelCampaignsProductMetaImage] != null) ? ShopModelCampaignsProductMetaImage.fromJson(json[_jsonKeyShopModelCampaignsProductMetaImage]) : null;
     productFile = json[_jsonKeyShopModelCampaignsProductProductFile]?.toString();
     productFileId = json[_jsonKeyShopModelCampaignsProductProductFileId]?.toString();
     metaImageId = json[_jsonKeyShopModelCampaignsProductMetaImageId]?.toString();
@@ -338,7 +534,7 @@ class ShopModelCampaignsProduct {
     image_40x40 = json[_jsonKeyShopModelCampaignsProductImage_40x40]?.toString();
     image_72x72 = json[_jsonKeyShopModelCampaignsProductImage_72x72]?.toString();
     image_110x122 = json[_jsonKeyShopModelCampaignsProductImage_110x122]?.toString();
-    specialDiscountCheck = json[_jsonKeyShopModelCampaignsProductSpecialDiscountCheck]?.toInt();
+    specialDiscountCheck = json[_jsonKeyShopModelCampaignsProductSpecialDiscountCheck]?.toString();
     discountPercentage = json[_jsonKeyShopModelCampaignsProductDiscountPercentage]?.toInt();
     if (json[_jsonKeyShopModelCampaignsProductProductLanguages] != null) {
       final v = json[_jsonKeyShopModelCampaignsProductProductLanguages];
@@ -366,8 +562,35 @@ class ShopModelCampaignsProduct {
     data[_jsonKeyShopModelCampaignsProductBarcode] = barcode;
     data[_jsonKeyShopModelCampaignsProductVideoProvider] = videoProvider;
     data[_jsonKeyShopModelCampaignsProductVideoUrl] = videoUrl;
+    if (colors != null) {
+      final v = colors;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelCampaignsProductColors] = arr0;
+    }
+    if (attributeSets != null) {
+      final v = attributeSets;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelCampaignsProductAttributeSets] = arr0;
+    }
     data[_jsonKeyShopModelCampaignsProductVatTaxes] = vatTaxes;
     data[_jsonKeyShopModelCampaignsProductHasVariant] = hasVariant;
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelCampaignsProductThumbnail] = thumbnail!.toJson();
+    }
+    if (images != null) {
+      final v = images;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelCampaignsProductImages] = arr0;
+    }
     data[_jsonKeyShopModelCampaignsProductThumbnailId] = thumbnailId;
     data[_jsonKeyShopModelCampaignsProductImageIds] = imageIds;
     data[_jsonKeyShopModelCampaignsProductCurrentStock] = currentStock;
@@ -393,6 +616,9 @@ class ShopModelCampaignsProduct {
     data[_jsonKeyShopModelCampaignsProductShippingFeeDependOnQuantity] = shippingFeeDependOnQuantity;
     data[_jsonKeyShopModelCampaignsProductEstimatedShippingDays] = estimatedShippingDays;
     data[_jsonKeyShopModelCampaignsProductCashOnDelivery] = cashOnDelivery;
+    if (metaImage != null) {
+      data[_jsonKeyShopModelCampaignsProductMetaImage] = metaImage!.toJson();
+    }
     data[_jsonKeyShopModelCampaignsProductProductFile] = productFile;
     data[_jsonKeyShopModelCampaignsProductProductFileId] = productFileId;
     data[_jsonKeyShopModelCampaignsProductMetaImageId] = metaImageId;
@@ -426,6 +652,7 @@ const String _jsonKeyShopModelCampaignsCampaignBackgroundColor = 'background_col
 const String _jsonKeyShopModelCampaignsCampaignTextColor = 'text_color';
 const String _jsonKeyShopModelCampaignsCampaignBannerId = 'banner_id';
 const String _jsonKeyShopModelCampaignsCampaignBanner = 'banner';
+const String _jsonKeyShopModelCampaignsCampaignThumbnail = 'thumbnail';
 const String _jsonKeyShopModelCampaignsCampaignThumbnailId = 'thumbnail_id';
 const String _jsonKeyShopModelCampaignsCampaignStartDate = 'start_date';
 const String _jsonKeyShopModelCampaignsCampaignEndDate = 'end_date';
@@ -450,7 +677,6 @@ const String _jsonKeyShopModelCampaignsCampaignCurrentLanguageDescription = 'des
 const String _jsonKeyShopModelCampaignsCampaignCurrentLanguageCreatedAt = 'created_at';
 const String _jsonKeyShopModelCampaignsCampaignCurrentLanguageUpdatedAt = 'updated_at';
 class ShopModelCampaignsCampaignCurrentLanguage {
-
   int? id;
   String? campaignId;
   String? lang;
@@ -490,6 +716,68 @@ class ShopModelCampaignsCampaignCurrentLanguage {
   }
 }
 
+const String _jsonKeyShopModelCampaignsCampaignThumbnailStorage = 'storage';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImageThumbnail = 'image_thumbnail';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_406x235 = 'image_406x235';
+const String _jsonKeyShopModelCampaignsCampaignThumbnailImage_374x374 = 'image_374x374';
+class ShopModelCampaignsCampaignThumbnail {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+  String? image_406x235;
+  String? image_374x374;
+
+  ShopModelCampaignsCampaignThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+    this.image_406x235,
+    this.image_374x374,
+  });
+  ShopModelCampaignsCampaignThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelCampaignsCampaignThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelCampaignsCampaignThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelCampaignsCampaignThumbnailImageThumbnail]?.toString();
+    image_406x235 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_406x235]?.toString();
+    image_374x374 = json[_jsonKeyShopModelCampaignsCampaignThumbnailImage_374x374]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailStorage] = storage;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImageThumbnail] = imageThumbnail;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_406x235] = image_406x235;
+    data[_jsonKeyShopModelCampaignsCampaignThumbnailImage_374x374] = image_374x374;
+    return data;
+  }
+}
+
 const String _jsonKeyShopModelCampaignsCampaignBannerStorage = 'storage';
 const String _jsonKeyShopModelCampaignsCampaignBannerOriginalImage = 'original_image';
 const String _jsonKeyShopModelCampaignsCampaignBannerImage_40x40 = 'image_40x40';
@@ -498,11 +786,6 @@ const String _jsonKeyShopModelCampaignsCampaignBannerImage_190x230 = 'image_190x
 const String _jsonKeyShopModelCampaignsCampaignBannerImage_110x122 = 'image_110x122';
 const String _jsonKeyShopModelCampaignsCampaignBannerImage_320x320 = 'image_320x320';
 const String _jsonKeyShopModelCampaignsCampaignBannerImageThumbnail = 'image_thumbnail';
-const String _jsonKeyShopModelCampaignsCampaignBannerImage_1260x452 = 'image_1260x452';
-const String _jsonKeyShopModelCampaignsCampaignBannerImage_620x320 = 'image_620x320';
-const String _jsonKeyShopModelCampaignsCampaignBannerImage_400x235 = 'image_400x235';
-const String _jsonKeyShopModelCampaignsCampaignBannerImage_300x170 = 'image_300x170';
-const String _jsonKeyShopModelCampaignsCampaignBannerImage_1905x464 = 'image_1905x464';
 const String _jsonKeyShopModelCampaignsCampaignBannerImage_1920x412 = 'image_1920x412';
 class ShopModelCampaignsCampaignBanner {
 
@@ -514,11 +797,6 @@ class ShopModelCampaignsCampaignBanner {
   String? image_110x122;
   String? image_320x320;
   String? imageThumbnail;
-  String? image_1260x452;
-  String? image_620x320;
-  String? image_400x235;
-  String? image_300x170;
-  String? image_1905x464;
   String? image_1920x412;
 
   ShopModelCampaignsCampaignBanner({
@@ -530,11 +808,6 @@ class ShopModelCampaignsCampaignBanner {
     this.image_110x122,
     this.image_320x320,
     this.imageThumbnail,
-    this.image_1260x452,
-    this.image_620x320,
-    this.image_400x235,
-    this.image_300x170,
-    this.image_1905x464,
     this.image_1920x412,
   });
   ShopModelCampaignsCampaignBanner.fromJson(Map<String, dynamic> json) {
@@ -546,11 +819,6 @@ class ShopModelCampaignsCampaignBanner {
     image_110x122 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_110x122]?.toString();
     image_320x320 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_320x320]?.toString();
     imageThumbnail = json[_jsonKeyShopModelCampaignsCampaignBannerImageThumbnail]?.toString();
-    image_1260x452 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_1260x452]?.toString();
-    image_620x320 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_620x320]?.toString();
-    image_400x235 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_400x235]?.toString();
-    image_300x170 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_300x170]?.toString();
-    image_1905x464 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_1905x464]?.toString();
     image_1920x412 = json[_jsonKeyShopModelCampaignsCampaignBannerImage_1920x412]?.toString();
   }
   Map<String, dynamic> toJson() {
@@ -563,11 +831,6 @@ class ShopModelCampaignsCampaignBanner {
     data[_jsonKeyShopModelCampaignsCampaignBannerImage_110x122] = image_110x122;
     data[_jsonKeyShopModelCampaignsCampaignBannerImage_320x320] = image_320x320;
     data[_jsonKeyShopModelCampaignsCampaignBannerImageThumbnail] = imageThumbnail;
-    data[_jsonKeyShopModelCampaignsCampaignBannerImage_1260x452] = image_1260x452;
-    data[_jsonKeyShopModelCampaignsCampaignBannerImage_620x320] = image_620x320;
-    data[_jsonKeyShopModelCampaignsCampaignBannerImage_400x235] = image_400x235;
-    data[_jsonKeyShopModelCampaignsCampaignBannerImage_300x170] = image_300x170;
-    data[_jsonKeyShopModelCampaignsCampaignBannerImage_1905x464] = image_1905x464;
     data[_jsonKeyShopModelCampaignsCampaignBannerImage_1920x412] = image_1920x412;
     return data;
   }
@@ -581,6 +844,7 @@ class ShopModelCampaignsCampaign {
   String? textColor;
   String? bannerId;
   ShopModelCampaignsCampaignBanner? banner;
+  ShopModelCampaignsCampaignThumbnail? thumbnail;
   String? thumbnailId;
   String? startDate;
   String? endDate;
@@ -605,6 +869,7 @@ class ShopModelCampaignsCampaign {
     this.textColor,
     this.bannerId,
     this.banner,
+    this.thumbnail,
     this.thumbnailId,
     this.startDate,
     this.endDate,
@@ -623,12 +888,13 @@ class ShopModelCampaignsCampaign {
     this.currentLanguage,
   });
   ShopModelCampaignsCampaign.fromJson(Map<String, dynamic> json) {
-    id = json[_jsonKeyShopModelCampaignsCampaignId2]?.toInt();
+    id = json[_jsonKeyShopModelCampaignsCampaignId]?.toInt();
     slug = json[_jsonKeyShopModelCampaignsCampaignSlug]?.toString();
     backgroundColor = json[_jsonKeyShopModelCampaignsCampaignBackgroundColor]?.toString();
     textColor = json[_jsonKeyShopModelCampaignsCampaignTextColor]?.toString();
     bannerId = json[_jsonKeyShopModelCampaignsCampaignBannerId]?.toString();
     banner = (json[_jsonKeyShopModelCampaignsCampaignBanner] != null) ? ShopModelCampaignsCampaignBanner.fromJson(json[_jsonKeyShopModelCampaignsCampaignBanner]) : null;
+    //thumbnail = (json[_jsonKeyShopModelCampaignsCampaignThumbnail] != null) ? ShopModelCampaignsCampaignThumbnail.fromJson(json[_jsonKeyShopModelCampaignsCampaignThumbnail]) : null;
     thumbnailId = json[_jsonKeyShopModelCampaignsCampaignThumbnailId]?.toString();
     startDate = json[_jsonKeyShopModelCampaignsCampaignStartDate]?.toString();
     endDate = json[_jsonKeyShopModelCampaignsCampaignEndDate]?.toString();
@@ -663,6 +929,9 @@ class ShopModelCampaignsCampaign {
     if (banner != null) {
       data[_jsonKeyShopModelCampaignsCampaignBanner] = banner!.toJson();
     }
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelCampaignsCampaignThumbnail] = thumbnail!.toJson();
+    }
     data[_jsonKeyShopModelCampaignsCampaignThumbnailId] = thumbnailId;
     data[_jsonKeyShopModelCampaignsCampaignStartDate] = startDate;
     data[_jsonKeyShopModelCampaignsCampaignEndDate] = endDate;
@@ -691,7 +960,6 @@ class ShopModelCampaignsCampaign {
 }
 
 class ShopModelCampaigns {
-
   int? id;
   String? userId;
   String? campaignId;
@@ -720,8 +988,8 @@ class ShopModelCampaigns {
   ShopModelCampaigns.fromJson(Map<String, dynamic> json) {
     id = json[_jsonKeyShopModelCampaignsId]?.toInt();
     userId = json[_jsonKeyShopModelCampaignsUserId]?.toString();
-    campaignId = json[_jsonKeyShopModelCampaignsCampaignId]?.toString();
-    productId = json[_jsonKeyShopModelCampaignsProductId]?.toString();
+    campaignId = json[_jsonKeyShopModelCampaignsCampaignId2]?.toString();
+    productId = json[_jsonKeyShopModelCampaignsProductId1]?.toString();
     status = json[_jsonKeyShopModelCampaignsStatus]?.toString();
     discount = json[_jsonKeyShopModelCampaignsDiscount]?.toString();
     discountType = json[_jsonKeyShopModelCampaignsDiscountType]?.toString();
@@ -766,8 +1034,11 @@ const String _jsonKeyShopModelSalesPurchaseCost = 'purchase_cost';
 const String _jsonKeyShopModelSalesBarcode = 'barcode';
 const String _jsonKeyShopModelSalesVideoProvider = 'video_provider';
 const String _jsonKeyShopModelSalesVideoUrl = 'video_url';
+const String _jsonKeyShopModelSalesColors = 'colors';
+const String _jsonKeyShopModelSalesAttributeSets = 'attribute_sets';
 const String _jsonKeyShopModelSalesVatTaxes = 'vat_taxes';
 const String _jsonKeyShopModelSalesHasVariant = 'has_variant';
+const String _jsonKeyShopModelSalesThumbnail = 'thumbnail';
 const String _jsonKeyShopModelSalesImages = 'images';
 const String _jsonKeyShopModelSalesThumbnailId = 'thumbnail_id';
 const String _jsonKeyShopModelSalesImageIds = 'image_ids';
@@ -794,6 +1065,7 @@ const String _jsonKeyShopModelSalesShippingFee = 'shipping_fee';
 const String _jsonKeyShopModelSalesShippingFeeDependOnQuantity = 'shipping_fee_depend_on_quantity';
 const String _jsonKeyShopModelSalesEstimatedShippingDays = 'estimated_shipping_days';
 const String _jsonKeyShopModelSalesCashOnDelivery = 'cash_on_delivery';
+const String _jsonKeyShopModelSalesMetaImage = 'meta_image';
 const String _jsonKeyShopModelSalesProductFile = 'product_file';
 const String _jsonKeyShopModelSalesProductFileId = 'product_file_id';
 const String _jsonKeyShopModelSalesMetaImageId = 'meta_image_id';
@@ -826,6 +1098,7 @@ const String _jsonKeyShopModelSalesProductLanguagesCreatedAt = 'created_at';
 const String _jsonKeyShopModelSalesProductLanguagesUpdatedAt = 'updated_at';
 const String _jsonKeyShopModelSalesProductLanguagesSpecification = 'specification';
 class ShopModelSalesProductLanguages {
+
   int? id;
   String? productId;
   String? lang;
@@ -897,6 +1170,59 @@ class ShopModelSalesProductLanguages {
   }
 }
 
+const String _jsonKeyShopModelSalesMetaImageStorage = 'storage';
+const String _jsonKeyShopModelSalesMetaImageOriginalImage = 'original_image';
+const String _jsonKeyShopModelSalesMetaImageImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelSalesMetaImageImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelSalesMetaImageImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelSalesMetaImageImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelSalesMetaImageImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelSalesMetaImageImageThumbnail = 'image_thumbnail';
+class ShopModelSalesMetaImage {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelSalesMetaImage({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelSalesMetaImage.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelSalesMetaImageStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelSalesMetaImageOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelSalesMetaImageImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelSalesMetaImageImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelSalesMetaImageImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelSalesMetaImageImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelSalesMetaImageImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelSalesMetaImageImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelSalesMetaImageStorage] = storage;
+    data[_jsonKeyShopModelSalesMetaImageOriginalImage] = originalImage;
+    data[_jsonKeyShopModelSalesMetaImageImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelSalesMetaImageImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelSalesMetaImageImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelSalesMetaImageImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelSalesMetaImageImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelSalesMetaImageImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
 const String _jsonKeyShopModelSalesImagesStorage = 'storage';
 const String _jsonKeyShopModelSalesImagesOriginalImage = 'original_image';
 const String _jsonKeyShopModelSalesImagesImage_40x40 = 'image_40x40';
@@ -950,100 +1276,60 @@ class ShopModelSalesImages {
   }
 }
 
-class ShopModelSales {
-/*
-{
-  "id": 73,
-  "brand_id": "1",
-  "category_id": "2",
-  "user_id": "38",
-  "created_by": "38",
-  "slug": "demo2",
-  "price": "100.000",
-  "special_discount": "0.000",
-  "special_discount_type": null,
-  "special_discount_start": null,
-  "special_discount_end": null,
-  "purchase_cost": "0.000",
-  "barcode": "F7TVFXE83ZL7B5MQ",
-  "video_provider": null,
-  "video_url": null,
-  "vat_taxes": null,
-  "has_variant": "0",
-  "images": [
-    {
-      "storage": "local",
-      "original_image": "images/20220614191929_original__media_146.png",
-      "image_40x40": "images/20220614191929image_40x40_media_357.png",
-      "image_72x72": "images/20220614191929image_72x72_media_67.png",
-      "image_190x230": "images/20220616133541image_190x230-445.png",
-      "image_110x122": "images/20220614191929image_110x122_media_78.png",
-      "image_320x320": "images/20220614191929image_300x200_media_83.png",
-      "image_thumbnail": "images/20220614191929image_thumbnail_media_161.png"
-    }
-  ],
-  "thumbnail_id": "152",
-  "image_ids": "152",
-  "current_stock": "0",
-  "minimum_order_quantity": "1",
-  "stock_notification": "1",
-  "low_stock_to_notify": "11",
-  "stock_visibility": "hide_stock",
-  "total_sale": "0",
-  "status": "published",
-  "is_approved": "1",
-  "is_catalog": "0",
-  "external_link": null,
-  "is_featured": "0",
-  "is_classified": "0",
-  "is_wholesale": "0",
-  "is_digital": "0",
-  "is_refundable": "0",
-  "todays_deal": "0",
-  "rating": 0,
-  "viewed": "0",
-  "shipping_type": null,
-  "shipping_fee": "0.000",
-  "shipping_fee_depend_on_quantity": "0",
-  "estimated_shipping_days": "0",
-  "cash_on_delivery": "1",
-  "product_file": null,
-  "product_file_id": null,
-  "meta_image_id": "152",
-  "reward": "0.000",
-  "is_deleted": "0",
-  "deleted_at": null,
-  "created_at": "2022-06-16T07:35:41.000000Z",
-  "updated_at": "2022-06-16T07:35:41.000000Z",
-  "product_name": "demo product 12",
-  "image_190x230": "https://hurrybuzz.com/public/images/20220616133541image_190x230-445.png",
-  "image_40x40": "https://hurrybuzz.com/public/images/20220614191929image_40x40_media_357.png",
-  "image_72x72": "https://hurrybuzz.com/public/images/20220614191929image_72x72_media_67.png",
-  "image_110x122": "https://hurrybuzz.com/public/images/20220614191929image_110x122_media_78.png",
-  "special_discount_check": 0,
-  "discount_percentage": 0,
-  "product_languages": [
-    {
-      "id": 73,
-      "product_id": "73",
-      "lang": "en",
-      "name": "demo product 12",
-      "short_description": "<p>DFSFSFSFS</p>",
-      "description": "",
-      "pdf_specification_id": null,
-      "tags": "PRODUCT",
-      "unit": "KG",
-      "meta_title": "",
-      "meta_description": "",
-      "meta_keywords": "",
-      "created_at": "2022-06-16T07:35:41.000000Z",
-      "updated_at": "2022-06-16T07:35:41.000000Z",
-      "specification": false
-    }
-  ]
-} 
-*/
+const String _jsonKeyShopModelSalesThumbnailStorage = 'storage';
+const String _jsonKeyShopModelSalesThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelSalesThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelSalesThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelSalesThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelSalesThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelSalesThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelSalesThumbnailImageThumbnail = 'image_thumbnail';
+class ShopModelSalesThumbnail {
 
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelSalesThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelSalesThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelSalesThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelSalesThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelSalesThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelSalesThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelSalesThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelSalesThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelSalesThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelSalesThumbnailImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelSalesThumbnailStorage] = storage;
+    data[_jsonKeyShopModelSalesThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelSalesThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelSalesThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelSalesThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelSalesThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelSalesThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelSalesThumbnailImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+class ShopModelSales {
   int? id;
   String? brandId;
   String? categoryId;
@@ -1059,8 +1345,11 @@ class ShopModelSales {
   String? barcode;
   String? videoProvider;
   String? videoUrl;
+  List<String?>? colors;
+  List<String?>? attributeSets;
   String? vatTaxes;
   String? hasVariant;
+  ShopModelSalesThumbnail? thumbnail;
   List<ShopModelSalesImages?>? images;
   String? thumbnailId;
   String? imageIds;
@@ -1087,6 +1376,7 @@ class ShopModelSales {
   String? shippingFeeDependOnQuantity;
   String? estimatedShippingDays;
   String? cashOnDelivery;
+  ShopModelSalesMetaImage? metaImage;
   String? productFile;
   String? productFileId;
   String? metaImageId;
@@ -1120,8 +1410,11 @@ class ShopModelSales {
     this.barcode,
     this.videoProvider,
     this.videoUrl,
+    this.colors,
+    this.attributeSets,
     this.vatTaxes,
     this.hasVariant,
+    this.thumbnail,
     this.images,
     this.thumbnailId,
     this.imageIds,
@@ -1148,6 +1441,7 @@ class ShopModelSales {
     this.shippingFeeDependOnQuantity,
     this.estimatedShippingDays,
     this.cashOnDelivery,
+    this.metaImage,
     this.productFile,
     this.productFileId,
     this.metaImageId,
@@ -1181,8 +1475,25 @@ class ShopModelSales {
     barcode = json[_jsonKeyShopModelSalesBarcode]?.toString();
     videoProvider = json[_jsonKeyShopModelSalesVideoProvider]?.toString();
     videoUrl = json[_jsonKeyShopModelSalesVideoUrl]?.toString();
+    if (json[_jsonKeyShopModelSalesColors] != null) {
+      final v = json[_jsonKeyShopModelSalesColors];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      colors = arr0;
+    }
+    if (json[_jsonKeyShopModelSalesAttributeSets] != null) {
+      final v = json[_jsonKeyShopModelSalesAttributeSets];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      attributeSets = arr0;
+    }
     vatTaxes = json[_jsonKeyShopModelSalesVatTaxes]?.toString();
     hasVariant = json[_jsonKeyShopModelSalesHasVariant]?.toString();
+    thumbnail = (json[_jsonKeyShopModelSalesThumbnail] != null) ? ShopModelSalesThumbnail.fromJson(json[_jsonKeyShopModelSalesThumbnail]) : null;
     if (json[_jsonKeyShopModelSalesImages] != null) {
       final v = json[_jsonKeyShopModelSalesImages];
       final arr0 = <ShopModelSalesImages>[];
@@ -1216,6 +1527,7 @@ class ShopModelSales {
     shippingFeeDependOnQuantity = json[_jsonKeyShopModelSalesShippingFeeDependOnQuantity]?.toString();
     estimatedShippingDays = json[_jsonKeyShopModelSalesEstimatedShippingDays]?.toString();
     cashOnDelivery = json[_jsonKeyShopModelSalesCashOnDelivery]?.toString();
+    metaImage = (json[_jsonKeyShopModelSalesMetaImage] != null) ? ShopModelSalesMetaImage.fromJson(json[_jsonKeyShopModelSalesMetaImage]) : null;
     productFile = json[_jsonKeyShopModelSalesProductFile]?.toString();
     productFileId = json[_jsonKeyShopModelSalesProductFileId]?.toString();
     metaImageId = json[_jsonKeyShopModelSalesMetaImageId]?.toString();
@@ -1257,8 +1569,27 @@ class ShopModelSales {
     data[_jsonKeyShopModelSalesBarcode] = barcode;
     data[_jsonKeyShopModelSalesVideoProvider] = videoProvider;
     data[_jsonKeyShopModelSalesVideoUrl] = videoUrl;
+    if (colors != null) {
+      final v = colors;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelSalesColors] = arr0;
+    }
+    if (attributeSets != null) {
+      final v = attributeSets;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelSalesAttributeSets] = arr0;
+    }
     data[_jsonKeyShopModelSalesVatTaxes] = vatTaxes;
     data[_jsonKeyShopModelSalesHasVariant] = hasVariant;
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelSalesThumbnail] = thumbnail!.toJson();
+    }
     if (images != null) {
       final v = images;
       final arr0 = [];
@@ -1292,6 +1623,9 @@ class ShopModelSales {
     data[_jsonKeyShopModelSalesShippingFeeDependOnQuantity] = shippingFeeDependOnQuantity;
     data[_jsonKeyShopModelSalesEstimatedShippingDays] = estimatedShippingDays;
     data[_jsonKeyShopModelSalesCashOnDelivery] = cashOnDelivery;
+    if (metaImage != null) {
+      data[_jsonKeyShopModelSalesMetaImage] = metaImage!.toJson();
+    }
     data[_jsonKeyShopModelSalesProductFile] = productFile;
     data[_jsonKeyShopModelSalesProductFileId] = productFileId;
     data[_jsonKeyShopModelSalesMetaImageId] = metaImageId;
@@ -1334,8 +1668,12 @@ const String _jsonKeyShopModelDraftPurchaseCost = 'purchase_cost';
 const String _jsonKeyShopModelDraftBarcode = 'barcode';
 const String _jsonKeyShopModelDraftVideoProvider = 'video_provider';
 const String _jsonKeyShopModelDraftVideoUrl = 'video_url';
+const String _jsonKeyShopModelDraftColors = 'colors';
+const String _jsonKeyShopModelDraftAttributeSets = 'attribute_sets';
 const String _jsonKeyShopModelDraftVatTaxes = 'vat_taxes';
 const String _jsonKeyShopModelDraftHasVariant = 'has_variant';
+const String _jsonKeyShopModelDraftThumbnail = 'thumbnail';
+const String _jsonKeyShopModelDraftImages = 'images';
 const String _jsonKeyShopModelDraftThumbnailId = 'thumbnail_id';
 const String _jsonKeyShopModelDraftImageIds = 'image_ids';
 const String _jsonKeyShopModelDraftCurrentStock = 'current_stock';
@@ -1361,6 +1699,7 @@ const String _jsonKeyShopModelDraftShippingFee = 'shipping_fee';
 const String _jsonKeyShopModelDraftShippingFeeDependOnQuantity = 'shipping_fee_depend_on_quantity';
 const String _jsonKeyShopModelDraftEstimatedShippingDays = 'estimated_shipping_days';
 const String _jsonKeyShopModelDraftCashOnDelivery = 'cash_on_delivery';
+const String _jsonKeyShopModelDraftMetaImage = 'meta_image';
 const String _jsonKeyShopModelDraftProductFile = 'product_file';
 const String _jsonKeyShopModelDraftProductFileId = 'product_file_id';
 const String _jsonKeyShopModelDraftMetaImageId = 'meta_image_id';
@@ -1465,6 +1804,169 @@ class ShopModelDraftProductLanguages {
   }
 }
 
+const String _jsonKeyShopModelDraftMetaImageStorage = 'storage';
+const String _jsonKeyShopModelDraftMetaImageOriginalImage = 'original_image';
+const String _jsonKeyShopModelDraftMetaImageImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelDraftMetaImageImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelDraftMetaImageImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelDraftMetaImageImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelDraftMetaImageImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelDraftMetaImageImageThumbnail = 'image_thumbnail';
+const String _jsonKeyShopModelDraftMetaImageImage_1200x630 = 'image_1200x630';
+class ShopModelDraftMetaImage {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+  String? image_1200x630;
+
+  ShopModelDraftMetaImage({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+    this.image_1200x630,
+  });
+  ShopModelDraftMetaImage.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelDraftMetaImageStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelDraftMetaImageOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelDraftMetaImageImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelDraftMetaImageImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelDraftMetaImageImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelDraftMetaImageImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelDraftMetaImageImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelDraftMetaImageImageThumbnail]?.toString();
+    image_1200x630 = json[_jsonKeyShopModelDraftMetaImageImage_1200x630]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelDraftMetaImageStorage] = storage;
+    data[_jsonKeyShopModelDraftMetaImageOriginalImage] = originalImage;
+    data[_jsonKeyShopModelDraftMetaImageImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelDraftMetaImageImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelDraftMetaImageImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelDraftMetaImageImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelDraftMetaImageImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelDraftMetaImageImageThumbnail] = imageThumbnail;
+    data[_jsonKeyShopModelDraftMetaImageImage_1200x630] = image_1200x630;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelDraftImagesStorage = 'storage';
+const String _jsonKeyShopModelDraftImagesOriginalImage = 'original_image';
+const String _jsonKeyShopModelDraftImagesImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelDraftImagesImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelDraftImagesImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelDraftImagesImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelDraftImagesImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelDraftImagesImageThumbnail = 'image_thumbnail';
+class ShopModelDraftImages {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelDraftImages({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelDraftImages.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelDraftImagesStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelDraftImagesOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelDraftImagesImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelDraftImagesImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelDraftImagesImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelDraftImagesImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelDraftImagesImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelDraftImagesImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelDraftImagesStorage] = storage;
+    data[_jsonKeyShopModelDraftImagesOriginalImage] = originalImage;
+    data[_jsonKeyShopModelDraftImagesImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelDraftImagesImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelDraftImagesImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelDraftImagesImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelDraftImagesImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelDraftImagesImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelDraftThumbnailStorage = 'storage';
+const String _jsonKeyShopModelDraftThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelDraftThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelDraftThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelDraftThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelDraftThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelDraftThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelDraftThumbnailImageThumbnail = 'image_thumbnail';
+class ShopModelDraftThumbnail {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelDraftThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelDraftThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelDraftThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelDraftThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelDraftThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelDraftThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelDraftThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelDraftThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelDraftThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelDraftThumbnailImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelDraftThumbnailStorage] = storage;
+    data[_jsonKeyShopModelDraftThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelDraftThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelDraftThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelDraftThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelDraftThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelDraftThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelDraftThumbnailImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
 class ShopModelDraft {
 
   int? id;
@@ -1482,8 +1984,12 @@ class ShopModelDraft {
   String? barcode;
   String? videoProvider;
   String? videoUrl;
+  List<String?>? colors;
+  List<String?>? attributeSets;
   String? vatTaxes;
   String? hasVariant;
+  ShopModelDraftThumbnail? thumbnail;
+  List<ShopModelDraftImages?>? images;
   String? thumbnailId;
   String? imageIds;
   String? currentStock;
@@ -1509,6 +2015,7 @@ class ShopModelDraft {
   String? shippingFeeDependOnQuantity;
   String? estimatedShippingDays;
   String? cashOnDelivery;
+  ShopModelDraftMetaImage? metaImage;
   String? productFile;
   String? productFileId;
   String? metaImageId;
@@ -1522,7 +2029,7 @@ class ShopModelDraft {
   String? image_40x40;
   String? image_72x72;
   String? image_110x122;
-  dynamic specialDiscountCheck;
+  int? specialDiscountCheck;
   int? discountPercentage;
   List<ShopModelDraftProductLanguages?>? productLanguages;
 
@@ -1542,8 +2049,12 @@ class ShopModelDraft {
     this.barcode,
     this.videoProvider,
     this.videoUrl,
+    this.colors,
+    this.attributeSets,
     this.vatTaxes,
     this.hasVariant,
+    this.thumbnail,
+    this.images,
     this.thumbnailId,
     this.imageIds,
     this.currentStock,
@@ -1569,6 +2080,7 @@ class ShopModelDraft {
     this.shippingFeeDependOnQuantity,
     this.estimatedShippingDays,
     this.cashOnDelivery,
+    this.metaImage,
     this.productFile,
     this.productFileId,
     this.metaImageId,
@@ -1602,8 +2114,33 @@ class ShopModelDraft {
     barcode = json[_jsonKeyShopModelDraftBarcode]?.toString();
     videoProvider = json[_jsonKeyShopModelDraftVideoProvider]?.toString();
     videoUrl = json[_jsonKeyShopModelDraftVideoUrl]?.toString();
+    if (json[_jsonKeyShopModelDraftColors] != null) {
+      final v = json[_jsonKeyShopModelDraftColors];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      colors = arr0;
+    }
+    if (json[_jsonKeyShopModelDraftAttributeSets] != null) {
+      final v = json[_jsonKeyShopModelDraftAttributeSets];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      attributeSets = arr0;
+    }
     vatTaxes = json[_jsonKeyShopModelDraftVatTaxes]?.toString();
     hasVariant = json[_jsonKeyShopModelDraftHasVariant]?.toString();
+    //thumbnail = (json[_jsonKeyShopModelDraftThumbnail] != null) ? ShopModelDraftThumbnail.fromJson(json[_jsonKeyShopModelDraftThumbnail]) : null;
+    if (json[_jsonKeyShopModelDraftImages] != null) {
+      final v = json[_jsonKeyShopModelDraftImages];
+      final arr0 = <ShopModelDraftImages>[];
+      v.forEach((v) {
+        arr0.add(ShopModelDraftImages.fromJson(v));
+      });
+      images = arr0;
+    }
     thumbnailId = json[_jsonKeyShopModelDraftThumbnailId]?.toString();
     imageIds = json[_jsonKeyShopModelDraftImageIds]?.toString();
     currentStock = json[_jsonKeyShopModelDraftCurrentStock]?.toString();
@@ -1629,6 +2166,7 @@ class ShopModelDraft {
     shippingFeeDependOnQuantity = json[_jsonKeyShopModelDraftShippingFeeDependOnQuantity]?.toString();
     estimatedShippingDays = json[_jsonKeyShopModelDraftEstimatedShippingDays]?.toString();
     cashOnDelivery = json[_jsonKeyShopModelDraftCashOnDelivery]?.toString();
+    //metaImage = (json[_jsonKeyShopModelDraftMetaImage] != null) ? ShopModelDraftMetaImage.fromJson(json[_jsonKeyShopModelDraftMetaImage]) : null;
     productFile = json[_jsonKeyShopModelDraftProductFile]?.toString();
     productFileId = json[_jsonKeyShopModelDraftProductFileId]?.toString();
     metaImageId = json[_jsonKeyShopModelDraftMetaImageId]?.toString();
@@ -1642,7 +2180,7 @@ class ShopModelDraft {
     image_40x40 = json[_jsonKeyShopModelDraftImage_40x40]?.toString();
     image_72x72 = json[_jsonKeyShopModelDraftImage_72x72]?.toString();
     image_110x122 = json[_jsonKeyShopModelDraftImage_110x122]?.toString();
-    specialDiscountCheck = json[_jsonKeyShopModelDraftSpecialDiscountCheck];
+    specialDiscountCheck = json[_jsonKeyShopModelDraftSpecialDiscountCheck]?.toInt();
     discountPercentage = json[_jsonKeyShopModelDraftDiscountPercentage]?.toInt();
     if (json[_jsonKeyShopModelDraftProductLanguages] != null) {
       final v = json[_jsonKeyShopModelDraftProductLanguages];
@@ -1670,8 +2208,35 @@ class ShopModelDraft {
     data[_jsonKeyShopModelDraftBarcode] = barcode;
     data[_jsonKeyShopModelDraftVideoProvider] = videoProvider;
     data[_jsonKeyShopModelDraftVideoUrl] = videoUrl;
+    if (colors != null) {
+      final v = colors;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelDraftColors] = arr0;
+    }
+    if (attributeSets != null) {
+      final v = attributeSets;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelDraftAttributeSets] = arr0;
+    }
     data[_jsonKeyShopModelDraftVatTaxes] = vatTaxes;
     data[_jsonKeyShopModelDraftHasVariant] = hasVariant;
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelDraftThumbnail] = thumbnail!.toJson();
+    }
+    if (images != null) {
+      final v = images;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelDraftImages] = arr0;
+    }
     data[_jsonKeyShopModelDraftThumbnailId] = thumbnailId;
     data[_jsonKeyShopModelDraftImageIds] = imageIds;
     data[_jsonKeyShopModelDraftCurrentStock] = currentStock;
@@ -1697,6 +2262,9 @@ class ShopModelDraft {
     data[_jsonKeyShopModelDraftShippingFeeDependOnQuantity] = shippingFeeDependOnQuantity;
     data[_jsonKeyShopModelDraftEstimatedShippingDays] = estimatedShippingDays;
     data[_jsonKeyShopModelDraftCashOnDelivery] = cashOnDelivery;
+    if (metaImage != null) {
+      data[_jsonKeyShopModelDraftMetaImage] = metaImage!.toJson();
+    }
     data[_jsonKeyShopModelDraftProductFile] = productFile;
     data[_jsonKeyShopModelDraftProductFileId] = productFileId;
     data[_jsonKeyShopModelDraftMetaImageId] = metaImageId;
@@ -1739,8 +2307,12 @@ const String _jsonKeyShopModelPublishedPurchaseCost = 'purchase_cost';
 const String _jsonKeyShopModelPublishedBarcode = 'barcode';
 const String _jsonKeyShopModelPublishedVideoProvider = 'video_provider';
 const String _jsonKeyShopModelPublishedVideoUrl = 'video_url';
+const String _jsonKeyShopModelPublishedColors = 'colors';
+const String _jsonKeyShopModelPublishedAttributeSets = 'attribute_sets';
 const String _jsonKeyShopModelPublishedVatTaxes = 'vat_taxes';
 const String _jsonKeyShopModelPublishedHasVariant = 'has_variant';
+const String _jsonKeyShopModelPublishedThumbnail = 'thumbnail';
+const String _jsonKeyShopModelPublishedImages = 'images';
 const String _jsonKeyShopModelPublishedThumbnailId = 'thumbnail_id';
 const String _jsonKeyShopModelPublishedImageIds = 'image_ids';
 const String _jsonKeyShopModelPublishedCurrentStock = 'current_stock';
@@ -1766,6 +2338,7 @@ const String _jsonKeyShopModelPublishedShippingFee = 'shipping_fee';
 const String _jsonKeyShopModelPublishedShippingFeeDependOnQuantity = 'shipping_fee_depend_on_quantity';
 const String _jsonKeyShopModelPublishedEstimatedShippingDays = 'estimated_shipping_days';
 const String _jsonKeyShopModelPublishedCashOnDelivery = 'cash_on_delivery';
+const String _jsonKeyShopModelPublishedMetaImage = 'meta_image';
 const String _jsonKeyShopModelPublishedProductFile = 'product_file';
 const String _jsonKeyShopModelPublishedProductFileId = 'product_file_id';
 const String _jsonKeyShopModelPublishedMetaImageId = 'meta_image_id';
@@ -1798,7 +2371,6 @@ const String _jsonKeyShopModelPublishedProductLanguagesCreatedAt = 'created_at';
 const String _jsonKeyShopModelPublishedProductLanguagesUpdatedAt = 'updated_at';
 const String _jsonKeyShopModelPublishedProductLanguagesSpecification = 'specification';
 class ShopModelPublishedProductLanguages {
-
   int? id;
   String? productId;
   String? lang;
@@ -1813,7 +2385,7 @@ class ShopModelPublishedProductLanguages {
   String? metaKeywords;
   String? createdAt;
   String? updatedAt;
-  bool? specification;
+  dynamic specification;
 
   ShopModelPublishedProductLanguages({
     this.id,
@@ -1870,8 +2442,164 @@ class ShopModelPublishedProductLanguages {
   }
 }
 
-class ShopModelPublished {
+const String _jsonKeyShopModelPublishedMetaImageStorage = 'storage';
+const String _jsonKeyShopModelPublishedMetaImageOriginalImage = 'original_image';
+const String _jsonKeyShopModelPublishedMetaImageImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelPublishedMetaImageImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelPublishedMetaImageImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelPublishedMetaImageImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelPublishedMetaImageImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelPublishedMetaImageImageThumbnail = 'image_thumbnail';
+class ShopModelPublishedMetaImage {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
 
+  ShopModelPublishedMetaImage({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelPublishedMetaImage.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelPublishedMetaImageStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelPublishedMetaImageOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelPublishedMetaImageImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelPublishedMetaImageImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelPublishedMetaImageImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelPublishedMetaImageImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelPublishedMetaImageImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelPublishedMetaImageImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelPublishedMetaImageStorage] = storage;
+    data[_jsonKeyShopModelPublishedMetaImageOriginalImage] = originalImage;
+    data[_jsonKeyShopModelPublishedMetaImageImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelPublishedMetaImageImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelPublishedMetaImageImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelPublishedMetaImageImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelPublishedMetaImageImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelPublishedMetaImageImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelPublishedImagesStorage = 'storage';
+const String _jsonKeyShopModelPublishedImagesOriginalImage = 'original_image';
+const String _jsonKeyShopModelPublishedImagesImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelPublishedImagesImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelPublishedImagesImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelPublishedImagesImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelPublishedImagesImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelPublishedImagesImageThumbnail = 'image_thumbnail';
+class ShopModelPublishedImages {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelPublishedImages({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelPublishedImages.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelPublishedImagesStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelPublishedImagesOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelPublishedImagesImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelPublishedImagesImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelPublishedImagesImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelPublishedImagesImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelPublishedImagesImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelPublishedImagesImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelPublishedImagesStorage] = storage;
+    data[_jsonKeyShopModelPublishedImagesOriginalImage] = originalImage;
+    data[_jsonKeyShopModelPublishedImagesImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelPublishedImagesImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelPublishedImagesImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelPublishedImagesImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelPublishedImagesImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelPublishedImagesImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelPublishedThumbnailStorage = 'storage';
+const String _jsonKeyShopModelPublishedThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelPublishedThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelPublishedThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelPublishedThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelPublishedThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelPublishedThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelPublishedThumbnailImageThumbnail = 'image_thumbnail';
+class ShopModelPublishedThumbnail {
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelPublishedThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelPublishedThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelPublishedThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelPublishedThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelPublishedThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelPublishedThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelPublishedThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelPublishedThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelPublishedThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelPublishedThumbnailImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelPublishedThumbnailStorage] = storage;
+    data[_jsonKeyShopModelPublishedThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelPublishedThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelPublishedThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelPublishedThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelPublishedThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelPublishedThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelPublishedThumbnailImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+class ShopModelPublished {
   int? id;
   String? brandId;
   String? categoryId;
@@ -1887,8 +2615,12 @@ class ShopModelPublished {
   String? barcode;
   String? videoProvider;
   String? videoUrl;
+  List<String?>? colors;
+  List<String?>? attributeSets;
   String? vatTaxes;
   String? hasVariant;
+  ShopModelPublishedThumbnail? thumbnail;
+  List<ShopModelPublishedImages?>? images;
   String? thumbnailId;
   String? imageIds;
   String? currentStock;
@@ -1914,6 +2646,7 @@ class ShopModelPublished {
   String? shippingFeeDependOnQuantity;
   String? estimatedShippingDays;
   String? cashOnDelivery;
+  ShopModelPublishedMetaImage? metaImage;
   String? productFile;
   String? productFileId;
   String? metaImageId;
@@ -1927,7 +2660,7 @@ class ShopModelPublished {
   String? image_40x40;
   String? image_72x72;
   String? image_110x122;
-  int? specialDiscountCheck;
+  dynamic specialDiscountCheck;
   int? discountPercentage;
   List<ShopModelPublishedProductLanguages?>? productLanguages;
 
@@ -1947,8 +2680,12 @@ class ShopModelPublished {
     this.barcode,
     this.videoProvider,
     this.videoUrl,
+    this.colors,
+    this.attributeSets,
     this.vatTaxes,
     this.hasVariant,
+    this.thumbnail,
+    this.images,
     this.thumbnailId,
     this.imageIds,
     this.currentStock,
@@ -1974,6 +2711,7 @@ class ShopModelPublished {
     this.shippingFeeDependOnQuantity,
     this.estimatedShippingDays,
     this.cashOnDelivery,
+    this.metaImage,
     this.productFile,
     this.productFileId,
     this.metaImageId,
@@ -2007,8 +2745,33 @@ class ShopModelPublished {
     barcode = json[_jsonKeyShopModelPublishedBarcode]?.toString();
     videoProvider = json[_jsonKeyShopModelPublishedVideoProvider]?.toString();
     videoUrl = json[_jsonKeyShopModelPublishedVideoUrl]?.toString();
+    if (json[_jsonKeyShopModelPublishedColors] != null) {
+      final v = json[_jsonKeyShopModelPublishedColors];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      colors = arr0;
+    }
+    if (json[_jsonKeyShopModelPublishedAttributeSets] != null) {
+      final v = json[_jsonKeyShopModelPublishedAttributeSets];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      attributeSets = arr0;
+    }
     vatTaxes = json[_jsonKeyShopModelPublishedVatTaxes]?.toString();
     hasVariant = json[_jsonKeyShopModelPublishedHasVariant]?.toString();
+    //thumbnail = (json[_jsonKeyShopModelPublishedThumbnail] != null) ? ShopModelPublishedThumbnail.fromJson(json[_jsonKeyShopModelPublishedThumbnail]) : null;
+    if (json[_jsonKeyShopModelPublishedImages] != null) {
+      final v = json[_jsonKeyShopModelPublishedImages];
+      final arr0 = <ShopModelPublishedImages>[];
+      v.forEach((v) {
+        arr0.add(ShopModelPublishedImages.fromJson(v));
+      });
+      images = arr0;
+    }
     thumbnailId = json[_jsonKeyShopModelPublishedThumbnailId]?.toString();
     imageIds = json[_jsonKeyShopModelPublishedImageIds]?.toString();
     currentStock = json[_jsonKeyShopModelPublishedCurrentStock]?.toString();
@@ -2034,6 +2797,7 @@ class ShopModelPublished {
     shippingFeeDependOnQuantity = json[_jsonKeyShopModelPublishedShippingFeeDependOnQuantity]?.toString();
     estimatedShippingDays = json[_jsonKeyShopModelPublishedEstimatedShippingDays]?.toString();
     cashOnDelivery = json[_jsonKeyShopModelPublishedCashOnDelivery]?.toString();
+    //metaImage = (json[_jsonKeyShopModelPublishedMetaImage] != null) ? ShopModelPublishedMetaImage.fromJson(json[_jsonKeyShopModelPublishedMetaImage]) : null;
     productFile = json[_jsonKeyShopModelPublishedProductFile]?.toString();
     productFileId = json[_jsonKeyShopModelPublishedProductFileId]?.toString();
     metaImageId = json[_jsonKeyShopModelPublishedMetaImageId]?.toString();
@@ -2047,7 +2811,7 @@ class ShopModelPublished {
     image_40x40 = json[_jsonKeyShopModelPublishedImage_40x40]?.toString();
     image_72x72 = json[_jsonKeyShopModelPublishedImage_72x72]?.toString();
     image_110x122 = json[_jsonKeyShopModelPublishedImage_110x122]?.toString();
-    specialDiscountCheck = json[_jsonKeyShopModelPublishedSpecialDiscountCheck]?.toInt();
+    specialDiscountCheck = json[_jsonKeyShopModelPublishedSpecialDiscountCheck]!;
     discountPercentage = json[_jsonKeyShopModelPublishedDiscountPercentage]?.toInt();
     if (json[_jsonKeyShopModelPublishedProductLanguages] != null) {
       final v = json[_jsonKeyShopModelPublishedProductLanguages];
@@ -2075,8 +2839,35 @@ class ShopModelPublished {
     data[_jsonKeyShopModelPublishedBarcode] = barcode;
     data[_jsonKeyShopModelPublishedVideoProvider] = videoProvider;
     data[_jsonKeyShopModelPublishedVideoUrl] = videoUrl;
+    if (colors != null) {
+      final v = colors;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelPublishedColors] = arr0;
+    }
+    if (attributeSets != null) {
+      final v = attributeSets;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelPublishedAttributeSets] = arr0;
+    }
     data[_jsonKeyShopModelPublishedVatTaxes] = vatTaxes;
     data[_jsonKeyShopModelPublishedHasVariant] = hasVariant;
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelPublishedThumbnail] = thumbnail!.toJson();
+    }
+    if (images != null) {
+      final v = images;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelPublishedImages] = arr0;
+    }
     data[_jsonKeyShopModelPublishedThumbnailId] = thumbnailId;
     data[_jsonKeyShopModelPublishedImageIds] = imageIds;
     data[_jsonKeyShopModelPublishedCurrentStock] = currentStock;
@@ -2102,6 +2893,9 @@ class ShopModelPublished {
     data[_jsonKeyShopModelPublishedShippingFeeDependOnQuantity] = shippingFeeDependOnQuantity;
     data[_jsonKeyShopModelPublishedEstimatedShippingDays] = estimatedShippingDays;
     data[_jsonKeyShopModelPublishedCashOnDelivery] = cashOnDelivery;
+    if (metaImage != null) {
+      data[_jsonKeyShopModelPublishedMetaImage] = metaImage!.toJson();
+    }
     data[_jsonKeyShopModelPublishedProductFile] = productFile;
     data[_jsonKeyShopModelPublishedProductFileId] = productFileId;
     data[_jsonKeyShopModelPublishedMetaImageId] = metaImageId;
@@ -2129,12 +2923,650 @@ class ShopModelPublished {
   }
 }
 
+const String _jsonKeyShopModelAllProductsId = 'id';
+const String _jsonKeyShopModelAllProductsBrandId = 'brand_id';
+const String _jsonKeyShopModelAllProductsCategoryId = 'category_id';
+const String _jsonKeyShopModelAllProductsUserId = 'user_id';
+const String _jsonKeyShopModelAllProductsCreatedBy = 'created_by';
+const String _jsonKeyShopModelAllProductsSlug = 'slug';
+const String _jsonKeyShopModelAllProductsPrice = 'price';
+const String _jsonKeyShopModelAllProductsSpecialDiscount = 'special_discount';
+const String _jsonKeyShopModelAllProductsSpecialDiscountType = 'special_discount_type';
+const String _jsonKeyShopModelAllProductsSpecialDiscountStart = 'special_discount_start';
+const String _jsonKeyShopModelAllProductsSpecialDiscountEnd = 'special_discount_end';
+const String _jsonKeyShopModelAllProductsPurchaseCost = 'purchase_cost';
+const String _jsonKeyShopModelAllProductsBarcode = 'barcode';
+const String _jsonKeyShopModelAllProductsVideoProvider = 'video_provider';
+const String _jsonKeyShopModelAllProductsVideoUrl = 'video_url';
+const String _jsonKeyShopModelAllProductsColors = 'colors';
+const String _jsonKeyShopModelAllProductsAttributeSets = 'attribute_sets';
+const String _jsonKeyShopModelAllProductsVatTaxes = 'vat_taxes';
+const String _jsonKeyShopModelAllProductsHasVariant = 'has_variant';
+const String _jsonKeyShopModelAllProductsThumbnail = 'thumbnail';
+const String _jsonKeyShopModelAllProductsImages = 'images';
+const String _jsonKeyShopModelAllProductsThumbnailId = 'thumbnail_id';
+const String _jsonKeyShopModelAllProductsImageIds = 'image_ids';
+const String _jsonKeyShopModelAllProductsCurrentStock = 'current_stock';
+const String _jsonKeyShopModelAllProductsMinimumOrderQuantity = 'minimum_order_quantity';
+const String _jsonKeyShopModelAllProductsStockNotification = 'stock_notification';
+const String _jsonKeyShopModelAllProductsLowStockToNotify = 'low_stock_to_notify';
+const String _jsonKeyShopModelAllProductsStockVisibility = 'stock_visibility';
+const String _jsonKeyShopModelAllProductsTotalSale = 'total_sale';
+const String _jsonKeyShopModelAllProductsStatus = 'status';
+const String _jsonKeyShopModelAllProductsIsApproved = 'is_approved';
+const String _jsonKeyShopModelAllProductsIsCatalog = 'is_catalog';
+const String _jsonKeyShopModelAllProductsExternalLink = 'external_link';
+const String _jsonKeyShopModelAllProductsIsFeatured = 'is_featured';
+const String _jsonKeyShopModelAllProductsIsClassified = 'is_classified';
+const String _jsonKeyShopModelAllProductsIsWholesale = 'is_wholesale';
+const String _jsonKeyShopModelAllProductsIsDigital = 'is_digital';
+const String _jsonKeyShopModelAllProductsIsRefundable = 'is_refundable';
+const String _jsonKeyShopModelAllProductsTodaysDeal = 'todays_deal';
+const String _jsonKeyShopModelAllProductsRating = 'rating';
+const String _jsonKeyShopModelAllProductsViewed = 'viewed';
+const String _jsonKeyShopModelAllProductsShippingType = 'shipping_type';
+const String _jsonKeyShopModelAllProductsShippingFee = 'shipping_fee';
+const String _jsonKeyShopModelAllProductsShippingFeeDependOnQuantity = 'shipping_fee_depend_on_quantity';
+const String _jsonKeyShopModelAllProductsEstimatedShippingDays = 'estimated_shipping_days';
+const String _jsonKeyShopModelAllProductsCashOnDelivery = 'cash_on_delivery';
+const String _jsonKeyShopModelAllProductsMetaImage = 'meta_image';
+const String _jsonKeyShopModelAllProductsProductFile = 'product_file';
+const String _jsonKeyShopModelAllProductsProductFileId = 'product_file_id';
+const String _jsonKeyShopModelAllProductsMetaImageId = 'meta_image_id';
+const String _jsonKeyShopModelAllProductsReward = 'reward';
+const String _jsonKeyShopModelAllProductsIsDeleted = 'is_deleted';
+const String _jsonKeyShopModelAllProductsDeletedAt = 'deleted_at';
+const String _jsonKeyShopModelAllProductsCreatedAt = 'created_at';
+const String _jsonKeyShopModelAllProductsUpdatedAt = 'updated_at';
+const String _jsonKeyShopModelAllProductsProductName = 'product_name';
+const String _jsonKeyShopModelAllProductsImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelAllProductsImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelAllProductsImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelAllProductsImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelAllProductsSpecialDiscountCheck = 'special_discount_check';
+const String _jsonKeyShopModelAllProductsDiscountPercentage = 'discount_percentage';
+const String _jsonKeyShopModelAllProductsProductLanguages = 'product_languages';
+const String _jsonKeyShopModelAllProductsProductLanguagesId = 'id';
+const String _jsonKeyShopModelAllProductsProductLanguagesProductId = 'product_id';
+const String _jsonKeyShopModelAllProductsProductLanguagesLang = 'lang';
+const String _jsonKeyShopModelAllProductsProductLanguagesName = 'name';
+const String _jsonKeyShopModelAllProductsProductLanguagesShortDescription = 'short_description';
+const String _jsonKeyShopModelAllProductsProductLanguagesDescription = 'description';
+const String _jsonKeyShopModelAllProductsProductLanguagesPdfSpecificationId = 'pdf_specification_id';
+const String _jsonKeyShopModelAllProductsProductLanguagesTags = 'tags';
+const String _jsonKeyShopModelAllProductsProductLanguagesUnit = 'unit';
+const String _jsonKeyShopModelAllProductsProductLanguagesMetaTitle = 'meta_title';
+const String _jsonKeyShopModelAllProductsProductLanguagesMetaDescription = 'meta_description';
+const String _jsonKeyShopModelAllProductsProductLanguagesMetaKeywords = 'meta_keywords';
+const String _jsonKeyShopModelAllProductsProductLanguagesCreatedAt = 'created_at';
+const String _jsonKeyShopModelAllProductsProductLanguagesUpdatedAt = 'updated_at';
+const String _jsonKeyShopModelAllProductsProductLanguagesSpecification = 'specification';
+class ShopModelAllProductsProductLanguages {
+
+  int? id;
+  String? productId;
+  String? lang;
+  String? name;
+  String? shortDescription;
+  String? description;
+  String? pdfSpecificationId;
+  String? tags;
+  String? unit;
+  String? metaTitle;
+  String? metaDescription;
+  String? metaKeywords;
+  String? createdAt;
+  String? updatedAt;
+  dynamic specification;
+
+  ShopModelAllProductsProductLanguages({
+    this.id,
+    this.productId,
+    this.lang,
+    this.name,
+    this.shortDescription,
+    this.description,
+    this.pdfSpecificationId,
+    this.tags,
+    this.unit,
+    this.metaTitle,
+    this.metaDescription,
+    this.metaKeywords,
+    this.createdAt,
+    this.updatedAt,
+    this.specification,
+  });
+  ShopModelAllProductsProductLanguages.fromJson(Map<String, dynamic> json) {
+    id = json[_jsonKeyShopModelAllProductsProductLanguagesId]?.toInt();
+    productId = json[_jsonKeyShopModelAllProductsProductLanguagesProductId]?.toString();
+    lang = json[_jsonKeyShopModelAllProductsProductLanguagesLang]?.toString();
+    name = json[_jsonKeyShopModelAllProductsProductLanguagesName]?.toString();
+    shortDescription = json[_jsonKeyShopModelAllProductsProductLanguagesShortDescription]?.toString();
+    description = json[_jsonKeyShopModelAllProductsProductLanguagesDescription]?.toString();
+    pdfSpecificationId = json[_jsonKeyShopModelAllProductsProductLanguagesPdfSpecificationId]?.toString();
+    tags = json[_jsonKeyShopModelAllProductsProductLanguagesTags]?.toString();
+    unit = json[_jsonKeyShopModelAllProductsProductLanguagesUnit]?.toString();
+    metaTitle = json[_jsonKeyShopModelAllProductsProductLanguagesMetaTitle]?.toString();
+    metaDescription = json[_jsonKeyShopModelAllProductsProductLanguagesMetaDescription]?.toString();
+    metaKeywords = json[_jsonKeyShopModelAllProductsProductLanguagesMetaKeywords]?.toString();
+    createdAt = json[_jsonKeyShopModelAllProductsProductLanguagesCreatedAt]?.toString();
+    updatedAt = json[_jsonKeyShopModelAllProductsProductLanguagesUpdatedAt]?.toString();
+    specification = json[_jsonKeyShopModelAllProductsProductLanguagesSpecification];
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelAllProductsProductLanguagesId] = id;
+    data[_jsonKeyShopModelAllProductsProductLanguagesProductId] = productId;
+    data[_jsonKeyShopModelAllProductsProductLanguagesLang] = lang;
+    data[_jsonKeyShopModelAllProductsProductLanguagesName] = name;
+    data[_jsonKeyShopModelAllProductsProductLanguagesShortDescription] = shortDescription;
+    data[_jsonKeyShopModelAllProductsProductLanguagesDescription] = description;
+    data[_jsonKeyShopModelAllProductsProductLanguagesPdfSpecificationId] = pdfSpecificationId;
+    data[_jsonKeyShopModelAllProductsProductLanguagesTags] = tags;
+    data[_jsonKeyShopModelAllProductsProductLanguagesUnit] = unit;
+    data[_jsonKeyShopModelAllProductsProductLanguagesMetaTitle] = metaTitle;
+    data[_jsonKeyShopModelAllProductsProductLanguagesMetaDescription] = metaDescription;
+    data[_jsonKeyShopModelAllProductsProductLanguagesMetaKeywords] = metaKeywords;
+    data[_jsonKeyShopModelAllProductsProductLanguagesCreatedAt] = createdAt;
+    data[_jsonKeyShopModelAllProductsProductLanguagesUpdatedAt] = updatedAt;
+    data[_jsonKeyShopModelAllProductsProductLanguagesSpecification] = specification;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelAllProductsMetaImageStorage = 'storage';
+const String _jsonKeyShopModelAllProductsMetaImageOriginalImage = 'original_image';
+const String _jsonKeyShopModelAllProductsMetaImageImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelAllProductsMetaImageImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelAllProductsMetaImageImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelAllProductsMetaImageImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelAllProductsMetaImageImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelAllProductsMetaImageImageThumbnail = 'image_thumbnail';
+class ShopModelAllProductsMetaImage {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelAllProductsMetaImage({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelAllProductsMetaImage.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelAllProductsMetaImageStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelAllProductsMetaImageOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelAllProductsMetaImageImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelAllProductsMetaImageImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelAllProductsMetaImageImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelAllProductsMetaImageImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelAllProductsMetaImageImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelAllProductsMetaImageImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelAllProductsMetaImageStorage] = storage;
+    data[_jsonKeyShopModelAllProductsMetaImageOriginalImage] = originalImage;
+    data[_jsonKeyShopModelAllProductsMetaImageImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelAllProductsMetaImageImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelAllProductsMetaImageImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelAllProductsMetaImageImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelAllProductsMetaImageImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelAllProductsMetaImageImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelAllProductsImagesStorage = 'storage';
+const String _jsonKeyShopModelAllProductsImagesOriginalImage = 'original_image';
+const String _jsonKeyShopModelAllProductsImagesImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelAllProductsImagesImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelAllProductsImagesImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelAllProductsImagesImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelAllProductsImagesImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelAllProductsImagesImageThumbnail = 'image_thumbnail';
+class ShopModelAllProductsImages {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelAllProductsImages({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelAllProductsImages.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelAllProductsImagesStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelAllProductsImagesOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelAllProductsImagesImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelAllProductsImagesImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelAllProductsImagesImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelAllProductsImagesImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelAllProductsImagesImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelAllProductsImagesImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelAllProductsImagesStorage] = storage;
+    data[_jsonKeyShopModelAllProductsImagesOriginalImage] = originalImage;
+    data[_jsonKeyShopModelAllProductsImagesImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelAllProductsImagesImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelAllProductsImagesImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelAllProductsImagesImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelAllProductsImagesImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelAllProductsImagesImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelAllProductsThumbnailStorage = 'storage';
+const String _jsonKeyShopModelAllProductsThumbnailOriginalImage = 'original_image';
+const String _jsonKeyShopModelAllProductsThumbnailImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelAllProductsThumbnailImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelAllProductsThumbnailImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelAllProductsThumbnailImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelAllProductsThumbnailImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelAllProductsThumbnailImageThumbnail = 'image_thumbnail';
+class ShopModelAllProductsThumbnail {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelAllProductsThumbnail({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelAllProductsThumbnail.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelAllProductsThumbnailStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelAllProductsThumbnailOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelAllProductsThumbnailImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelAllProductsThumbnailImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelAllProductsThumbnailImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelAllProductsThumbnailImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelAllProductsThumbnailImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelAllProductsThumbnailImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelAllProductsThumbnailStorage] = storage;
+    data[_jsonKeyShopModelAllProductsThumbnailOriginalImage] = originalImage;
+    data[_jsonKeyShopModelAllProductsThumbnailImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelAllProductsThumbnailImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelAllProductsThumbnailImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelAllProductsThumbnailImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelAllProductsThumbnailImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelAllProductsThumbnailImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+class ShopModelAllProducts {
+
+  int? id;
+  String? brandId;
+  String? categoryId;
+  String? userId;
+  String? createdBy;
+  String? slug;
+  String? price;
+  String? specialDiscount;
+  String? specialDiscountType;
+  String? specialDiscountStart;
+  String? specialDiscountEnd;
+  String? purchaseCost;
+  String? barcode;
+  String? videoProvider;
+  String? videoUrl;
+  List<String?>? colors;
+  List<String?>? attributeSets;
+  String? vatTaxes;
+  String? hasVariant;
+  ShopModelAllProductsThumbnail? thumbnail;
+  List<ShopModelAllProductsImages?>? images;
+  String? thumbnailId;
+  String? imageIds;
+  String? currentStock;
+  String? minimumOrderQuantity;
+  String? stockNotification;
+  String? lowStockToNotify;
+  String? stockVisibility;
+  String? totalSale;
+  String? status;
+  String? isApproved;
+  String? isCatalog;
+  String? externalLink;
+  String? isFeatured;
+  String? isClassified;
+  String? isWholesale;
+  String? isDigital;
+  String? isRefundable;
+  String? todaysDeal;
+  int? rating;
+  String? viewed;
+  String? shippingType;
+  String? shippingFee;
+  String? shippingFeeDependOnQuantity;
+  String? estimatedShippingDays;
+  String? cashOnDelivery;
+  ShopModelAllProductsMetaImage? metaImage;
+  String? productFile;
+  String? productFileId;
+  String? metaImageId;
+  String? reward;
+  String? isDeleted;
+  String? deletedAt;
+  String? createdAt;
+  String? updatedAt;
+  String? productName;
+  String? image_190x230;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_110x122;
+  dynamic specialDiscountCheck;
+  int? discountPercentage;
+  List<ShopModelAllProductsProductLanguages?>? productLanguages;
+
+  ShopModelAllProducts({
+    this.id,
+    this.brandId,
+    this.categoryId,
+    this.userId,
+    this.createdBy,
+    this.slug,
+    this.price,
+    this.specialDiscount,
+    this.specialDiscountType,
+    this.specialDiscountStart,
+    this.specialDiscountEnd,
+    this.purchaseCost,
+    this.barcode,
+    this.videoProvider,
+    this.videoUrl,
+    this.colors,
+    this.attributeSets,
+    this.vatTaxes,
+    this.hasVariant,
+    this.thumbnail,
+    this.images,
+    this.thumbnailId,
+    this.imageIds,
+    this.currentStock,
+    this.minimumOrderQuantity,
+    this.stockNotification,
+    this.lowStockToNotify,
+    this.stockVisibility,
+    this.totalSale,
+    this.status,
+    this.isApproved,
+    this.isCatalog,
+    this.externalLink,
+    this.isFeatured,
+    this.isClassified,
+    this.isWholesale,
+    this.isDigital,
+    this.isRefundable,
+    this.todaysDeal,
+    this.rating,
+    this.viewed,
+    this.shippingType,
+    this.shippingFee,
+    this.shippingFeeDependOnQuantity,
+    this.estimatedShippingDays,
+    this.cashOnDelivery,
+    this.metaImage,
+    this.productFile,
+    this.productFileId,
+    this.metaImageId,
+    this.reward,
+    this.isDeleted,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.productName,
+    this.image_190x230,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_110x122,
+    this.specialDiscountCheck,
+    this.discountPercentage,
+    this.productLanguages,
+  });
+  ShopModelAllProducts.fromJson(Map<String, dynamic> json) {
+    id = json[_jsonKeyShopModelAllProductsId]?.toInt();
+    brandId = json[_jsonKeyShopModelAllProductsBrandId]?.toString();
+    categoryId = json[_jsonKeyShopModelAllProductsCategoryId]?.toString();
+    userId = json[_jsonKeyShopModelAllProductsUserId]?.toString();
+    createdBy = json[_jsonKeyShopModelAllProductsCreatedBy]?.toString();
+    slug = json[_jsonKeyShopModelAllProductsSlug]?.toString();
+    price = json[_jsonKeyShopModelAllProductsPrice]?.toString();
+    specialDiscount = json[_jsonKeyShopModelAllProductsSpecialDiscount]?.toString();
+    specialDiscountType = json[_jsonKeyShopModelAllProductsSpecialDiscountType]?.toString();
+    specialDiscountStart = json[_jsonKeyShopModelAllProductsSpecialDiscountStart]?.toString();
+    specialDiscountEnd = json[_jsonKeyShopModelAllProductsSpecialDiscountEnd]?.toString();
+    purchaseCost = json[_jsonKeyShopModelAllProductsPurchaseCost]?.toString();
+    barcode = json[_jsonKeyShopModelAllProductsBarcode]?.toString();
+    videoProvider = json[_jsonKeyShopModelAllProductsVideoProvider]?.toString();
+    videoUrl = json[_jsonKeyShopModelAllProductsVideoUrl]?.toString();
+    if (json[_jsonKeyShopModelAllProductsColors] != null) {
+      final v = json[_jsonKeyShopModelAllProductsColors];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      colors = arr0;
+    }
+    if (json[_jsonKeyShopModelAllProductsAttributeSets] != null) {
+      final v = json[_jsonKeyShopModelAllProductsAttributeSets];
+      final arr0 = <String>[];
+      v.forEach((v) {
+        arr0.add(v.toString());
+      });
+      attributeSets = arr0;
+    }
+    vatTaxes = json[_jsonKeyShopModelAllProductsVatTaxes]?.toString();
+    hasVariant = json[_jsonKeyShopModelAllProductsHasVariant]?.toString();
+    //thumbnail = (json[_jsonKeyShopModelAllProductsThumbnail] != null) ? ShopModelAllProductsThumbnail.fromJson(json[_jsonKeyShopModelAllProductsThumbnail]) : null;
+    if (json[_jsonKeyShopModelAllProductsImages] != null) {
+      final v = json[_jsonKeyShopModelAllProductsImages];
+      final arr0 = <ShopModelAllProductsImages>[];
+      v.forEach((v) {
+        arr0.add(ShopModelAllProductsImages.fromJson(v));
+      });
+      images = arr0;
+    }
+    thumbnailId = json[_jsonKeyShopModelAllProductsThumbnailId]?.toString();
+    imageIds = json[_jsonKeyShopModelAllProductsImageIds]?.toString();
+    currentStock = json[_jsonKeyShopModelAllProductsCurrentStock]?.toString();
+    minimumOrderQuantity = json[_jsonKeyShopModelAllProductsMinimumOrderQuantity]?.toString();
+    stockNotification = json[_jsonKeyShopModelAllProductsStockNotification]?.toString();
+    lowStockToNotify = json[_jsonKeyShopModelAllProductsLowStockToNotify]?.toString();
+    stockVisibility = json[_jsonKeyShopModelAllProductsStockVisibility]?.toString();
+    totalSale = json[_jsonKeyShopModelAllProductsTotalSale]?.toString();
+    status = json[_jsonKeyShopModelAllProductsStatus]?.toString();
+    isApproved = json[_jsonKeyShopModelAllProductsIsApproved]?.toString();
+    isCatalog = json[_jsonKeyShopModelAllProductsIsCatalog]?.toString();
+    externalLink = json[_jsonKeyShopModelAllProductsExternalLink]?.toString();
+    isFeatured = json[_jsonKeyShopModelAllProductsIsFeatured]?.toString();
+    isClassified = json[_jsonKeyShopModelAllProductsIsClassified]?.toString();
+    isWholesale = json[_jsonKeyShopModelAllProductsIsWholesale]?.toString();
+    isDigital = json[_jsonKeyShopModelAllProductsIsDigital]?.toString();
+    isRefundable = json[_jsonKeyShopModelAllProductsIsRefundable]?.toString();
+    todaysDeal = json[_jsonKeyShopModelAllProductsTodaysDeal]?.toString();
+    rating = json[_jsonKeyShopModelAllProductsRating]?.toInt();
+    viewed = json[_jsonKeyShopModelAllProductsViewed]?.toString();
+    shippingType = json[_jsonKeyShopModelAllProductsShippingType]?.toString();
+    shippingFee = json[_jsonKeyShopModelAllProductsShippingFee]?.toString();
+    shippingFeeDependOnQuantity = json[_jsonKeyShopModelAllProductsShippingFeeDependOnQuantity]?.toString();
+    estimatedShippingDays = json[_jsonKeyShopModelAllProductsEstimatedShippingDays]?.toString();
+    cashOnDelivery = json[_jsonKeyShopModelAllProductsCashOnDelivery]?.toString();
+    //metaImage = (json[_jsonKeyShopModelAllProductsMetaImage] != null) ? ShopModelAllProductsMetaImage.fromJson(json[_jsonKeyShopModelAllProductsMetaImage]) : null;
+    productFile = json[_jsonKeyShopModelAllProductsProductFile]?.toString();
+    productFileId = json[_jsonKeyShopModelAllProductsProductFileId]?.toString();
+    metaImageId = json[_jsonKeyShopModelAllProductsMetaImageId]?.toString();
+    reward = json[_jsonKeyShopModelAllProductsReward]?.toString();
+    isDeleted = json[_jsonKeyShopModelAllProductsIsDeleted]?.toString();
+    deletedAt = json[_jsonKeyShopModelAllProductsDeletedAt]?.toString();
+    createdAt = json[_jsonKeyShopModelAllProductsCreatedAt]?.toString();
+    updatedAt = json[_jsonKeyShopModelAllProductsUpdatedAt]?.toString();
+    productName = json[_jsonKeyShopModelAllProductsProductName]?.toString();
+    image_190x230 = json[_jsonKeyShopModelAllProductsImage_190x230]?.toString();
+    image_40x40 = json[_jsonKeyShopModelAllProductsImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelAllProductsImage_72x72]?.toString();
+    image_110x122 = json[_jsonKeyShopModelAllProductsImage_110x122]?.toString();
+    specialDiscountCheck = json[_jsonKeyShopModelAllProductsSpecialDiscountCheck]!;
+    discountPercentage = json[_jsonKeyShopModelAllProductsDiscountPercentage]?.toInt();
+    if (json[_jsonKeyShopModelAllProductsProductLanguages] != null) {
+      final v = json[_jsonKeyShopModelAllProductsProductLanguages];
+      final arr0 = <ShopModelAllProductsProductLanguages>[];
+      v.forEach((v) {
+        arr0.add(ShopModelAllProductsProductLanguages.fromJson(v));
+      });
+      productLanguages = arr0;
+    }
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelAllProductsId] = id;
+    data[_jsonKeyShopModelAllProductsBrandId] = brandId;
+    data[_jsonKeyShopModelAllProductsCategoryId] = categoryId;
+    data[_jsonKeyShopModelAllProductsUserId] = userId;
+    data[_jsonKeyShopModelAllProductsCreatedBy] = createdBy;
+    data[_jsonKeyShopModelAllProductsSlug] = slug;
+    data[_jsonKeyShopModelAllProductsPrice] = price;
+    data[_jsonKeyShopModelAllProductsSpecialDiscount] = specialDiscount;
+    data[_jsonKeyShopModelAllProductsSpecialDiscountType] = specialDiscountType;
+    data[_jsonKeyShopModelAllProductsSpecialDiscountStart] = specialDiscountStart;
+    data[_jsonKeyShopModelAllProductsSpecialDiscountEnd] = specialDiscountEnd;
+    data[_jsonKeyShopModelAllProductsPurchaseCost] = purchaseCost;
+    data[_jsonKeyShopModelAllProductsBarcode] = barcode;
+    data[_jsonKeyShopModelAllProductsVideoProvider] = videoProvider;
+    data[_jsonKeyShopModelAllProductsVideoUrl] = videoUrl;
+    if (colors != null) {
+      final v = colors;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelAllProductsColors] = arr0;
+    }
+    if (attributeSets != null) {
+      final v = attributeSets;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v);
+      });
+      data[_jsonKeyShopModelAllProductsAttributeSets] = arr0;
+    }
+    data[_jsonKeyShopModelAllProductsVatTaxes] = vatTaxes;
+    data[_jsonKeyShopModelAllProductsHasVariant] = hasVariant;
+    if (thumbnail != null) {
+      data[_jsonKeyShopModelAllProductsThumbnail] = thumbnail!.toJson();
+    }
+    if (images != null) {
+      final v = images;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelAllProductsImages] = arr0;
+    }
+    data[_jsonKeyShopModelAllProductsThumbnailId] = thumbnailId;
+    data[_jsonKeyShopModelAllProductsImageIds] = imageIds;
+    data[_jsonKeyShopModelAllProductsCurrentStock] = currentStock;
+    data[_jsonKeyShopModelAllProductsMinimumOrderQuantity] = minimumOrderQuantity;
+    data[_jsonKeyShopModelAllProductsStockNotification] = stockNotification;
+    data[_jsonKeyShopModelAllProductsLowStockToNotify] = lowStockToNotify;
+    data[_jsonKeyShopModelAllProductsStockVisibility] = stockVisibility;
+    data[_jsonKeyShopModelAllProductsTotalSale] = totalSale;
+    data[_jsonKeyShopModelAllProductsStatus] = status;
+    data[_jsonKeyShopModelAllProductsIsApproved] = isApproved;
+    data[_jsonKeyShopModelAllProductsIsCatalog] = isCatalog;
+    data[_jsonKeyShopModelAllProductsExternalLink] = externalLink;
+    data[_jsonKeyShopModelAllProductsIsFeatured] = isFeatured;
+    data[_jsonKeyShopModelAllProductsIsClassified] = isClassified;
+    data[_jsonKeyShopModelAllProductsIsWholesale] = isWholesale;
+    data[_jsonKeyShopModelAllProductsIsDigital] = isDigital;
+    data[_jsonKeyShopModelAllProductsIsRefundable] = isRefundable;
+    data[_jsonKeyShopModelAllProductsTodaysDeal] = todaysDeal;
+    data[_jsonKeyShopModelAllProductsRating] = rating;
+    data[_jsonKeyShopModelAllProductsViewed] = viewed;
+    data[_jsonKeyShopModelAllProductsShippingType] = shippingType;
+    data[_jsonKeyShopModelAllProductsShippingFee] = shippingFee;
+    data[_jsonKeyShopModelAllProductsShippingFeeDependOnQuantity] = shippingFeeDependOnQuantity;
+    data[_jsonKeyShopModelAllProductsEstimatedShippingDays] = estimatedShippingDays;
+    data[_jsonKeyShopModelAllProductsCashOnDelivery] = cashOnDelivery;
+    if (metaImage != null) {
+      data[_jsonKeyShopModelAllProductsMetaImage] = metaImage!.toJson();
+    }
+    data[_jsonKeyShopModelAllProductsProductFile] = productFile;
+    data[_jsonKeyShopModelAllProductsProductFileId] = productFileId;
+    data[_jsonKeyShopModelAllProductsMetaImageId] = metaImageId;
+    data[_jsonKeyShopModelAllProductsReward] = reward;
+    data[_jsonKeyShopModelAllProductsIsDeleted] = isDeleted;
+    data[_jsonKeyShopModelAllProductsDeletedAt] = deletedAt;
+    data[_jsonKeyShopModelAllProductsCreatedAt] = createdAt;
+    data[_jsonKeyShopModelAllProductsUpdatedAt] = updatedAt;
+    data[_jsonKeyShopModelAllProductsProductName] = productName;
+    data[_jsonKeyShopModelAllProductsImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelAllProductsImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelAllProductsImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelAllProductsImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelAllProductsSpecialDiscountCheck] = specialDiscountCheck;
+    data[_jsonKeyShopModelAllProductsDiscountPercentage] = discountPercentage;
+    if (productLanguages != null) {
+      final v = productLanguages;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelAllProductsProductLanguages] = arr0;
+    }
+    return data;
+  }
+}
+
 const String _jsonKeyShopModelShopDetailsId = 'id';
 const String _jsonKeyShopModelShopDetailsUserId = 'user_id';
 const String _jsonKeyShopModelShopDetailsShopName = 'shop_name';
 const String _jsonKeyShopModelShopDetailsSlug = 'slug';
 const String _jsonKeyShopModelShopDetailsVerifiedAt = 'verified_at';
 const String _jsonKeyShopModelShopDetailsLicenseNo = 'license_no';
+const String _jsonKeyShopModelShopDetailsTaxPaper = 'tax_paper';
+const String _jsonKeyShopModelShopDetailsLogo = 'logo';
+const String _jsonKeyShopModelShopDetailsBanner = 'banner';
 const String _jsonKeyShopModelShopDetailsShopPageContents = 'shop_page_contents';
 const String _jsonKeyShopModelShopDetailsShopBannerId = 'shop_banner_id';
 const String _jsonKeyShopModelShopDetailsShopTagline = 'shop_tagline';
@@ -2172,6 +3604,11 @@ const String _jsonKeyShopModelShopDetailsStartDate = 'start_date';
 const String _jsonKeyShopModelShopDetailsImage_1920x412 = 'image_1920x412';
 const String _jsonKeyShopModelShopDetailsShopPageContentsNewArrival = 'new_arrival';
 class ShopModelShopDetailsShopPageContents {
+/*
+{
+  "new_arrival": "2"
+}
+*/
 
   String? newArrival;
 
@@ -2188,14 +3625,245 @@ class ShopModelShopDetailsShopPageContents {
   }
 }
 
-class ShopModelShopDetails {
+const String _jsonKeyShopModelShopDetailsBannerStorage = 'storage';
+const String _jsonKeyShopModelShopDetailsBannerOriginalImage = 'original_image';
+const String _jsonKeyShopModelShopDetailsBannerImage_100x38 = 'image_100x38';
+const String _jsonKeyShopModelShopDetailsBannerImage_89x33 = 'image_89x33';
+const String _jsonKeyShopModelShopDetailsBannerImage_118x45 = 'image_118x45';
+const String _jsonKeyShopModelShopDetailsBannerImage_48x25 = 'image_48x25';
+const String _jsonKeyShopModelShopDetailsBannerImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelShopDetailsBannerImage_197x152 = 'image_197x152';
+const String _jsonKeyShopModelShopDetailsBannerImage_120x80 = 'image_120x80';
+const String _jsonKeyShopModelShopDetailsBannerImage_82x82 = 'image_82x82';
+const String _jsonKeyShopModelShopDetailsBannerImage_617x145 = 'image_617x145';
+const String _jsonKeyShopModelShopDetailsBannerImage_297x146 = 'image_297x146';
+const String _jsonKeyShopModelShopDetailsBannerImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelShopDetailsBannerImage_270x260 = 'image_270x260';
+const String _jsonKeyShopModelShopDetailsBannerImage_320x320 = 'image_320x320';
+class ShopModelShopDetailsBanner {
 
+  String? storage;
+  String? originalImage;
+  String? image_100x38;
+  String? image_89x33;
+  String? image_118x45;
+  String? image_48x25;
+  String? image_40x40;
+  String? image_197x152;
+  String? image_120x80;
+  String? image_82x82;
+  String? image_617x145;
+  String? image_297x146;
+  String? image_72x72;
+  String? image_270x260;
+  String? image_320x320;
+
+  ShopModelShopDetailsBanner({
+    this.storage,
+    this.originalImage,
+    this.image_100x38,
+    this.image_89x33,
+    this.image_118x45,
+    this.image_48x25,
+    this.image_40x40,
+    this.image_197x152,
+    this.image_120x80,
+    this.image_82x82,
+    this.image_617x145,
+    this.image_297x146,
+    this.image_72x72,
+    this.image_270x260,
+    this.image_320x320,
+  });
+  ShopModelShopDetailsBanner.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelShopDetailsBannerStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelShopDetailsBannerOriginalImage]?.toString();
+    image_100x38 = json[_jsonKeyShopModelShopDetailsBannerImage_100x38]?.toString();
+    image_89x33 = json[_jsonKeyShopModelShopDetailsBannerImage_89x33]?.toString();
+    image_118x45 = json[_jsonKeyShopModelShopDetailsBannerImage_118x45]?.toString();
+    image_48x25 = json[_jsonKeyShopModelShopDetailsBannerImage_48x25]?.toString();
+    image_40x40 = json[_jsonKeyShopModelShopDetailsBannerImage_40x40]?.toString();
+    image_197x152 = json[_jsonKeyShopModelShopDetailsBannerImage_197x152]?.toString();
+    image_120x80 = json[_jsonKeyShopModelShopDetailsBannerImage_120x80]?.toString();
+    image_82x82 = json[_jsonKeyShopModelShopDetailsBannerImage_82x82]?.toString();
+    image_617x145 = json[_jsonKeyShopModelShopDetailsBannerImage_617x145]?.toString();
+    image_297x146 = json[_jsonKeyShopModelShopDetailsBannerImage_297x146]?.toString();
+    image_72x72 = json[_jsonKeyShopModelShopDetailsBannerImage_72x72]?.toString();
+    image_270x260 = json[_jsonKeyShopModelShopDetailsBannerImage_270x260]?.toString();
+    image_320x320 = json[_jsonKeyShopModelShopDetailsBannerImage_320x320]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelShopDetailsBannerStorage] = storage;
+    data[_jsonKeyShopModelShopDetailsBannerOriginalImage] = originalImage;
+    data[_jsonKeyShopModelShopDetailsBannerImage_100x38] = image_100x38;
+    data[_jsonKeyShopModelShopDetailsBannerImage_89x33] = image_89x33;
+    data[_jsonKeyShopModelShopDetailsBannerImage_118x45] = image_118x45;
+    data[_jsonKeyShopModelShopDetailsBannerImage_48x25] = image_48x25;
+    data[_jsonKeyShopModelShopDetailsBannerImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelShopDetailsBannerImage_197x152] = image_197x152;
+    data[_jsonKeyShopModelShopDetailsBannerImage_120x80] = image_120x80;
+    data[_jsonKeyShopModelShopDetailsBannerImage_82x82] = image_82x82;
+    data[_jsonKeyShopModelShopDetailsBannerImage_617x145] = image_617x145;
+    data[_jsonKeyShopModelShopDetailsBannerImage_297x146] = image_297x146;
+    data[_jsonKeyShopModelShopDetailsBannerImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelShopDetailsBannerImage_270x260] = image_270x260;
+    data[_jsonKeyShopModelShopDetailsBannerImage_320x320] = image_320x320;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelShopDetailsLogoStorage = 'storage';
+const String _jsonKeyShopModelShopDetailsLogoOriginalImage = 'original_image';
+const String _jsonKeyShopModelShopDetailsLogoImage_100x38 = 'image_100x38';
+const String _jsonKeyShopModelShopDetailsLogoImage_89x33 = 'image_89x33';
+const String _jsonKeyShopModelShopDetailsLogoImage_118x45 = 'image_118x45';
+const String _jsonKeyShopModelShopDetailsLogoImage_48x25 = 'image_48x25';
+const String _jsonKeyShopModelShopDetailsLogoImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelShopDetailsLogoImage_197x152 = 'image_197x152';
+const String _jsonKeyShopModelShopDetailsLogoImage_120x80 = 'image_120x80';
+const String _jsonKeyShopModelShopDetailsLogoImage_82x82 = 'image_82x82';
+const String _jsonKeyShopModelShopDetailsLogoImage_617x145 = 'image_617x145';
+const String _jsonKeyShopModelShopDetailsLogoImage_297x146 = 'image_297x146';
+const String _jsonKeyShopModelShopDetailsLogoImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelShopDetailsLogoImage_270x260 = 'image_270x260';
+const String _jsonKeyShopModelShopDetailsLogoImage_320x320 = 'image_320x320';
+class ShopModelShopDetailsLogo {
+
+  String? storage;
+  String? originalImage;
+  String? image_100x38;
+  String? image_89x33;
+  String? image_118x45;
+  String? image_48x25;
+  String? image_40x40;
+  String? image_197x152;
+  String? image_120x80;
+  String? image_82x82;
+  String? image_617x145;
+  String? image_297x146;
+  String? image_72x72;
+  String? image_270x260;
+  String? image_320x320;
+
+  ShopModelShopDetailsLogo({
+    this.storage,
+    this.originalImage,
+    this.image_100x38,
+    this.image_89x33,
+    this.image_118x45,
+    this.image_48x25,
+    this.image_40x40,
+    this.image_197x152,
+    this.image_120x80,
+    this.image_82x82,
+    this.image_617x145,
+    this.image_297x146,
+    this.image_72x72,
+    this.image_270x260,
+    this.image_320x320,
+  });
+  ShopModelShopDetailsLogo.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelShopDetailsLogoStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelShopDetailsLogoOriginalImage]?.toString();
+    image_100x38 = json[_jsonKeyShopModelShopDetailsLogoImage_100x38]?.toString();
+    image_89x33 = json[_jsonKeyShopModelShopDetailsLogoImage_89x33]?.toString();
+    image_118x45 = json[_jsonKeyShopModelShopDetailsLogoImage_118x45]?.toString();
+    image_48x25 = json[_jsonKeyShopModelShopDetailsLogoImage_48x25]?.toString();
+    image_40x40 = json[_jsonKeyShopModelShopDetailsLogoImage_40x40]?.toString();
+    image_197x152 = json[_jsonKeyShopModelShopDetailsLogoImage_197x152]?.toString();
+    image_120x80 = json[_jsonKeyShopModelShopDetailsLogoImage_120x80]?.toString();
+    image_82x82 = json[_jsonKeyShopModelShopDetailsLogoImage_82x82]?.toString();
+    image_617x145 = json[_jsonKeyShopModelShopDetailsLogoImage_617x145]?.toString();
+    image_297x146 = json[_jsonKeyShopModelShopDetailsLogoImage_297x146]?.toString();
+    image_72x72 = json[_jsonKeyShopModelShopDetailsLogoImage_72x72]?.toString();
+    image_270x260 = json[_jsonKeyShopModelShopDetailsLogoImage_270x260]?.toString();
+    image_320x320 = json[_jsonKeyShopModelShopDetailsLogoImage_320x320]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelShopDetailsLogoStorage] = storage;
+    data[_jsonKeyShopModelShopDetailsLogoOriginalImage] = originalImage;
+    data[_jsonKeyShopModelShopDetailsLogoImage_100x38] = image_100x38;
+    data[_jsonKeyShopModelShopDetailsLogoImage_89x33] = image_89x33;
+    data[_jsonKeyShopModelShopDetailsLogoImage_118x45] = image_118x45;
+    data[_jsonKeyShopModelShopDetailsLogoImage_48x25] = image_48x25;
+    data[_jsonKeyShopModelShopDetailsLogoImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelShopDetailsLogoImage_197x152] = image_197x152;
+    data[_jsonKeyShopModelShopDetailsLogoImage_120x80] = image_120x80;
+    data[_jsonKeyShopModelShopDetailsLogoImage_82x82] = image_82x82;
+    data[_jsonKeyShopModelShopDetailsLogoImage_617x145] = image_617x145;
+    data[_jsonKeyShopModelShopDetailsLogoImage_297x146] = image_297x146;
+    data[_jsonKeyShopModelShopDetailsLogoImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelShopDetailsLogoImage_270x260] = image_270x260;
+    data[_jsonKeyShopModelShopDetailsLogoImage_320x320] = image_320x320;
+    return data;
+  }
+}
+
+const String _jsonKeyShopModelShopDetailsTaxPaperStorage = 'storage';
+const String _jsonKeyShopModelShopDetailsTaxPaperOriginalImage = 'original_image';
+const String _jsonKeyShopModelShopDetailsTaxPaperImage_40x40 = 'image_40x40';
+const String _jsonKeyShopModelShopDetailsTaxPaperImage_72x72 = 'image_72x72';
+const String _jsonKeyShopModelShopDetailsTaxPaperImage_190x230 = 'image_190x230';
+const String _jsonKeyShopModelShopDetailsTaxPaperImage_110x122 = 'image_110x122';
+const String _jsonKeyShopModelShopDetailsTaxPaperImage_320x320 = 'image_320x320';
+const String _jsonKeyShopModelShopDetailsTaxPaperImageThumbnail = 'image_thumbnail';
+class ShopModelShopDetailsTaxPaper {
+
+  String? storage;
+  String? originalImage;
+  String? image_40x40;
+  String? image_72x72;
+  String? image_190x230;
+  String? image_110x122;
+  String? image_320x320;
+  String? imageThumbnail;
+
+  ShopModelShopDetailsTaxPaper({
+    this.storage,
+    this.originalImage,
+    this.image_40x40,
+    this.image_72x72,
+    this.image_190x230,
+    this.image_110x122,
+    this.image_320x320,
+    this.imageThumbnail,
+  });
+  ShopModelShopDetailsTaxPaper.fromJson(Map<String, dynamic> json) {
+    storage = json[_jsonKeyShopModelShopDetailsTaxPaperStorage]?.toString();
+    originalImage = json[_jsonKeyShopModelShopDetailsTaxPaperOriginalImage]?.toString();
+    image_40x40 = json[_jsonKeyShopModelShopDetailsTaxPaperImage_40x40]?.toString();
+    image_72x72 = json[_jsonKeyShopModelShopDetailsTaxPaperImage_72x72]?.toString();
+    image_190x230 = json[_jsonKeyShopModelShopDetailsTaxPaperImage_190x230]?.toString();
+    image_110x122 = json[_jsonKeyShopModelShopDetailsTaxPaperImage_110x122]?.toString();
+    image_320x320 = json[_jsonKeyShopModelShopDetailsTaxPaperImage_320x320]?.toString();
+    imageThumbnail = json[_jsonKeyShopModelShopDetailsTaxPaperImageThumbnail]?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data[_jsonKeyShopModelShopDetailsTaxPaperStorage] = storage;
+    data[_jsonKeyShopModelShopDetailsTaxPaperOriginalImage] = originalImage;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImage_40x40] = image_40x40;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImage_72x72] = image_72x72;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImage_190x230] = image_190x230;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImage_110x122] = image_110x122;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImage_320x320] = image_320x320;
+    data[_jsonKeyShopModelShopDetailsTaxPaperImageThumbnail] = imageThumbnail;
+    return data;
+  }
+}
+
+class ShopModelShopDetails {
   int? id;
   String? userId;
   String? shopName;
   String? slug;
   String? verifiedAt;
   String? licenseNo;
+  ShopModelShopDetailsTaxPaper? taxPaper;
+  ShopModelShopDetailsLogo? logo;
+  ShopModelShopDetailsBanner? banner;
   List<ShopModelShopDetailsShopPageContents?>? shopPageContents;
   String? shopBannerId;
   String? shopTagline;
@@ -2239,6 +3907,9 @@ class ShopModelShopDetails {
     this.slug,
     this.verifiedAt,
     this.licenseNo,
+    this.taxPaper,
+    this.logo,
+    this.banner,
     this.shopPageContents,
     this.shopBannerId,
     this.shopTagline,
@@ -2282,6 +3953,9 @@ class ShopModelShopDetails {
     slug = json[_jsonKeyShopModelShopDetailsSlug]?.toString();
     verifiedAt = json[_jsonKeyShopModelShopDetailsVerifiedAt]?.toString();
     licenseNo = json[_jsonKeyShopModelShopDetailsLicenseNo]?.toString();
+    // taxPaper = (json[_jsonKeyShopModelShopDetailsTaxPaper] != null) ? ShopModelShopDetailsTaxPaper.fromJson(json[_jsonKeyShopModelShopDetailsTaxPaper]) : null;
+    logo = (json[_jsonKeyShopModelShopDetailsLogo] != null) ? ShopModelShopDetailsLogo.fromJson(json[_jsonKeyShopModelShopDetailsLogo]) : null;
+    banner = (json[_jsonKeyShopModelShopDetailsBanner] != null) ? ShopModelShopDetailsBanner.fromJson(json[_jsonKeyShopModelShopDetailsBanner]) : null;
     if (json[_jsonKeyShopModelShopDetailsShopPageContents] != null) {
       final v = json[_jsonKeyShopModelShopDetailsShopPageContents];
       final arr0 = <ShopModelShopDetailsShopPageContents>[];
@@ -2333,6 +4007,15 @@ class ShopModelShopDetails {
     data[_jsonKeyShopModelShopDetailsSlug] = slug;
     data[_jsonKeyShopModelShopDetailsVerifiedAt] = verifiedAt;
     data[_jsonKeyShopModelShopDetailsLicenseNo] = licenseNo;
+    if (taxPaper != null) {
+      data[_jsonKeyShopModelShopDetailsTaxPaper] = taxPaper!.toJson();
+    }
+    if (logo != null) {
+      data[_jsonKeyShopModelShopDetailsLogo] = logo!.toJson();
+    }
+    if (banner != null) {
+      data[_jsonKeyShopModelShopDetailsBanner] = banner!.toJson();
+    }
     if (shopPageContents != null) {
       final v = shopPageContents;
       final arr0 = [];
@@ -2383,6 +4066,7 @@ class ShopModel {
 
   ShopModelShopDetails? shopDetails;
   String? shopType;
+  List<ShopModelAllProducts?>? allProducts;
   List<ShopModelPublished?>? published;
   List<ShopModelDraft?>? draft;
   List<ShopModelSales?>? sales;
@@ -2391,6 +4075,7 @@ class ShopModel {
   ShopModel({
     this.shopDetails,
     this.shopType,
+    this.allProducts,
     this.published,
     this.draft,
     this.sales,
@@ -2399,6 +4084,14 @@ class ShopModel {
   ShopModel.fromJson(Map<String, dynamic> json) {
     shopDetails = (json[_jsonKeyShopModelShopDetails] != null) ? ShopModelShopDetails.fromJson(json[_jsonKeyShopModelShopDetails]) : null;
     shopType = json[_jsonKeyShopModelShopType]?.toString();
+    if (json[_jsonKeyShopModelAllProducts] != null) {
+      final v = json[_jsonKeyShopModelAllProducts];
+      final arr0 = <ShopModelAllProducts>[];
+      v.forEach((v) {
+        arr0.add(ShopModelAllProducts.fromJson(v));
+      });
+      allProducts = arr0;
+    }
     if (json[_jsonKeyShopModelPublished] != null) {
       final v = json[_jsonKeyShopModelPublished];
       final arr0 = <ShopModelPublished>[];
@@ -2438,6 +4131,14 @@ class ShopModel {
       data[_jsonKeyShopModelShopDetails] = shopDetails!.toJson();
     }
     data[_jsonKeyShopModelShopType] = shopType;
+    if (allProducts != null) {
+      final v = allProducts;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data[_jsonKeyShopModelAllProducts] = arr0;
+    }
     if (published != null) {
       final v = published;
       final arr0 = [];

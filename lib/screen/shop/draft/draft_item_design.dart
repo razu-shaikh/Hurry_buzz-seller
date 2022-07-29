@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,7 +14,7 @@ class SingleDraftItem extends StatefulWidget {
 }
 
 class _SingleItemState extends State<SingleDraftItem> {
-
+  bool update = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,8 +40,10 @@ class _SingleItemState extends State<SingleDraftItem> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+                        image: widget.shopModelDraft.images!.isNotEmpty? NetworkImage(
+                                       'https://hurrybuzz.com/public/'+widget.shopModelDraft.images![0]!.originalImage.toString()
+                    ):NetworkImage(
+                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
                       ),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
@@ -55,6 +58,7 @@ class _SingleItemState extends State<SingleDraftItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.shopModelDraft.productName.toString(),
+                            overflow: TextOverflow.ellipsis,
                             //'productName',
                             style: TextStyle(
                               color: textColor,
@@ -150,14 +154,39 @@ class _SingleItemState extends State<SingleDraftItem> {
                       ),
                     ),
                   ),
-                  Container(
-                      height: 30,
-                      width: 30,
-                      margin: EdgeInsets.only(right: 10, top: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Icon(Icons.edit_outlined)),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddItemDetails(
+                        update,
+                        widget.shopModelDraft.id,
+                        widget.shopModelDraft.productName,
+                        widget.shopModelDraft.categoryId,
+                        widget.shopModelDraft.brandId,
+                        widget.shopModelDraft.productLanguages![0]?.tags,
+                        widget.shopModelDraft.slug,
+                        widget.shopModelDraft.currentStock,
+                        widget.shopModelDraft.productLanguages![0]?.unit,
+                        widget.shopModelDraft.price,
+                        widget.shopModelDraft.minimumOrderQuantity,
+                        widget.shopModelDraft.productLanguages![0]?.description,
+                        widget.shopModelDraft.productLanguages![0]?.shortDescription,
+                        widget.shopModelDraft.status,
+                        widget.shopModelDraft.specialDiscountType,
+                        widget.shopModelDraft.specialDiscount,
+                        widget.shopModelDraft.specialDiscountStart,
+                        widget.shopModelDraft.specialDiscountEnd,
+
+                      )));
+                    },
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        margin: EdgeInsets.only(right: 10, top: 5),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Icon(Icons.edit_outlined)),
+                  ),
                 ],
               ),
             ),

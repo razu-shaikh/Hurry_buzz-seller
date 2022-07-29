@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
+import 'dart:io';
 import 'package:ecommerce_app/Model/registration_model.dart';
 import 'package:ecommerce_app/auth/components/under_part.dart';
 import 'package:ecommerce_app/auth/widgets/text_field_container.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'login_screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,66 +39,77 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
   bool passObscure= true;
 
   var shopSelection;
-  var stateSelection ;
+  var stateSelection;
   var citySelection;
   var townSelection;
   //shop
   final String url = "https://hurrybuzz.com/api/v1/seller/";
-  List shopData = []; //edited line
-  Future<String> getSWDataShop() async {
+  //List shopData = [];
+  List<dynamic>? shopData;//edited line
+  Future<void> getSWDataShop() async {
     var res = await http
         .post(Uri.parse(url+"shop_types"),
         headers: {"apiKey": "sdfdge544364dg#"});
-    var resBody = jsonDecode(res.body);
+    Map<String, dynamic> map = json.decode(res.body);
     setState(() {
-      shopData = resBody;
+      shopData = map["shop-types"];
     });
-    return "Sucess";
+    //return "Sucess";
   }
 
-  List stateData = []; //edited line
-  Future<String> getSWDataState() async {
+  //List stateData = [];
+  List<dynamic>? stateData =[];//edited line
+  Future<void> getSWDataState() async {
     var res = await http
         .post(Uri.parse(url+"states"),
         headers: {"apiKey": "sdfdge544364dg#"});
-    var resBody = jsonDecode(res.body);
+    Map<String, dynamic> map = json.decode(res.body);
     setState(() {
-      stateData = resBody;
+      stateData = map["states"];
     });
-    return "Sucess";
+    //return "Sucess";
   }
-  List cityData = []; //edited line
-  Future<String> getSWDataCity() async {
+ // List cityData = [];
+  List<dynamic>? cityData = [];//edited line
+  Future<void> getSWDataCity(var stateSelection) async {
     var res = await http
-        .post(Uri.parse(url+"cities"),
+        .post(Uri.parse(url+"cities/by_state/"+stateSelection.toString()),
         headers: {"apiKey": "sdfdge544364dg#"});
-    var resBody = jsonDecode(res.body);
+    Map<String, dynamic> map = json.decode(res.body);
     setState(() {
-      cityData = resBody;
+      cityData = map["city"];
     });
-    return "Sucess";
+    //return "Sucess";
   }
-  List townData = []; //edited line
-  Future<String> getSWDataTown() async {
+  //List townData = [];
+  List<dynamic>? townData = [];//edited line
+  Future<void> getSWDataTown( var citySelection) async {
     var res = await http
-        .post(Uri.parse(url+"towns"),
+        .post(Uri.parse(url+"towns/by_city/"+citySelection.toString()),
         headers: {"apiKey": "sdfdge544364dg#"});
-    var resBody = jsonDecode(res.body);
+    Map<String, dynamic> map = json.decode(res.body);
 
     setState(() {
-      townData = resBody;
+      townData =  map["town"];
     });
-    return "Sucess";
+   // return "Sucess";
   }
   Registration? registrationData;
 
-  String? _token;
+  int? statusCode;
   bool _loading = false;
   bool get loading => _loading;
 
   setLoading(bool value){
-    _loading = value;
+    setState(() {
+      _loading = value;
+    });
+
   }
+  PickedFile? imageFile ;
+  File? storedImage ;
+  File? storedImageBanner ;
+
   Future<void> signUp(
       String email,
       String password,
@@ -115,58 +126,67 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
       String state_id,
       String city_id,
       String town_id,
-      String logo,
-      String banner
+      File storedImage,
+      File storedImageBanner,
       ) async{
     print(email+password+firstName+lastName+accountType+phone+shopName+slug+address+latitude+longitude+shop_type_id+state_id+city_id+town_id);
     setLoading(true);
-    try{
-      final response = await Dio().post('https://hurrybuzz.com/api/v1/seller/register',
-        options: Options(
-          headers: {"apiKey": "sdfdge544364dg#"},
-        ),
-        data: {
-          "email": email,
-          "password": password,
-          "first_name":firstName,
-          "last_name":lastName,
-          "account_type":accountType,
-          "phone":phone,
-          "shop_name":shopName,
-          "slug":slug,
-          "address":address,
-          "latitude":latitude,
-          "longitude":longitude,
-          "shop_type_id":shop_type_id, //must be a number
-          "state_id":state_id,//must be a number
-          "city_id":city_id,//must be a number
-          "town_id":town_id,//must be a number
-          "logo":logo,
-          "banner":banner
-        },
-      );
-      Map<String,dynamic> authDataList= response.data;
-        if(response.statusCode == 200){
-          registrationData = Registration.fromJson(authDataList);
-          _token = registrationData!.data!.token;
-          print(_token);
-        }
-    }
-    catch(e){
-      print(e.toString);
-      setLoading(false);
-    }
-  }
-  String? get token {
-    return _token;
+    Uri uri = Uri.parse("https://hurrybuzz.com/api/v1/seller/register");
+    var request = http.MultipartRequest("POST", uri);
+    Map<String, String> headers = {
+      "apiKey": "sdfdge544364dg#",
+    };
+    request.headers.addAll(headers);
+
+    var stream = http.ByteStream(storedImage.openRead());
+        stream.cast();
+    var length = await storedImage.length();
+    var multipartFile =  http.MultipartFile('logo', stream, length, filename: storedImage.path);
+
+    var streamBanner = http.ByteStream(storedImageBanner.openRead());
+    streamBanner.cast();
+    var lengthBanner = await storedImageBanner.length();
+    var multipartFileBanner =  http.MultipartFile('banner', streamBanner, lengthBanner, filename: storedImageBanner.path);
+
+    request.fields['email'] = email;
+    request.fields['password'] = password;
+    request.fields['first_name'] = firstName;
+    request.fields['last_name'] = lastName;
+    request.fields['account_type'] = accountType;
+    request.fields['phone'] = phone;
+    request.fields['shop_name'] = shopName;
+    request.fields['slug'] = slug;
+    request.fields['address'] = address;
+    request.fields['latitude'] = latitude;
+    request.fields['longitude'] = longitude;
+    request.fields['shop_type_id'] = shop_type_id;
+    request.fields['state_id'] = state_id;
+    request.fields['city_id'] = city_id;
+    request.fields['town_id'] = town_id;
+    request.files.add(multipartFile);
+    request.files.add(multipartFileBanner);
+
+    var response = await request.send();
+    print(response.statusCode);
+    statusCode = response.statusCode;
+    setLoading(false);
+
+    // response.stream.transform(utf8.decoder).listen((value) {
+    //   Fluttertoast.showToast(msg: value,
+    //       toastLength: Toast.LENGTH_SHORT,
+    //       gravity: ToastGravity.BOTTOM,
+    //       timeInSecForIosWeb: 2,
+    //       backgroundColor: Colors.grey,
+    //       textColor: Colors.white,
+    //       fontSize: 15);
+    //   //print(value);
+    // });
   }
   @override
   void initState() {
     setLoading(false);
     getSWDataShop();
     getSWDataState();
-    getSWDataCity();
-    getSWDataTown();
     super.initState();
   }
   @override
@@ -179,8 +199,33 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Sign Up",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
-          ),),
+          automaticallyImplyLeading: false,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(width: 15,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Sign Up",style: GoogleFonts.besley(fontSize: 18,color:Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, // light
+                      ),),
+
+                    ],
+                  )
+
+                ],
+              )
+
+            ],
+          ) ,
           backgroundColor: Colors.red,
         ),
         body: Center(
@@ -268,19 +313,22 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                               ),
                               SizedBox(height: 10),
                               Container(
+                                height: 55,
                                 width: size.width *0.8,
-                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
+                                padding: EdgeInsets.symmetric(horizontal:12 ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
                                 //child: ShopTypeDropDown(shopSelection),
-                                child: DropdownButton(
+                                child: DropdownButtonFormField(
                                   hint: Text("Shop Type"),
-                                  underline: SizedBox(),
                                   isExpanded: true,
-                                  iconSize: 36,
-                                  items: shopData.map((item) {
+                                  iconSize: 30,
+                                  decoration: InputDecoration(
+                                    enabledBorder: InputBorder.none
+                                  ),
+                                  items: shopData?.map((item) {
                                     return DropdownMenuItem(
                                       child: Text(item['name']),
                                       value: item['id'],
@@ -292,52 +340,58 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     });
                                   },
                                   value: shopSelection,
+                                    validator: (shopSelection)=>
+                                    shopSelection!= null && shopSelection == 0?
+                                    "Select shop Type"
+                                        :null
                                 ),
 
                               ),
                               SizedBox(height: 10),
-                              TextFieldContainer(
-                                child: TextFormField(
-                                    cursorColor: Colors.black26,
-                                    decoration: InputDecoration(
-                                        hintText: "Shop Logo",
-                                        border: InputBorder.none),
-                                    controller: logoController,
-                                    // validator: (emailController)=>
-                                    // emailController!= null && !EmailValidator.validate(emailController)?
-                                    // "Enter Valid Email"
-                                    //     :null
-                                ),
-                              ),
+                              // TextFieldContainer(
+                              //   child: TextFormField(
+                              //       cursorColor: Colors.black26,
+                              //       decoration: InputDecoration(
+                              //           hintText: "Shop Logo",
+                              //           border: InputBorder.none),
+                              //       controller: logoController,
+                              //       // validator: (emailController)=>
+                              //       // emailController!= null && !EmailValidator.validate(emailController)?
+                              //       // "Enter Valid Email"
+                              //       //     :null
+                              //   ),
+                              // ),
 
-                              TextFieldContainer(
-                                child: TextFormField(
-                                    cursorColor: Colors.black26,
-                                    decoration: InputDecoration(
-                                        hintText: "Shop banner",
-                                        border: InputBorder.none),
-                                    controller: bannerController,
-                                    // validator: (phoneController)=>
-                                    // phoneController!= null?
-                                    // "Enter phone number"
-                                    //     :null
-                                ),
-                              ),
-                              SizedBox(height: 10),
+                              // TextFieldContainer(
+                              //   child: TextFormField(
+                              //       cursorColor: Colors.black26,
+                              //       decoration: InputDecoration(
+                              //           hintText: "Shop banner",
+                              //           border: InputBorder.none),
+                              //       controller: bannerController,
+                              //       // validator: (phoneController)=>
+                              //       // phoneController!= null?
+                              //       // "Enter phone number"
+                              //       //     :null
+                              //   ),
+                              // ),
                               Container(
+                                height: 55,
                                 width: size.width *0.8,
-                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
+                                padding: EdgeInsets.symmetric(horizontal:12),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
                                 // child:StateTypeDropDown(stateSelection),
-                                child: DropdownButton(
+                                child: DropdownButtonFormField(
                                   hint: Text("Select State"),
-                                  underline: SizedBox(),
                                   isExpanded: true,
-                                  iconSize: 36,
-                                  items: stateData.map((item) {
+                                  iconSize: 30,
+                                    decoration: InputDecoration(
+                                        enabledBorder: InputBorder.none
+                                    ),
+                                  items: stateData?.map((item) {
                                     return DropdownMenuItem(
                                       child: Text(item['name']),
                                       value: item['id'],
@@ -346,26 +400,34 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                   onChanged: ( newVal) {
                                     setState(() {
                                       stateSelection = newVal;
+                                      getSWDataCity(stateSelection);
                                     });
                                   },
                                   value: stateSelection,
+                                    validator: (stateSelection)=>
+                                    stateSelection!= null && stateSelection == 0?
+                                    "Select state"
+                                        :null
                                 ),
                               ),
                               SizedBox(height: 20),
                               Container(
+                                height: 55,
                                 width: size.width *0.8,
-                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
+                                padding: EdgeInsets.symmetric(horizontal:12 ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color:Colors.black26,width: 1),
                                 ),
                                 //child: CityTypeDropDown(citySelection),
-                                child: DropdownButton(
+                                child: DropdownButtonFormField(
                                   hint: Text("Select City "),
-                                  underline: SizedBox(),
                                   isExpanded: true,
-                                  iconSize: 36,
-                                  items: cityData.map((item) {
+                                  iconSize: 30,
+                                    decoration: InputDecoration(
+                                        enabledBorder: InputBorder.none
+                                    ),
+                                  items: cityData?.map((item) {
                                     return DropdownMenuItem(
                                       child: Text(item['name']),
                                       value: item['id'],
@@ -374,26 +436,34 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                   onChanged: ( newVal) {
                                     setState(() {
                                       citySelection = newVal;
+                                      getSWDataTown(citySelection);
                                     });
                                   },
                                   value: citySelection,
+                                    validator: (citySelection)=>
+                                    citySelection!= null && citySelection == 0?
+                                    "Select city"
+                                        :null
                                 ),
                               ),
                               SizedBox(height: 20),
                               Container(
+                                height: 55,
                                 width: size.width *0.8,
-                                padding: EdgeInsets.symmetric(horizontal:12 ,vertical:4),
+                                padding: EdgeInsets.symmetric(horizontal:12 ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color:Colors.black26,width: 1)
                                 ),
                                // child: TownTypeDropDown(townSelection),
-                                child: DropdownButton(
+                                child: DropdownButtonFormField(
                                   hint: Text("Select Town"),
-                                  underline: SizedBox(),
                                   isExpanded: true,
-                                  iconSize: 36,
-                                  items: townData.map((item) {
+                                  iconSize: 30,
+                                    decoration: InputDecoration(
+                                        enabledBorder: InputBorder.none
+                                    ),
+                                  items: townData?.map((item) {
                                     return DropdownMenuItem(
                                       child: Text(item['name']),
                                       value: item['id'],
@@ -405,37 +475,92 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                     });
                                   },
                                   value: townSelection,
+                                    validator: (townSelection)=>
+                                    townSelection!= null && townSelection == 0?
+                                    "Select city"
+                                        :null
                                 ),
                               ),
                               SizedBox(height: 10),
                               TextFieldContainer(
-                                child: TextFormField(
-                                  cursorColor: Colors.black26,
-                                  decoration: InputDecoration(
-                                      hintText: "Latitude",
-                                      border: InputBorder.none),
-                                  controller: latController,
-                                  validator: (latController)=>
-                                  latController!= null && latController.isEmpty?
-                                  "Enter Latitude"
-                                      :null
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Shop Logo",style: TextStyle(fontSize: 16,color: Colors.black54),),
+                                    IconButton(
+                                        onPressed:(){
+                                          _showChoiceDialog(context,1);
+                                        },
+                                        icon:Icon(Icons.image))
+
+                                  ],
                                 ),
                               ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: ( storedImage == null)?Text(""):Image.file(
+                                  File(storedImage!.path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
                               TextFieldContainer(
-                                child: TextFormField(
-                                  cursorColor: Colors.black26,
-                                  decoration: InputDecoration(
-                                      hintText: "Longitude",
-                                      border: InputBorder.none),
-                                  controller: lonController,
-                                  validator: (lonController)=>
-                                  lonController!= null && lonController.isEmpty?
-                                  "Enter Longitude"
-                                      :null
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Shop Banner",style: TextStyle(fontSize: 16,color: Colors.black54)),
+                                    IconButton(
+                                        onPressed:(){
+                                          _showChoiceDialog(context,2);
+                                        },
+                                        icon:Icon(Icons.image))
+
+                                  ],
                                 ),
                               ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: ( storedImageBanner == null)?Text(""):Image.file(
+                                  File(storedImageBanner!.path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              // TextFieldContainer(
+                              //   child: TextFormField(
+                              //     cursorColor: Colors.black26,
+                              //     decoration: InputDecoration(
+                              //         hintText: "Latitude",
+                              //         border: InputBorder.none),
+                              //     controller: latController,
+                              //     validator: (latController)=>
+                              //     latController!= null && latController.isEmpty?
+                              //     "Enter Latitude"
+                              //         :null
+                              //   ),
+                              // ),
+                              // TextFieldContainer(
+                              //   child: TextFormField(
+                              //     cursorColor: Colors.black26,
+                              //     decoration: InputDecoration(
+                              //         hintText: "Longitude",
+                              //         border: InputBorder.none),
+                              //     controller: lonController,
+                              //     validator: (lonController)=>
+                              //     lonController!= null && lonController.isEmpty?
+                              //     "Enter Longitude"
+                              //         :null
+                              //   ),
+                              // ),
                               InkWell(
                                 onTap: () async{
+                                  final isValidForm = formKey.currentState!.validate();
+                                  if(isValidForm){
                                   await signUp(
                                       widget.email,
                                       widget.password,
@@ -448,17 +573,20 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
                                       addressController.text.toString(),
                                       latController.text.toString(),
                                       lonController.text.toString(),
-                                      shopSelection,
-                                      stateSelection,
-                                      citySelection,
-                                      townSelection,
-                                      logoController.text.toString(),
-                                      bannerController.text.toString(),
+                                      shopSelection.toString(),
+                                      stateSelection.toString(),
+                                      citySelection.toString(),
+                                      townSelection.toString(),
+                                      storedImage!,
+                                      storedImageBanner!
                                   );
-                                  token == null ? Fluttertoast.showToast(msg: "Fill Up correctly !!"):
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => LoginScreen())
-                                  );
+
+                                  statusCode != 200? Fluttertoast.showToast(msg: "Fill Up correctly !!"):
+                                   Navigator.push(context,
+                                       MaterialPageRoute(builder: (context) => LoginScreen())
+                                   );
+                                 }
+
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 40,right: 40,top: 10),
@@ -506,4 +634,73 @@ class _SignUpScreenState extends State<SignUpScreenTwo> {
       ),
     );
   }
+
+
+  Future<void>_showChoiceDialog(BuildContext context, int value)
+  {
+    return showDialog(context: context,builder: (BuildContext context){
+
+      return AlertDialog(
+        title: Text("Choose option",style: TextStyle(color: Colors.blue),),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              Divider(height: 1,color: Colors.blue,),
+              ListTile(
+                onTap: (){
+                  _openGallery(context, value);
+                },
+                title: Text("Gallery"),
+                leading: Icon(Icons.account_box,color: Colors.blue,),
+              ),
+
+              Divider(height: 1,color: Colors.blue,),
+              ListTile(
+                onTap: (){
+                  _openCamera(context,value);
+                },
+                title: Text("Camera"),
+                leading: Icon(Icons.camera,color: Colors.blue,),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+    }
+
+/// Get from gallery
+void _openGallery(BuildContext context, int value) async{
+  final pickedFile = await ImagePicker().getImage(
+    source: ImageSource.gallery ,
+  );
+  setState(() {
+    imageFile = pickedFile!;
+    if(value==1){
+      storedImage = File(imageFile!.path);
+    }else if(value==2){
+      storedImageBanner = File(imageFile!.path);
+    }
+
+    print(imageFile);
+  });
+
+  Navigator.pop(context);
+}
+
+void _openCamera(BuildContext context,int value)  async{
+  final pickedFile = await ImagePicker().getImage(
+    source: ImageSource.camera ,
+  );
+  setState(() {
+    imageFile = pickedFile!;
+    if(value==1){
+      storedImage = File(imageFile!.path);
+    }else if(value==2){
+      storedImageBanner = File(imageFile!.path);
+    }
+
+  });
+  Navigator.pop(context);
+}
 }

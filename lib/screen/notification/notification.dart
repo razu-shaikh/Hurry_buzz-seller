@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app/Model/notificationModel.dart';
+import 'package:ecommerce_app/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/notification/webView.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,10 +42,56 @@ class _HomeScreenState extends State<notification> {
 
     var data = jsonDecode(response.body.toString());
     if(response.statusCode == 200){
+      setLoading(false);
       return NotificationModel.fromJson(data);
+    }else if(response.statusCode == 401){
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.remove("token");
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+              (Route<dynamic> route) => false
+      );
+      return NotificationModel.fromJson(data) ;
     }else{
+      setLoading(false);
       return NotificationModel.fromJson(data);
     }
+  }
+  Future<void>markedAll() async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/notifications_all_seen'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+
+    var data = jsonDecode(response.body.toString());
+    print(data);
+    // if(response.statusCode == 200){
+    //   return NotificationModel.fromJson(data);
+    // }else{
+    //   return NotificationModel.fromJson(data);
+    // }
+  }
+  Future<void>seeNotification(int id) async {
+    setLoading(true);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? authToken = pref.getString("token");
+    final response = await http.post(Uri.parse('https://hurrybuzz.com/api/v1/seller/notification_seen/+$id'),
+      headers: {
+        "apiKey": "sdfdge544364dg#",
+        "Authorization": "Bearer $authToken"},
+    );
+
+    var data = jsonDecode(response.body.toString());
+    print(data);
+    // if(response.statusCode == 200){
+    //   return NotificationModel.fromJson(data);
+    // }else{
+    //   return NotificationModel.fromJson(data);
+    // }
   }
 
   @override
@@ -154,6 +202,7 @@ class _HomeScreenState extends State<notification> {
                 Text('Notification',style: TextStyle(color: Colors.black, fontSize: 15)),
                 InkWell(
                   onTap: () async{
+                    markedAll();
                   } ,
                     child: Container(
                       height: 40,
@@ -178,7 +227,7 @@ class _HomeScreenState extends State<notification> {
               height: 10,
             ),
             Expanded(
-                child:  FutureBuilder<NotificationModel>(
+                child: loading?CircularProgressIndicator(color:Colors.blue): FutureBuilder<NotificationModel>(
                     future: initialize(),
                     builder: (context,snapShot){
                       if(snapShot.hasData){
@@ -187,14 +236,17 @@ class _HomeScreenState extends State<notification> {
                             itemBuilder: (context, index){
                               return GestureDetector(
                                 child: SingalNotification(snapShot.data!.notifications![index]),
-                                //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview(snapShot.data!.orders![index],index))),
+                                onTap: (){
+                                  seeNotification(snapShot.data!.notifications![index].id??0);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewNotification(snapShot.data!.notifications![index].url)));
+                                }
                               );
                             }
                         );
-                      }
-                      else{
+                      }else{
+                        return Center(child: Text("No data found !!"));
                         return Center(
-                          child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
+                           child:SizedBox(height:20,width:20,child:CircularProgressIndicator(color:Colors.green)) ,
 
                         );
                       }

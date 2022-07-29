@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/Model/shopModel.dart';
 import 'package:ecommerce_app/config/colors.dart';
+import 'package:ecommerce_app/screen/addItem/add_item.dart';
 import 'package:flutter/material.dart';
 
 class SingalProduct extends StatefulWidget {
@@ -12,9 +13,7 @@ class SingalProduct extends StatefulWidget {
 }
 
 class _SingalProductState extends State<SingalProduct> {
-  var unitData;
-  var firstValue;
-
+  bool update = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,10 @@ class _SingalProductState extends State<SingalProduct> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
+                          image: widget.productData.images!.isNotEmpty? NetworkImage(
+                                            'https://hurrybuzz.com/public/'+widget.productData.images![0]!.originalImage.toString()
+                          ):NetworkImage(
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
                         ),
                         borderRadius: BorderRadius.only(topLeft:Radius.circular(10),bottomLeft: Radius.circular(10)),
                       ),
@@ -58,6 +59,7 @@ class _SingalProductState extends State<SingalProduct> {
                           children: [
                             Text(
                               widget.productData.productName.toString(),
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: textColor,
                                 fontWeight: FontWeight.bold,
@@ -68,21 +70,18 @@ class _SingalProductState extends State<SingalProduct> {
                             ),
                             Container(
                               child: Text(
-                                widget.productData.discountPercentage.toString(),
+                                widget.productData.discountPercentage.toString()+"%",
                                 style: TextStyle(
                                   color: textColor,
                                   fontWeight: FontWeight.normal,
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Colors.greenAccent
                               ),
                             ),
                             SizedBox(
                               height: 5,
                             ),
                             Text(
-                              "\$"+ widget.productData.price.toString(),
+                              "\$ "+ widget.productData.price.toString(),
                               style: TextStyle(
                                 color: Colors.black,
                               ),
@@ -92,14 +91,38 @@ class _SingalProductState extends State<SingalProduct> {
                         ),
                       ),
                     ),
-                    Container(
-                        height: 30,
-                        width: 30,
-                        margin: EdgeInsets.only(right: 10,top:5),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Icon(Icons.edit_outlined)
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AddItemDetails(
+                          update,
+                          widget.productData.id,
+                          widget.productData.productName,
+                          widget.productData.categoryId,
+                          widget.productData.brandId,
+                          widget.productData.productLanguages![0]?.tags,
+                          widget.productData.slug,
+                          widget.productData.currentStock,
+                          widget.productData.productLanguages![0]?.unit,
+                          widget.productData.price,
+                          widget.productData.minimumOrderQuantity,
+                          widget.productData.productLanguages![0]?.description,
+                          widget.productData.productLanguages![0]?.shortDescription,
+                          widget.productData.status,
+                          widget.productData.specialDiscountType,
+                          widget.productData.specialDiscount,
+                          widget.productData.specialDiscountStart,
+                          widget.productData.specialDiscountEnd,
+                        )));
+                      },
+                      child: Container(
+                          height: 30,
+                          width: 30,
+                          margin: EdgeInsets.only(right: 10,top:5),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Icon(Icons.edit_outlined)
+                      ),
                     ),
 
                   ],

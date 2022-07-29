@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ItemDesign extends StatefulWidget {
-  Offers offers;
+   Offers offers;
   ItemDesign(this.offers, {Key? key}) : super(key: key);
 
   @override
@@ -33,8 +33,10 @@ class _HomeScreenState extends State<ItemDesign> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        'https://cdn.shopify.com/s/files/1/0623/0687/7667/articles/3-Reasons-Getting-Those-Fresh-Veggies-To-Your-Table-Is-More-Complicated-Than-You-Think.jpg?v=1642268664'),
+                    image: widget.offers.product!.images!.isNotEmpty? NetworkImage(
+                        'https://hurrybuzz.com/public/'+widget.offers.product!.images![0].originalImage.toString()
+                    ):NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi0Xg-k622Sbztlrb-L1o1CAla3zCbVc2lUw&usqp=CAU'),
                   ),
                   borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight: Radius.circular(10)),
                 ),

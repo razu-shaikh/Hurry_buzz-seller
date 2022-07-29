@@ -23,7 +23,7 @@ class _HomeScreenState extends State<CampaignPages> {
         child: Column(
           children: [
             Expanded(
-                child: ListView.builder(
+                child: widget.campaigns!.isNotEmpty ? ListView.builder(
                     itemCount: widget.campaigns!.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
@@ -31,8 +31,8 @@ class _HomeScreenState extends State<CampaignPages> {
                         //onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SingleItemPreview())),
                       );
                     }
-                )
-            ),
+                ):Center(child: Text("No data found"))
+            )
           ],
         ),
       ),

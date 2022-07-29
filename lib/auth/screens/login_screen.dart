@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/Model/auth_model.dart';
 import 'package:ecommerce_app/auth/components/under_part.dart';
@@ -20,6 +23,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  bool status = true ;
+  Connectivity _connectivity = Connectivity();
+  late StreamSubscription _streamSubscription;
 
   Auth? authData ;
   String? _token;
@@ -51,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if(response.statusCode == 200){
         // _dashboardData.clear();
         authData = Auth.fromJson(authDataList);
-        print(authData!.toJson());
+        //print(authData!.toJson());
         _token = authData!.data!.token;
         print(_token);
 
@@ -65,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String? get token {
     return _token;
   }
-
 
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
@@ -83,7 +89,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
+    checkRealtimeConnection();
     super.initState();
+  }
+
+  void checkRealtimeConnection() {
+    _streamSubscription = _connectivity.onConnectivityChanged.listen((event) {
+      setState(() {
+        if (event == ConnectivityResult.mobile) {
+          status = true;
+        } else if (event == ConnectivityResult.wifi) {
+          status = true;
+        } else {
+          status = false;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    super.dispose();
   }
 
   bool passObscure= true;
@@ -102,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //   backgroundColor: Colors.red,
           // ),
           body: Center(
-            child: SingleChildScrollView(
+            child: status? SingleChildScrollView(
               child: Stack(
                 children: [
                   Center(
@@ -188,13 +215,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     final isValidForm = formKey.currentState!.validate();
                                     await logIn(emailController.text.toString(),
                                         passwordController.text.toString());
-                                       //print(authProvider.token);
-                                      await setToken(token);
+
+                                    SharedPreferences pref = await SharedPreferences.getInstance();
+                                    pref.setString("token", token!);
 
                                     if(isValidForm){
                                       token == null? Fluttertoast.showToast(msg: "email or pass incorrect !!"):
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => MyNavigationBar())
+                                      Navigator.pushAndRemoveUntil(context,
+                                          MaterialPageRoute(builder: (BuildContext context) => MyNavigationBar()),
+                                              (Route<dynamic> route) => false
                                       );
                                     }
 
@@ -237,16 +266,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-            ),
+            ):Text("No Internet Connection"),
           ),
         ),
       );
   }
-  Future<void> setToken(token) async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("token", token);
 
-  }
 
 }
 
